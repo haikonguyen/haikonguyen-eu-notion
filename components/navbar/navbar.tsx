@@ -7,6 +7,7 @@ import mainLogo from '../../public/assets/images/mainLogoOptimized.png';
 import MobileNav from '@components/navbar/mobile-nav';
 import DesktopNav from '@components/navbar/desktop-nav';
 import { useRouter } from 'next/router';
+import tw from 'twin.macro';
 
 const NavBar = () => {
   const router = useRouter();
@@ -16,13 +17,15 @@ const NavBar = () => {
         <Toolbar disableGutters>
           {/*Desktop Logo*/}
           <IconButton
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            css={tw`mr-2 hidden md:flex`}
             aria-label="menu"
             onClick={() => router.push('/')}
           >
             <Image width={40} height={40} src={mainLogo} alt="The logo" />
           </IconButton>
+          {/* Mobile Nav */}
           <MobileNav />
+          {/* Desktop Nav */}
           <DesktopNav />
         </Toolbar>
       </Container>

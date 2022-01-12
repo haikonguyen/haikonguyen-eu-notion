@@ -1,2 +1,2 @@
 export * from './paletteModeSlice';
-export * from './sliceB';
+export * from './mainNavSlice';

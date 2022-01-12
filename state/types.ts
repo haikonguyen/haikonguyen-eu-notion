@@ -6,7 +6,9 @@ export interface PaletteModeSliceProps extends State {
   setPaletteMode: () => void;
 }
 
-export interface BSliceProps extends State {
-  bState: string;
-  setBMode: () => void;
+export type DrawerStateType = boolean;
+
+export interface MainNavSliceProps extends State {
+  isDrawerOpened: DrawerStateType;
+  setIsDrawerOpened: () => void;
 }
