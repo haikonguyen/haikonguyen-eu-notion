@@ -4,7 +4,6 @@ import { Global } from '@emotion/react';
 import { LayoutProps } from '@components/layout/types';
 import useGlobalStyle from '@styles/global';
 import NavBar from '@components/navbar';
-import TestComp from '@components/testComp';
 
 const Layout = ({ children }: LayoutProps) => {
   return (
@@ -12,7 +11,6 @@ const Layout = ({ children }: LayoutProps) => {
       <Meta />
       <Global styles={useGlobalStyle} />
       <NavBar />
-      <TestComp hasHover />
       <main>{children}</main>
       <Footer />
     </>
