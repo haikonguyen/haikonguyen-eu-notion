@@ -3,8 +3,9 @@ import { styled } from 'twin.macro';
 const HeroWrapper = styled.section<{ isHomePage: boolean }>`
   height: ${({ isHomePage }) => (isHomePage ? '70vh' : '40vh')};
 
-  .heroBgImage {
-    filter: brightness(0.75) !important;
+  section {
+    text-align: center;
+    padding: 1rem 0;
   }
 `;
 

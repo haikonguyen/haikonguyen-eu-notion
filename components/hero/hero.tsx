@@ -4,8 +4,11 @@ import HeroWrapper from '@components/hero/styles';
 import { HeroProps } from '@components/hero/types';
 import heroBg from '@images/heroBg.jpg';
 import heroProfileImg from '@images/heroProfileImg.png';
+import Button from '@mui/material/Button';
+import { useRouter } from 'next/router';
 
 const Hero = ({ isHomePage }: HeroProps) => {
+  const router = useRouter();
   return (
     <HeroWrapper
       className="relative flex items-center justify-center w-screen"
@@ -17,7 +20,7 @@ const Hero = ({ isHomePage }: HeroProps) => {
         layout="fill"
         alt="Hero image"
         placeholder="blur"
-        className="heroBgImage"
+        className="brightness-75"
       />
       <div className="rounded-md z-10 flex items-center flex-col p-5 backdrop-filter backdrop-blur-sm bg-white bg-opacity-30 border-gray-200">
         <section>
@@ -33,6 +36,11 @@ const Hero = ({ isHomePage }: HeroProps) => {
         <section>
           <h1>Haiko Nguyen</h1>
           <p>DEVELOPER, PHOTOGRAPHER, VLOGGER</p>
+        </section>
+        <section>
+          <Button variant="contained" onClick={() => router.push('/contact')}>
+            Contact Me
+          </Button>
         </section>
       </div>
     </HeroWrapper>
