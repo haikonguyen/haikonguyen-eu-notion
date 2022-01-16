@@ -7,8 +7,6 @@ const useGlobalStyle = () => {
   const theme: CustomTheme = useTheme();
   const { palette } = theme || {};
 
-  // className = 'bold';
-
   return css`
     body {
       color: ${palette.text.primary};
@@ -32,7 +30,7 @@ const useGlobalStyle = () => {
     }
 
     p {
-      ${tw`text-base`}
+      ${tw`text-base py-2 md:py-4`}
     }
 
     a:-webkit-any-link {
