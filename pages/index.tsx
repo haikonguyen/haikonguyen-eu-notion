@@ -16,7 +16,6 @@ const Index = ({ blogPostList }: BlogPostListType) => {
   const router = useRouter();
   const { title } = siteConfig;
 
-  console.log('blogPostList', blogPostList);
   return (
     <>
       <Head>
