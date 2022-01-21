@@ -8,7 +8,7 @@ import tw from 'twin.macro';
 const DesktopNav = () => {
   const router = useRouter();
   return (
-    <Box className="flex grow hidden md:flex">
+    <Box className="flex grow hidden lg:flex">
       {pages.map((page) => (
         <Button
           key={page}

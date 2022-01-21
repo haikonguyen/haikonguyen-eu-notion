@@ -5,7 +5,7 @@ import TemporaryDrawer from '@components/drawer';
 
 const MobileNav = () => {
   return (
-    <Box className="flex grow justify-between items-center sm:flex md:hidden">
+    <Box className="flex grow justify-between items-center sm:flex lg:hidden">
       <TemporaryDrawer anchor="left" drawerItems={pages} />
     </Box>
   );

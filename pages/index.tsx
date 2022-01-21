@@ -8,10 +8,14 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import siteConfig from '@lib/siteConfig';
 import PageContentWrapper from '@components/page-content-wrapper';
+import { getDatabase } from '@lib/notion';
+import PostList from '@components/post-list';
+import { BlogPostListType } from 'notion';
 
-const Index = () => {
+const Index = ({ blogPostList }: BlogPostListType) => {
   const router = useRouter();
   const { title } = siteConfig;
+
   return (
     <>
       <Head>
@@ -21,11 +25,9 @@ const Index = () => {
       <PageContentWrapper>
         {/* About Section */}
         <section>
-          <div className="border-b-blue-500">
-            <h1 className="uppercase text-center">About</h1>
-            <hr className="border-blue-500 max-w-[15%] mx-auto" />
-          </div>
-          <div className="py-5 flex flex-wrap flex-col md:flex-row">
+          <h1 className="uppercase text-center">About</h1>
+          <hr className="border-blue-500 max-w-[15%] mx-auto" />
+          <div className="flex flex-wrap flex-col md:flex-row">
             <div className="sm:basis-6/12 md:basis-4/12 md:mr-6">
               <Image
                 src={aboutProfileImg}
@@ -55,9 +57,25 @@ const Index = () => {
         </section>
         <Divider />
         {/* Blog Section */}
+        <section>
+          <h1 className="uppercase text-center">Latest Posts</h1>
+          <hr className="border-blue-500 max-w-[15%] mx-auto" />
+          <PostList blogPostList={blogPostList} />
+        </section>
       </PageContentWrapper>
     </>
   );
 };
+
+export async function getStaticProps() {
+  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+
+  return {
+    props: {
+      blogPostList: results,
+    },
+    revalidate: 1,
+  };
+}
 
 export default Index;

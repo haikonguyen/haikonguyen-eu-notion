@@ -18,7 +18,7 @@ const NavBar = () => {
         <Toolbar disableGutters>
           {/*Desktop Logo*/}
           <IconButton
-            css={tw`mr-2 hidden md:flex`}
+            css={tw`mr-2 hidden lg:flex`}
             aria-label="menu"
             onClick={() => router.push('/')}
           >
