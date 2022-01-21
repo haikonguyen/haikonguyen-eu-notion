@@ -6,6 +6,9 @@ import tw, { styled } from 'twin.macro';
 const StyledContainer = styled(Container)`
   section {
     ${tw`py-5`}
+    hr {
+      ${tw`pb-5`}
+    }
   }
 `;
 

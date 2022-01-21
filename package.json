@@ -19,6 +19,7 @@
     "@material-ui/icons": "^4.11.2",
     "@mui/material": "^5.2.5",
     "@mui/styles": "^5.2.3",
+    "@notionhq/client": "^0.4.12",
     "@types/tailwindcss": "^2.2.4",
     "next": "latest",
     "react": "^17.0.2",
