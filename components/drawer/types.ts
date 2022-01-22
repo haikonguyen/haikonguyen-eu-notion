@@ -1,6 +1,6 @@
 import { NextRouter } from 'next/router';
 import { DrawerStateType } from '@state/types';
-import { Anchor } from '@components/navbar/types';
+import { Anchor } from '../navbar/types';
 
 export type ToggleDrawerType = (
   isDrawerOpened: DrawerStateType,
