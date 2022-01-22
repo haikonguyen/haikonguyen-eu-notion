@@ -1,1 +1,1 @@
-export { default } from './page-content-wrapper';
+export { default as PageContentWrapper } from './page-content-wrapper';

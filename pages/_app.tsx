@@ -2,8 +2,7 @@ import '../styles/index.css';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/system';
 import useCustomTheme from '@themes/main-theme';
-import ClientOnly from '@components/client-only';
-import Layout from '@components/layout/layout';
+import { ClientOnly, Layout } from '@components';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

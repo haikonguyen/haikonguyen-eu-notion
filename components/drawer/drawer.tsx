@@ -1,11 +1,11 @@
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { toggleDrawer } from '@components/drawer/utils';
-import DrawerItemList from '@components/drawer/drawer-item-list';
 import useStore from '@state/store';
 import React from 'react';
-import { TemporaryDrawerProps } from '@components/drawer/types';
+import DrawerItemList from './drawer-item-list';
+import { TemporaryDrawerProps } from './types';
+import { toggleDrawer } from './utils';
 
 export default function TemporaryDrawer({
   anchor,

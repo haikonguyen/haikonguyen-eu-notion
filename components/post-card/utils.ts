@@ -1,5 +1,5 @@
 import { ExternalCoverType, FileCoverType } from 'notion';
-import { CoverType } from '@components/post-card/types';
+import { CoverType } from './types';
 
 export const getCoverSource = (cover: ExternalCoverType & FileCoverType) => {
   if (cover.type === CoverType.EXTERNAL) {

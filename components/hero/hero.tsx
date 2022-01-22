@@ -1,11 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import HeroWrapper from '@components/hero/styles';
-import { HeroProps } from '@components/hero/types';
 import heroBg from '@images/heroBg.jpg';
 import heroProfileImg from '@images/heroProfileImg.png';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
+import { HeroProps } from './types';
+import HeroWrapper from './styles';
 
 const Hero = ({ isHomePage }: HeroProps) => {
   const router = useRouter();

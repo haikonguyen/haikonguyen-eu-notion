@@ -1,1 +1,1 @@
-export { default } from './theme-switcher';
+export { default as ThemeSwitcher } from './theme-switcher';

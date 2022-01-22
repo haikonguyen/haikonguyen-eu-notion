@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { pages } from '@components/navbar/utils';
-import TemporaryDrawer from '@components/drawer';
+import { pages } from './utils';
+import TemporaryDrawer from '../drawer';
 
 const MobileNav = () => {
   return (

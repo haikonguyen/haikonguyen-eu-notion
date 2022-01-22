@@ -1,9 +1,9 @@
-import Footer from '../footer';
-import Meta from '../meta';
+import Meta from '../meta/meta';
 import { Global } from '@emotion/react';
-import { LayoutProps } from '@components/layout/types';
 import useGlobalStyle from '@styles/global';
-import NavBar from '@components/navbar';
+import { NavBar } from '../navbar';
+import { LayoutProps } from './types';
+import { Footer } from '../footer';
 
 const Layout = ({ children }: LayoutProps) => {
   return (

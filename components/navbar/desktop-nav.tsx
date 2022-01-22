@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { pages } from '@components/navbar/utils';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import tw from 'twin.macro';
+import { pages } from './utils';
 
 const DesktopNav = () => {
   const router = useRouter();
