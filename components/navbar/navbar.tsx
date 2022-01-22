@@ -4,11 +4,11 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Image from 'next/image';
 import mainLogo from '../../public/assets/images/mainLogoOptimized.png';
-import MobileNav from '@components/navbar/mobile-nav';
-import DesktopNav from '@components/navbar/desktop-nav';
 import { useRouter } from 'next/router';
 import tw from 'twin.macro';
-import ThemeSwitcher from '@components/theme-switcher';
+import DesktopNav from './desktop-nav';
+import MobileNav from './mobile-nav';
+import { ThemeSwitcher } from '../theme-switcher';
 
 const NavBar = () => {
   const router = useRouter();

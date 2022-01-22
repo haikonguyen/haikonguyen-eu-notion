@@ -1,7 +1,4 @@
-import {
-  ListItemClickHandlerType,
-  ToggleDrawerType,
-} from '@components/drawer/types';
+import { ListItemClickHandlerType, ToggleDrawerType } from './types';
 
 export const toggleDrawer: ToggleDrawerType = (isDrawerOpened, setOpenDrawer) =>
   setOpenDrawer();

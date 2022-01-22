@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { AvatarImageProps } from '@components/post-card/types';
+import { AvatarImageProps } from './types';
 
 const AvatarImage = ({ avatarUrl }: AvatarImageProps) =>
   avatarUrl ? (

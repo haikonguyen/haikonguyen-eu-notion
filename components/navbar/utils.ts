@@ -1,4 +1,4 @@
-import { LogoOnClickHandlerType } from '@components/navbar/types';
+import { LogoOnClickHandlerType } from './types';
 
 export const pages: string[] = ['About', 'Blog', 'Contact'];
 

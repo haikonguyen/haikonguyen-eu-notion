@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip, Stack } from '@mui/material';
-import { TagListProps } from '@components/post-card/types';
+import { TagListProps } from './types';
 
 const TagList = ({ tags }: TagListProps) => {
   return (

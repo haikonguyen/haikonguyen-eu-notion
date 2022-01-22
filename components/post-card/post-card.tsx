@@ -5,13 +5,13 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
-import { PostCardProps } from '@components/post-card/types';
 import Image from 'next/image';
-import AvatarImage from '@components/post-card/avatar-image';
 import Button from '@mui/material/Button';
-import TagList from '@components/post-card/tag-list';
 import { useRouter } from 'next/router';
-import { getCoverSource } from '@components/post-card/utils';
+import { getCoverSource } from './utils';
+import TagList from './tag-list';
+import AvatarImage from './avatar-image';
+import { PostCardProps } from './types';
 
 export default function PostCard({ id, cover, properties }: PostCardProps) {
   const router = useRouter();

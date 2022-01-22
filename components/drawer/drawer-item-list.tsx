@@ -3,15 +3,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/router';
-import { listItemClickHandler } from '@components/drawer/utils';
-import useStore from '@state/store';
-import { DrawerItemListProps } from '@components/drawer/types';
 import IconButton from '@mui/material/IconButton';
 import Image from 'next/image';
 import mainLogo from '@images/mainLogoOptimized.png';
 import React from 'react';
 import { Divider } from '@mui/material';
-import { LogoOnClickHandler } from '@components/navbar/utils';
+import { DrawerItemListProps } from './types';
+import { LogoOnClickHandler } from '../navbar/utils';
+import { listItemClickHandler } from './utils';
+import useStore from '@state/store';
 
 const DrawerItemList = ({
   anchor,

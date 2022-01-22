@@ -1,6 +1,6 @@
 import React from 'react';
-import PostCard from '@components/post-card';
 import { BlogPostListType } from 'notion';
+import { PostCard } from '../post-card';
 
 const PostList = ({ blogPostList }: BlogPostListType) => {
   return (

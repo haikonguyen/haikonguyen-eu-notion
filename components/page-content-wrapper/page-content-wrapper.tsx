@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import { PageContentWrapperProps } from '@components/page-content-wrapper/types';
 import tw, { styled } from 'twin.macro';
+import { PageContentWrapperProps } from './types';
 
 const StyledContainer = styled(Container)`
   section {

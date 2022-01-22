@@ -21,14 +21,13 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["components/*"],
+      "@components": ["components"],
       "@images/*": ["public/assets/images/*"],
       "@lib/*": ["lib/*"],
       "@services/*": ["services/*"],
       "@state/*": ["state/*"],
       "@styles/*": ["styles/*"],
       "@themes/*": ["themes/*"],
-      "@utils/*": ["utils/*"],
       "*": ["types/*"]
     },
     "noImplicitAny": true,

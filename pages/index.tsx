@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Hero from '@components/hero';
 import React from 'react';
 import { Divider } from '@mui/material';
 import aboutProfileImg from '@images/aboutProfileImg.png';
@@ -7,10 +6,9 @@ import Image from 'next/image';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import siteConfig from '@lib/siteConfig';
-import PageContentWrapper from '@components/page-content-wrapper';
 import { getDatabase } from '@lib/notion';
-import PostList from '@components/post-list';
 import { BlogPostListType } from 'notion';
+import { Hero, PageContentWrapper, PostList } from '@components';
 
 const Index = ({ blogPostList }: BlogPostListType) => {
   const router = useRouter();
