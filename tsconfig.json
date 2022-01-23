@@ -28,6 +28,7 @@
       "@state/*": ["state/*"],
       "@styles/*": ["styles/*"],
       "@themes/*": ["themes/*"],
+      "@utils/*": ["utils/*"],
       "*": ["types/*"]
     },
     "noImplicitAny": true,

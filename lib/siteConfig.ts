@@ -6,8 +6,8 @@ const siteConfig = {
     name: 'Haiko Nguyen',
     summary: 'Developer, Photographer, Vlogger',
   },
-  copyright: `Copyright © ${footerYear}. Haiko Nguyen`,
-  description: 'A starter blog converting Gatsby -> Next.',
+  copyright: `© Haiko Nguyen ${footerYear}`,
+  description: 'A personal blog made by Haiko Nguyen with ❤️',
   title: 'Haiko Nguyen - Developer, Photographer, Vlogger',
   userLinks: [
     {
