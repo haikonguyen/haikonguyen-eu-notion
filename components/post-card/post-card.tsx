@@ -9,9 +9,9 @@ import Image from 'next/image';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { getCoverSource } from './utils';
-import TagList from './tag-list';
 import AvatarImage from './avatar-image';
 import { PostCardProps } from './types';
+import { TagList } from '@components';
 
 export default function PostCard({ id, cover, properties }: PostCardProps) {
   const router = useRouter();
@@ -29,7 +29,7 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
       <div className="relative h-48">
         <Image
           src={getCoverSource(cover)}
-          alt="Post Cover"
+          alt="Id Cover"
           objectFit="cover"
           layout="fill"
           placeholder="blur"
@@ -43,7 +43,7 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
       </CardContent>
       <CardActions className="flex justify-between" disableSpacing>
         <TagList tags={properties.tags.multi_select} />
-        <Button onClick={() => router.push(`/${id}`)} size="small">
+        <Button onClick={() => router.push(`post/${id}`)} size="small">
           Read more
         </Button>
       </CardActions>

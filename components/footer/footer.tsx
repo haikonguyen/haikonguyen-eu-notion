@@ -1,8 +1,8 @@
-import siteConfig from '@lib/siteConfig';
 import IconButton from '@mui/material/IconButton';
 import { Divider, Paper } from '@mui/material';
 import React from 'react';
 import { SocialIcons } from '../social-icons';
+import { siteConfig } from '@utils/constants';
 
 const Footer = () => {
   const { copyright, userLinks } = siteConfig;

@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { HeroProps } from './types';
 import HeroWrapper from './styles';
+import GlassWrapper from '../glass-wrapper/glass-wrapper';
 
 const Hero = ({ isHomePage }: HeroProps) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const Hero = ({ isHomePage }: HeroProps) => {
         placeholder="blur"
         className="brightness-75"
       />
-      <div className="rounded-md z-10 flex items-center flex-col p-5 backdrop-filter backdrop-blur-sm bg-white bg-opacity-30 border-gray-200">
+      <GlassWrapper>
         <section>
           <Image
             src={heroProfileImg}
@@ -42,7 +43,7 @@ const Hero = ({ isHomePage }: HeroProps) => {
             Contact Me
           </Button>
         </section>
-      </div>
+      </GlassWrapper>
     </HeroWrapper>
   );
 };
