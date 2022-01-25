@@ -1,31 +1,11 @@
-import styles from '@utils/post.module.css';
-import React from 'react';
+import { NotionTextProps } from './types';
+import RenderNotionTextContent from './RenderNotionTextContent';
 
-const NotionText = ({ text }: any) => {
-  if (!text) {
-    return null;
+const NotionText = ({ textContentBlocks }: NotionTextProps) => {
+  if (textContentBlocks) {
+    return <RenderNotionTextContent textContentBlocks={textContentBlocks} />;
   }
-  return text.map((value: any, index: number) => {
-    const {
-      annotations: { bold, code, color, italic, strikethrough, underline },
-      text,
-    } = value;
-    return (
-      <span
-        key={index}
-        className={[
-          bold ? styles.bold : '',
-          code ? styles.code : '',
-          italic ? styles.italic : '',
-          strikethrough ? styles.strikethrough : '',
-          underline ? styles.underline : '',
-        ].join(' ')}
-        style={color !== 'default' ? { color } : {}}
-      >
-        {text.link ? <a href={text.link.url}>{text.content}</a> : text.content}
-      </span>
-    );
-  });
+  return null;
 };
 
 export default NotionText;

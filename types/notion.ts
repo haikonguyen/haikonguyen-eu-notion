@@ -115,6 +115,10 @@ export interface NameType {
   ];
 }
 
+export interface NotionBlocksProps {
+  blocks: BlockWithChildrenType[];
+}
+
 export interface ParentType {
   database_id: string;
   type?: string;
@@ -138,16 +142,9 @@ export interface PublishedDateType {
   type: string;
 }
 
-export interface PostContentProps {
-  id: string;
-  object: string;
-  has_children: boolean;
-  type: string;
-}
-
 export interface PostTemplateProps {
-  page: BlogPostType;
-  blocks: PostContentProps[];
+  page: BlockWithChildrenType;
+  blocks: BlockWithChildrenType[];
 }
 
 export interface TextType {

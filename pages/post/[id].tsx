@@ -1,10 +1,9 @@
-import React, { Fragment } from 'react';
 import Head from 'next/head';
-import { getDatabase, getPage, getBlocks, renderBlock } from '@utils/notion';
+import { getDatabase, getPage, getBlocks } from '@utils/notion';
 import { PostTemplateProps } from 'notion';
 import Image from 'next/image';
 import { getCoverSource } from '../../components/post-card/utils';
-import { GlassWrapper, TagList } from '@components';
+import { GlassWrapper, NotionBlocks, TagList } from '@components';
 
 export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   if (!page || !blocks) {
@@ -18,7 +17,7 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative flex flex-col items-center justify-center h-96 py-24 px-4 mb-5 text-center">
+      <div className="relative flex flex-wrap flex-col items-center justify-center h-72 md:h-96 py-24 px-4 mb-5 text-center">
         <Image
           src={getCoverSource(page.cover)}
           alt="Post cover image"
@@ -48,9 +47,7 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
       </div>
 
       <article className="md:max-w-7xl mx-auto my-0 p-4 md:p-16">
-        {blocks.map((block) => (
-          <Fragment key={block.id}>{renderBlock(block)}</Fragment>
-        ))}
+        <NotionBlocks blocks={blocks} />
       </article>
     </>
   );

@@ -1,6 +1,9 @@
 import { Client } from '@notionhq/client';
 import { NotionText } from '@components';
 import React, { Fragment } from 'react';
+import { BlockWithChildrenType } from 'notion';
+import Image from 'next/image';
+import tw from 'twin.macro';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -23,7 +26,7 @@ export const getBlocks = async (blockId: string) => {
   });
 };
 
-export const renderBlock = (block: any) => {
+export const renderBlock = (block: BlockWithChildrenType) => {
   const { type, id } = block;
   const value = block[type];
 
@@ -34,32 +37,33 @@ export const renderBlock = (block: any) => {
     case 'paragraph':
       return (
         <p>
-          <NotionText text={value.text} />
+          <NotionText textContentBlocks={value.text} />
         </p>
       );
     case 'heading_1':
       return (
         <h1>
-          <NotionText text={value.text} />
+          <NotionText textContentBlocks={value.text} />
         </h1>
       );
     case 'heading_2':
       return (
         <h2>
-          <NotionText text={value.text} />
+          <NotionText textContentBlocks={value.text} />
         </h2>
       );
     case 'heading_3':
       return (
         <h3>
-          <NotionText text={value.text} />
+          <NotionText textContentBlocks={value.text} />
         </h3>
       );
+    //: TODO: when available => fix bulleted vs numbered list
     case 'bulleted_list_item':
     case 'numbered_list_item':
       return (
-        <li>
-          <NotionText text={value.text} />
+        <li tw="ml-2 md:ml-5">
+          <NotionText textContentBlocks={value.text} />
         </li>
       );
     case 'to_do':
@@ -67,7 +71,7 @@ export const renderBlock = (block: any) => {
         <div>
           <label htmlFor={id}>
             <input type="checkbox" id={id} defaultChecked={value.checked} />{' '}
-            <NotionText text={value.text} />
+            <NotionText textContentBlocks={value.text} />
           </label>
         </div>
       );
@@ -75,9 +79,9 @@ export const renderBlock = (block: any) => {
       return (
         <details>
           <summary>
-            <NotionText text={value.text} />
+            <NotionText textContentBlocks={value.text} />
           </summary>
-          {value.children.results?.map((block: any) => (
+          {value.children.results?.map((block: BlockWithChildrenType) => (
             <Fragment key={block.id}>{renderBlock(block)}</Fragment>
           ))}
         </details>
@@ -87,7 +91,14 @@ export const renderBlock = (block: any) => {
     case 'image':
       return (
         <figure>
-          <img src={src} alt={caption} />
+          <Image
+            src={src}
+            alt={caption}
+            placeholder="blur"
+            blurDataURL={src}
+            width={1200}
+            height={800}
+          />
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );

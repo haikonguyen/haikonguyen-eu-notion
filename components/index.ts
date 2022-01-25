@@ -7,6 +7,7 @@ export * from './hero';
 export * from './layout';
 export * from './meta';
 export * from './navbar';
+export * from './notion-blocks';
 export * from './notion-text';
 export * from './page-content-wrapper';
 export * from './post-list';
