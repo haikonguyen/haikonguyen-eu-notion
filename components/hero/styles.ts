@@ -1,6 +1,6 @@
 import { styled } from 'twin.macro';
 
-const HeroWrapper = styled.section<{ isHomePage: boolean }>`
+const HeroWrapper = styled.div<{ isHomePage: boolean }>`
   height: ${({ isHomePage }) => (isHomePage ? '70vh' : '40vh')};
 
   section {

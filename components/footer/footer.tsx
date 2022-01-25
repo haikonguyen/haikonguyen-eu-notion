@@ -1,23 +1,8 @@
-import siteConfig from '@lib/siteConfig';
 import IconButton from '@mui/material/IconButton';
-import { FaFacebookF, FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
 import { Divider, Paper } from '@mui/material';
 import React from 'react';
-
-const renderIcons = (iconCase: string) => {
-  switch (iconCase) {
-    case 'FaFacebookF':
-      return <FaFacebookF />;
-    case 'FaInstagram':
-      return <FaInstagram />;
-    case 'FaTwitter':
-      return <FaTwitter />;
-    case 'FaGithub':
-      return <FaGithub />;
-    default:
-      return <FaTwitter />;
-  }
-};
+import { SocialIcons } from '../social-icons';
+import { siteConfig } from '@utils/constants';
 
 const Footer = () => {
   const { copyright, userLinks } = siteConfig;
@@ -28,7 +13,9 @@ const Footer = () => {
         <div className="my-0 mx-auto justify-center flex flex-wrap py-3">
           {userLinks.map((userLink) => (
             <a key={userLink.id} href={userLink.url} target="blank">
-              <IconButton>{renderIcons(userLink.icon)}</IconButton>
+              <IconButton>
+                <SocialIcons iconVariant={userLink.icon} />
+              </IconButton>
             </a>
           ))}
         </div>

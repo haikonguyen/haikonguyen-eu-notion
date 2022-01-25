@@ -5,10 +5,10 @@ import aboutProfileImg from '@images/aboutProfileImg.png';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
-import siteConfig from '@lib/siteConfig';
-import { getDatabase } from '@lib/notion';
+import { getDatabase } from '@utils/notion';
 import { BlogPostListType } from 'notion';
 import { Hero, PageContentWrapper, PostList } from '@components';
+import { siteConfig } from '@utils/constants';
 
 const Index = ({ blogPostList }: BlogPostListType) => {
   const router = useRouter();
