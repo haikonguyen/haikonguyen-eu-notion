@@ -8,7 +8,7 @@ const Footer = () => {
   const { copyright, userLinks } = siteConfig;
 
   return (
-    <footer>
+    <footer className="flex-shrink-0">
       <Paper elevation={3}>
         <div className="my-0 mx-auto justify-center flex flex-wrap py-3">
           {userLinks.map((userLink) => (
