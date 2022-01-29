@@ -1,11 +1,11 @@
-import { PaletteOptions } from '@mui/material/styles/createPalette';
-import { Palette } from '@material-ui/core/styles/createPalette';
-
 declare module '@mui/material/styles' {
+  import { Palette, PaletteOptions } from '@mui/material';
+
   interface Theme {
     status: {
       danger: string;
     };
+    palette: Palette;
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
@@ -19,7 +19,6 @@ declare module '@mui/material/styles' {
     status: {
       danger: string;
     };
-    palette: Palette;
   }
   // allow configuration using `createTheme`
   interface CustomThemeOptions extends ThemeOptions {

@@ -7,8 +7,10 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { getDatabase } from '@utils/notion';
 import { BlogPostListType } from 'notion';
-import { Hero, PageContentWrapper, PostList } from '@components';
+import { Hero, PageContentWrapper, PostList, GlassWrapper } from '@components';
 import { siteConfig } from '@utils/constants';
+import heroProfileImg from '@images/heroProfileImg.png';
+import heroBg from '@images/heroBg.jpg';
 
 const Index = ({ blogPostList }: BlogPostListType) => {
   const router = useRouter();
@@ -19,7 +21,29 @@ const Index = ({ blogPostList }: BlogPostListType) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <Hero isHomePage />
+      <Hero isHomePage imageSource={heroBg}>
+        <GlassWrapper>
+          <section>
+            <Image
+              src={heroProfileImg}
+              width={150}
+              height={150}
+              alt="Hero image"
+              placeholder="blur"
+              className="rounded-full"
+            />
+          </section>
+          <section>
+            <h1>Haiko Nguyen</h1>
+            <p>DEVELOPER, PHOTOGRAPHER, VLOGGER</p>
+          </section>
+          <section>
+            <Button variant="contained" onClick={() => router.push('/contact')}>
+              Contact Me
+            </Button>
+          </section>
+        </GlassWrapper>
+      </Hero>
       <PageContentWrapper>
         {/* About Section */}
         <section>
