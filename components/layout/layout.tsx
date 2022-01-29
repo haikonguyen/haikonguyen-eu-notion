@@ -11,7 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Meta />
       <Global styles={useGlobalStyle} />
       <NavBar />
-      <main>{children}</main>
+      <main className="flex-auto">{children}</main>
       <Footer />
     </>
   );
