@@ -20,14 +20,14 @@ const ContactForm = () => {
     resolver: zodResolver(mailValidationSchema),
   });
   const onSubmit: SubmitHandler<EmailBodyProps> = async (emailBody) => {
-    console.log(emailBody);
-
     if (isValid) {
       setLoading(true);
-      const response = await fetch('api/sendgrid', {
+      const response = await fetch('/api/sendgrid', {
         method: 'POST',
         body: JSON.stringify(emailBody),
       });
+
+      console.log('isValid form');
 
       const data = await response.json();
       data.status = 'OK' && setLoading(false);
