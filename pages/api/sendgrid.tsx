@@ -13,17 +13,15 @@ const getHtmlTemplate = (body: EmailBodyProps) => `
       <li>User Message: ${body.mailMessage}</li>
     </ul>
   </div>
-
 `;
 
 //ES8
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
-  const body = JSON.parse(req.body);
+  const body = await JSON.parse(req.body);
+  console.log('sendEmail function');
 
   //TODO: add BE validation
-
   try {
-    console.log('getHtmlTemplate', getHtmlTemplate(body));
     await sendgrid.send({
       to: 'haicorp87@gmail.com', // Your email where you'll receive emails
       //TODO: add domain email haikonguyen.eu
@@ -35,6 +33,6 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(error.statusCode || 500).json({ error: error.message });
   }
 
-  return res.status(200).json({ status: 'OK' });
+  return res.status(200).json({ status: 'Email sent successfully' });
 };
 export default sendEmail;
