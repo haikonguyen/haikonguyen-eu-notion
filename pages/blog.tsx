@@ -36,7 +36,6 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
           <TextField
             id="outlined-search"
             label="Search field"
-            type="search"
             variant="outlined"
             onChange={() => handleChange(event)}
           />
