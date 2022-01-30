@@ -94,7 +94,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      blogPostList: results,
+      blogPostList: results.slice(0, 3),
     },
     revalidate: 1,
   };

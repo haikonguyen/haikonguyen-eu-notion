@@ -23,7 +23,7 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
             <AvatarImage avatarUrl={properties.author.created_by.avatar_url} />
           </Avatar>
         }
-        title={properties.post_name.title[0].plain_text}
+        title={properties.post_name.title[0]?.plain_text}
         subheader={properties.published_date.date?.start}
       />
       <div className="relative h-48">
@@ -38,7 +38,7 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
       </div>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {properties.excerpt.rich_text[0].plain_text}
+          {properties.excerpt.rich_text[0]?.plain_text}
         </Typography>
       </CardContent>
       <CardActions className="flex justify-between" disableSpacing>

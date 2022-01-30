@@ -17,7 +17,7 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative flex flex-wrap flex-col items-center justify-center h-72 md:h-96 py-24 px-4 mb-5 text-center">
+      <div className="relative flex flex-wrap items-center justify-center h-72 md:h-96 py-24 px-4 mb-5 text-center">
         <Image
           src={getCoverSource(page.cover)}
           alt="Post cover image"

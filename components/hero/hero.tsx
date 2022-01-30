@@ -6,7 +6,7 @@ import HeroWrapper from './styles';
 const Hero = ({ isHomePage, children, imageSource }: HeroProps) => {
   return (
     <HeroWrapper
-      className="relative flex items-center justify-center w-screen"
+      className="relative flex flex-wrap items-center justify-center w-screen"
       isHomePage={isHomePage}
     >
       <Image
