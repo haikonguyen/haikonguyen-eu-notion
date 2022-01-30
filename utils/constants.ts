@@ -47,5 +47,7 @@ export enum ToastType {
   ERROR = 'error',
 }
 
+export const pages: string[] = ['About', 'Blog', 'Contact'];
+
 export const imgPlaceholder =
   'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';

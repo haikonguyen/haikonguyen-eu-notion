@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { GlassWrapper, Hero, PageContentWrapper } from '@components';
-import contactBg from '@images/contactBg.jpg';
+import contactPageBg from '@images/contactPageBg.jpeg';
 import { Paper } from '@mui/material';
 import ContactForm from '../components/contact-form/contact-form';
 
@@ -11,7 +11,7 @@ const ContactPage = () => {
       <Head>
         <title>Contact | Haiko Nguyen</title>
       </Head>
-      <Hero isHomePage={false} imageSource={contactBg}>
+      <Hero isHomePage={false} imageSource={contactPageBg}>
         <GlassWrapper>
           <h1>Contact</h1>
         </GlassWrapper>
