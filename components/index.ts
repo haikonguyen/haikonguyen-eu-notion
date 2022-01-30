@@ -12,4 +12,5 @@ export * from './notion-text';
 export * from './page-content-wrapper';
 export * from './post-list';
 export * from './tag-list';
+export * from './toast';
 export * from './theme-switcher';

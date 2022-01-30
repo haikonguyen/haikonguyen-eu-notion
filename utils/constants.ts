@@ -39,3 +39,10 @@ export const siteConfig = {
     },
   ],
 };
+
+export enum ToastType {
+  SUCCESS = 'success',
+  INFO = 'info',
+  WARNING = 'warning',
+  ERROR = 'error',
+}

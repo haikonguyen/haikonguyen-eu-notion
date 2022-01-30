@@ -7,44 +7,57 @@ import { EmailBodyProps } from 'global-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import mailValidationSchema from './validation';
 import Box from '@mui/material/Box';
+import useStore from '@state/store';
+import { ToastType } from '@utils/constants';
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
+  const { setToastSettings } = useStore();
   const {
     handleSubmit,
     control,
     reset,
     register,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<EmailBodyProps>({
     resolver: zodResolver(mailValidationSchema),
   });
-  const onSubmit: SubmitHandler<EmailBodyProps> = async (emailBody) => {
-    if (isValid) {
-      setLoading(true);
+  const onSubmit: SubmitHandler<EmailBodyProps> = async (emailContent) => {
+    setLoading(true);
+
+    try {
       const response = await fetch('/api/sendgrid', {
         method: 'POST',
-        body: JSON.stringify(emailBody),
+        body: JSON.stringify(emailContent),
       });
 
-      console.log('isValid form');
-
       const data = await response.json();
-      data.status = 'OK' && setLoading(false);
+      data.status = 200 && setLoading(false);
+      setToastSettings(
+        true,
+        ToastType.SUCCESS,
+        'Thank you, your email was sent successfully 🎉.'
+      );
       reset();
+    } catch (e) {
+      setToastSettings(
+        true,
+        ToastType.ERROR,
+        'Ouch, there was a service error, please try again later 😔.'
+      );
+      setLoading(false);
     }
   };
 
   return (
-    <form method="post" className="flex flex-wrap">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap">
       <Controller
         render={({ field }) => (
           <TextField
             {...field}
             className="w-full mb-4"
-            label={errors.name ? 'Required' : 'Your name:'}
+            label={errors.name ? 'Required *' : 'Your name:'}
             variant="standard"
-            required
             error={!!errors.name}
             helperText={errors.name?.message}
           />
@@ -58,9 +71,8 @@ const ContactForm = () => {
           <TextField
             {...field}
             className="w-full mb-8"
-            label={errors.email ? 'Required' : 'Your email:'}
+            label={errors.email ? 'Required *' : 'Your email:'}
             variant="standard"
-            required
             error={!!errors.email}
             helperText={errors.email?.message}
           />
@@ -87,12 +99,12 @@ const ContactForm = () => {
 
       <div className="flex w-full justify-end">
         <LoadingButton
-          onClick={handleSubmit(onSubmit)}
           endIcon={<SendIcon />}
           loading={loading}
           loadingPosition="end"
           variant="contained"
           className="mt-3"
+          type="submit"
         >
           Send
         </LoadingButton>
