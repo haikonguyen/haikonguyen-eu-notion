@@ -46,3 +46,6 @@ export enum ToastType {
   WARNING = 'warning',
   ERROR = 'error',
 }
+
+export const imgPlaceholder =
+  'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
