@@ -18,7 +18,6 @@ const getHtmlTemplate = (body: EmailBodyProps) => `
 //ES8
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
   const body = await JSON.parse(req.body);
-  console.log('sendEmail function');
 
   //TODO: add BE validation
   try {
@@ -29,10 +28,9 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
       subject: `${body.name} - [Email from haikonguyen.eu]`,
       html: `${getHtmlTemplate(body)}`,
     });
+    return res.status(200).json({ message: 'OK' });
   } catch (error: any) {
     return res.status(error.statusCode || 500).json({ error: error.message });
   }
-
-  return res.status(200).json({ status: 'Email sent successfully' });
 };
 export default sendEmail;

@@ -4,6 +4,7 @@ import useGlobalStyle from '@styles/global';
 import { NavBar } from '../navbar';
 import { LayoutProps } from './types';
 import { Footer } from '../footer';
+import { Toast } from '../toast';
 
 const Layout = ({ children }: LayoutProps) => {
   return (
@@ -13,6 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
       <NavBar />
       <main className="flex-auto">{children}</main>
       <Footer />
+      <Toast />
     </>
   );
 };
