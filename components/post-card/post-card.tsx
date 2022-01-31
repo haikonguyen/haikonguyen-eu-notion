@@ -12,6 +12,7 @@ import { getCoverSource } from './utils';
 import AvatarImage from './avatar-image';
 import { PostCardProps } from './types';
 import { TagList } from '@components';
+import { EuDateFormat } from '@utils/constants';
 
 export default function PostCard({ id, cover, properties }: PostCardProps) {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
           </Avatar>
         }
         title={properties.post_name.title[0]?.plain_text}
-        subheader={properties.published_date.date?.start}
+        subheader={EuDateFormat(properties.published_date.date?.start)}
       />
       <div className="relative h-48">
         <Image

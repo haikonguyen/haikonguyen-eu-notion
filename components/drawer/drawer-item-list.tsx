@@ -43,17 +43,17 @@ const DrawerItemList = ({
         {drawerItems.map((link) => (
           <ListItem
             button
-            key={link}
+            key={link.id}
             onClick={() =>
               listItemClickHandler(
                 router,
-                link,
+                link.url,
                 isDrawerOpened,
                 setIsDrawerOpened
               )
             }
           >
-            <ListItemText primary={link} />
+            <ListItemText primary={link.label.toUpperCase()} />
           </ListItem>
         ))}
       </List>

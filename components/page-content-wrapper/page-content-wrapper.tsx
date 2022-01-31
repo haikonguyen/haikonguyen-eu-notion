@@ -1,9 +1,8 @@
 import React from 'react';
-import Container from '@mui/material/Container';
 import tw, { styled } from 'twin.macro';
 import { PageContentWrapperProps } from './types';
 
-const StyledContainer = styled(Container)`
+const StyledContainer = styled.div`
   section {
     ${tw`py-5`}
     hr {
@@ -12,9 +11,12 @@ const StyledContainer = styled(Container)`
   }
 `;
 
-const PageContentWrapper = ({ children }: PageContentWrapperProps) => {
+const PageContentWrapper = ({ children, isPost }: PageContentWrapperProps) => {
   return (
-    <StyledContainer className="my-10" fixed>
+    <StyledContainer
+      css={isPost ? tw`max-w-3xl` : tw`max-w-6xl`}
+      className="my-10 mx-auto"
+    >
       {children}
     </StyledContainer>
   );

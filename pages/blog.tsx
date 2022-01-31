@@ -31,7 +31,7 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
           <h1>Blog</h1>
         </GlassWrapper>
       </Hero>
-      <PageContentWrapper>
+      <PageContentWrapper isPost={false}>
         <section className="flex flex-wrap justify-center">
           <TextField
             id="outlined-search"

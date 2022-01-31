@@ -44,7 +44,7 @@ const Index = ({ blogPostList }: BlogPostListType) => {
           </section>
         </GlassWrapper>
       </Hero>
-      <PageContentWrapper>
+      <PageContentWrapper isPost={false}>
         {/* About Section */}
         <section>
           <h1 className="uppercase text-center">About</h1>

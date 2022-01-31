@@ -16,7 +16,7 @@ const ContactPage = () => {
           <h1>Contact</h1>
         </GlassWrapper>
       </Hero>
-      <PageContentWrapper>
+      <PageContentWrapper isPost={false}>
         <section>
           <Paper className="max-w-lg mx-auto my-0 p-10 flex" elevation={3}>
             <ContactForm />
