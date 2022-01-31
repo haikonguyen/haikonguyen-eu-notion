@@ -3,7 +3,6 @@ import { NotionText } from '@components';
 import React, { Fragment } from 'react';
 import { BlockWithChildrenType } from 'notion';
 import Image from 'next/image';
-import tw from 'twin.macro';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -36,10 +35,15 @@ export const renderBlock = (block: BlockWithChildrenType) => {
   switch (type) {
     case 'paragraph':
       return (
-        <p>
-          <NotionText textContentBlocks={value.text} />
-        </p>
+        <>
+          {value.text.length > 0 ? (
+            <p>
+              <NotionText textContentBlocks={value.text} />
+            </p>
+          ) : null}
+        </>
       );
+
     case 'heading_1':
       return (
         <h1>
@@ -98,6 +102,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
             blurDataURL={src}
             width={1200}
             height={800}
+            className="rounded-md"
           />
           {caption && <figcaption>{caption}</figcaption>}
         </figure>

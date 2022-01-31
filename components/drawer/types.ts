@@ -14,13 +14,19 @@ export type ListItemClickHandlerType = (
   setIsDrawerOpened: () => void
 ) => void;
 
+export interface NavLinkProps {
+  id: string;
+  label: string;
+  url: string;
+}
+
 export interface TemporaryDrawerProps {
   anchor: Anchor;
-  drawerItems: string[];
+  drawerItems: NavLinkProps[];
 }
 
 export interface DrawerItemListProps {
   anchor: Anchor;
-  drawerItems: string[];
+  drawerItems: NavLinkProps[];
   hasLogo: boolean;
 }

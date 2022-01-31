@@ -3,19 +3,19 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import tw from 'twin.macro';
-import { pages } from '@utils/constants';
+import { siteConfig } from '@utils/constants';
 
 const DesktopNav = () => {
   const router = useRouter();
   return (
     <Box className="flex grow hidden lg:flex">
-      {pages.map((page) => (
+      {siteConfig.navLinks.map((navLink) => (
         <Button
-          key={page}
-          onClick={() => router.push(`/${page.toLocaleLowerCase()}`)}
+          key={navLink.id}
+          onClick={() => router.push(navLink.url.toLocaleLowerCase())}
           css={tw`my-2 block text-white`}
         >
-          {page}
+          {navLink.label}
         </Button>
       ))}
     </Box>

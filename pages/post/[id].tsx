@@ -4,6 +4,9 @@ import { PostTemplateProps } from 'notion';
 import Image from 'next/image';
 import { getCoverSource } from '../../components/post-card/utils';
 import { GlassWrapper, NotionBlocks, TagList } from '@components';
+import { EuDateFormat } from '@utils/constants';
+import { GetStaticPropsType } from 'global-types';
+import PageContentWrapper from '../../components/page-content-wrapper/page-content-wrapper';
 
 export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   if (!page || !blocks) {
@@ -37,7 +40,7 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
               {page.properties.author.created_by.name}
             </span>
             <span className="mr-1">
-              | {page.properties.published_date.date?.start}
+              | {EuDateFormat(page.properties.published_date.date?.start)}
             </span>
           </div>
         </GlassWrapper>
@@ -46,9 +49,11 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
         </section>
       </div>
 
-      <article className="md:max-w-7xl mx-auto my-0 p-4 md:p-16">
-        <NotionBlocks blocks={blocks} />
-      </article>
+      <PageContentWrapper isPost>
+        <article>
+          <NotionBlocks blocks={blocks} />
+        </article>
+      </PageContentWrapper>
     </>
   );
 }
@@ -65,12 +70,6 @@ export const getStaticPaths = async () => {
     fallback: true,
   };
 };
-
-interface GetStaticPropsType {
-  params: {
-    id: string;
-  };
-}
 
 export const getStaticProps = async ({ params }: GetStaticPropsType) => {
   const { id } = params;
