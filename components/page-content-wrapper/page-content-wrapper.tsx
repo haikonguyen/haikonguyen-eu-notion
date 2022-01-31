@@ -15,7 +15,7 @@ const PageContentWrapper = ({ children, isPost }: PageContentWrapperProps) => {
   return (
     <StyledContainer
       css={isPost ? tw`max-w-3xl` : tw`max-w-6xl`}
-      className="my-10 mx-auto"
+      className="my-10 px-5 mx-auto"
     >
       {children}
     </StyledContainer>

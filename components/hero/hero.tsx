@@ -15,7 +15,6 @@ const Hero = ({ isHomePage, children, imageSource }: HeroProps) => {
         layout="fill"
         alt="Hero image"
         placeholder="blur"
-        className="brightness-75"
       />
       {children}
     </HeroWrapper>

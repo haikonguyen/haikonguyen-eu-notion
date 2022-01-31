@@ -28,7 +28,6 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
           layout="fill"
           placeholder="blur"
           blurDataURL={getCoverSource(page.cover)}
-          className="brightness-50"
         />
 
         <GlassWrapper>
