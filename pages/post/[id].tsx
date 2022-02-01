@@ -4,9 +4,9 @@ import { PostTemplateProps } from 'notion';
 import Image from 'next/image';
 import { getCoverSource } from '../../components/post-card/utils';
 import { GlassWrapper, NotionBlocks, TagList } from '@components';
-import { EuDateFormat } from '@utils/constants';
 import { GetStaticPropsType } from 'global-types';
 import PageContentWrapper from '../../components/page-content-wrapper/page-content-wrapper';
+import { EuDateFormat } from '@utils/text-formatting';
 
 export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   if (!page || !blocks) {
