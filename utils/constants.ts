@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 const d = new Date();
 const footerYear = d.getFullYear();
 
@@ -73,6 +71,3 @@ export enum ToastType {
 
 export const imgPlaceholder =
   'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
-
-export const EuDateFormat = (date: string | undefined) =>
-  dayjs(date).format('DD/MM/YYYY');

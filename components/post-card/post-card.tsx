@@ -12,12 +12,13 @@ import { getCoverSource } from './utils';
 import AvatarImage from './avatar-image';
 import { PostCardProps } from './types';
 import { TagList } from '@components';
-import { EuDateFormat } from '@utils/constants';
+import { EuDateFormat, truncateText } from '@utils/text-formatting';
 
 export default function PostCard({ id, cover, properties }: PostCardProps) {
   const router = useRouter();
+
   return (
-    <Card>
+    <Card elevation={3}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
@@ -38,8 +39,12 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
         />
       </div>
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {properties.excerpt.rich_text[0]?.plain_text}
+        <Typography
+          css={{ minHeight: '120px' }}
+          variant="body2"
+          color="text.secondary"
+        >
+          {truncateText(properties.excerpt.rich_text[0]?.plain_text, 160)}
         </Typography>
       </CardContent>
       <CardActions className="flex justify-between" disableSpacing>

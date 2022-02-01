@@ -35,7 +35,7 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
         <section className="flex flex-wrap justify-center">
           <TextField
             id="outlined-search"
-            label="Search field"
+            label="🔍 search..."
             variant="outlined"
             onChange={() => handleChange(event)}
           />
