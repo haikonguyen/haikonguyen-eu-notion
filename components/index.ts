@@ -1,6 +1,7 @@
 export * from './container';
 export * from './client-only';
 export * from './drawer';
+export * from './favicon';
 export * from './footer';
 export * from './glass-wrapper';
 export * from './hero';
