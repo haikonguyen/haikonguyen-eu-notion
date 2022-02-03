@@ -118,12 +118,13 @@ export const renderBlock = (block: BlockWithChildrenType) => {
   }
 };
 
+// Retrieve block children for nested blocks (one level deep), for example toggle blocks
+// https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
 export const getNestedChildBlock = async (
   blocks: any
 ): Promise<NestedChildBlock[]> =>
   await Promise.all(
     blocks
-      //TODO: fix the type later, omg ...
       .filter((block: BlockWithChildrenType) => block.has_children)
       .map(async (block: NestedChildBlock) => {
         return {
