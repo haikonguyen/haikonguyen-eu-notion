@@ -4,6 +4,7 @@ import {
   getPage,
   getBlocks,
   getNestedChildBlock,
+  createBlockWithChildren,
 } from '@utils/notion';
 import { PostTemplateProps } from 'notion';
 import Image from 'next/image';
@@ -85,19 +86,21 @@ export const getStaticProps = async ({ params }: GetStaticPropsType) => {
 
   const nestedChildBlock = await getNestedChildBlock(results);
 
-  const createBlockWithChildren = (block: any) => {
-    /* Create new object structure => append nestedChildBlock if needed, for example for toggles
-     based on the has_children prop.
-   */
-    if (block?.has_children && !block[block.type].children) {
-      block[block.type]['children'] = nestedChildBlock.find(
-        (child: any) => child.id === block.id
-      )?.children;
-    }
-    return block;
-  };
+  // const createBlockWithChildren = (block: any) => {
+  //   /* Create new object structure => append nestedChildBlock if needed, for example for toggles
+  //    based on the has_children prop.
+  //  */
+  //   if (block?.has_children && !block[block.type].children) {
+  //     block[block.type]['children'] = nestedChildBlock.find(
+  //       (child: any) => child.id === block.id
+  //     )?.children;
+  //   }
+  //   return block;
+  // };
   //TODO: fix the type later, omg ...
-  const blocksWithChildren = results.map(createBlockWithChildren);
+  const blocksWithChildren = results.map((block) =>
+    createBlockWithChildren(block, nestedChildBlock)
+  );
 
   return {
     props: {

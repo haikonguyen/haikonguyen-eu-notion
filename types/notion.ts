@@ -1,3 +1,5 @@
+import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints';
+
 export interface AnnotationsType {
   bold: boolean;
   italic: boolean;
@@ -113,6 +115,11 @@ export interface NameType {
       href?: string;
     }
   ];
+}
+
+export interface NestedChildBlock {
+  id: string;
+  children: ListBlockChildrenResponse[];
 }
 
 export interface NotionBlocksProps {

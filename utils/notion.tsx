@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NotionText } from '@components';
 import React, { Fragment } from 'react';
-import { BlockWithChildrenType } from 'notion';
+import { BlockWithChildrenType, NestedChildBlock } from 'notion';
 import Image from 'next/image';
 
 const notion = new Client({
@@ -118,15 +118,32 @@ export const renderBlock = (block: BlockWithChildrenType) => {
   }
 };
 
-export const getNestedChildBlock = async (blocks: any): Promise<any> =>
+export const getNestedChildBlock = async (
+  blocks: any
+): Promise<NestedChildBlock[]> =>
   await Promise.all(
     blocks
       //TODO: fix the type later, omg ...
-      .filter((block: any) => block.has_children)
-      .map(async (block: any) => {
+      .filter((block: BlockWithChildrenType) => block.has_children)
+      .map(async (block: NestedChildBlock) => {
         return {
           id: block.id,
           children: await getBlocks(block.id),
         };
       })
   );
+
+export const createBlockWithChildren = (
+  block: any,
+  nestedChildBlocks: NestedChildBlock[]
+) => {
+  /* Create new object structure => append nestedChildBlock if needed, for example for toggles
+   based on the has_children prop.
+ */
+  if (block?.has_children && !block[block.type].children) {
+    block[block.type]['children'] = nestedChildBlocks.find(
+      (child) => child.id === block.id
+    )?.children;
+  }
+  return block;
+};
