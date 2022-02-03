@@ -117,3 +117,16 @@ export const renderBlock = (block: BlockWithChildrenType) => {
       })`;
   }
 };
+
+export const getNestedChildBlock = async (blocks: any): Promise<any> =>
+  await Promise.all(
+    blocks
+      //TODO: fix the type later, omg ...
+      .filter((block: any) => block.has_children)
+      .map(async (block: any) => {
+        return {
+          id: block.id,
+          children: await getBlocks(block.id),
+        };
+      })
+  );
