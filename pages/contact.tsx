@@ -18,7 +18,10 @@ const ContactPage = () => {
       </Hero>
       <PageContentWrapper isPost={false}>
         <section>
-          <Paper className="max-w-lg mx-auto my-0 p-10 flex" elevation={3}>
+          <Paper
+            className="max-w-lg mx-auto my-0 p-10 flex rounded-lg"
+            elevation={3}
+          >
             <ContactForm />
           </Paper>
         </section>

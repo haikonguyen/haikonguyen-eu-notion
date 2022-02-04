@@ -3,6 +3,7 @@ import { NotionText } from '@components';
 import React, { Fragment } from 'react';
 import { BlockWithChildrenType, NestedChildBlock } from 'notion';
 import Image from 'next/image';
+import tw from 'twin.macro';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -66,7 +67,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
     case 'bulleted_list_item':
     case 'numbered_list_item':
       return (
-        <li tw="ml-2 md:ml-5">
+        <li css={tw`ml-2 md:ml-5`}>
           <NotionText textContentBlocks={value.text} />
         </li>
       );
@@ -102,7 +103,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
             blurDataURL={src}
             width={1200}
             height={800}
-            className="rounded-md"
+            className="rounded-lg"
           />
           {caption && <figcaption>{caption}</figcaption>}
         </figure>

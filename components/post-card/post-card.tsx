@@ -18,7 +18,7 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
   const router = useRouter();
 
   return (
-    <Card elevation={3}>
+    <Card className="rounded-lg" elevation={3}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
