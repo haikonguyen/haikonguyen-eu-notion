@@ -1,10 +1,21 @@
 import { blue } from '@mui/material/colors';
 import { CustomThemeOptions } from '@mui/material/styles';
 import useStore from '@state/store';
+import { useMediaQuery } from '@mui/material';
+import { useEffect } from 'react';
+import { setSystemPaletteMode } from '@utils/constants';
 
 export const useThemeOptions = (): CustomThemeOptions => {
   const store = useStore();
-  const { paletteMode } = store;
+  const { paletteMode, setDarkPaletteMode, setLightPaletteMode } = store;
+
+  const isSystemDark = useMediaQuery('(prefers-color-scheme:dark)', {
+    noSsr: true,
+  });
+
+  useEffect(() => {
+    setSystemPaletteMode(isSystemDark, setDarkPaletteMode, setLightPaletteMode);
+  }, [isSystemDark, setDarkPaletteMode, setLightPaletteMode]);
 
   return {
     status: {

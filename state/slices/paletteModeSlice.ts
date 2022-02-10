@@ -6,13 +6,21 @@ export const createPaletteModeSlice = (
   set: NamedSet<PaletteModeSliceProps>,
   get: GetState<PaletteModeSliceProps>
 ): PaletteModeSliceProps => ({
-  paletteMode: 'dark',
-  setPaletteMode: () =>
+  paletteMode: undefined,
+  setDarkPaletteMode: () =>
     set(
       {
-        paletteMode: get().paletteMode === 'dark' ? 'light' : 'dark',
+        paletteMode: 'dark',
       },
       false,
-      'SET_PALETTE_MODE'
+      'SET_DARK_PALETTE_MODE'
+    ),
+  setLightPaletteMode: () =>
+    set(
+      {
+        paletteMode: 'light',
+      },
+      false,
+      'SET_LIGHT_PALETTE_MODE'
     ),
 });

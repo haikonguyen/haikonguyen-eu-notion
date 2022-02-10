@@ -22,7 +22,6 @@ export const getPage = async (pageId: string) => {
 export const getBlocks = async (blockId: string) => {
   return await notion.blocks.children.list({
     block_id: blockId,
-    page_size: 50,
   });
 };
 
@@ -41,21 +40,35 @@ export const renderBlock = (block: BlockWithChildrenType) => {
             <p>
               <NotionText textContentBlocks={value.text} />
             </p>
-          ) : null}
+          ) : (
+            <br />
+          )}
         </>
       );
 
     case 'heading_1':
       return (
-        <h1>
-          <NotionText textContentBlocks={value.text} />
-        </h1>
+        <>
+          {value.text.length > 0 ? (
+            <h1>
+              <NotionText textContentBlocks={value.text} />
+            </h1>
+          ) : (
+            <br />
+          )}
+        </>
       );
     case 'heading_2':
       return (
-        <h2>
-          <NotionText textContentBlocks={value.text} />
-        </h2>
+        <>
+          {value.text.length > 0 ? (
+            <h2>
+              <NotionText textContentBlocks={value.text} />
+            </h2>
+          ) : (
+            <br />
+          )}
+        </>
       );
     case 'heading_3':
       return (

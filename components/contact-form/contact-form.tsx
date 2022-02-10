@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@material-ui/icons/Send';
+import SendIcon from '@mui/icons-material/Send';
 import { EmailBodyProps } from 'global-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import mailValidationSchema from './validation';
