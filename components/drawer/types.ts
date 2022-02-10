@@ -1,6 +1,8 @@
 import { NextRouter } from 'next/router';
 import { DrawerStateType } from '@state/types';
 import { Anchor } from '../navbar/types';
+import { ReactNode } from 'react';
+import { SxProps, Theme } from '@mui/system';
 
 export type ToggleDrawerType = (
   isDrawerOpened: DrawerStateType,
@@ -22,7 +24,12 @@ export interface NavLinkProps {
 
 export interface TemporaryDrawerProps {
   anchor: Anchor;
-  drawerItems: NavLinkProps[];
+  children: ReactNode;
+  isSettingNav: boolean;
+  isDrawerEnabled: boolean;
+  onClick: () => void;
+  onClose: () => void;
+  sx?: SxProps<Theme> | undefined;
 }
 
 export interface DrawerItemListProps {

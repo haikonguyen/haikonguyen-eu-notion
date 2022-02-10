@@ -7,7 +7,11 @@ import {
   PageContentWrapper,
 } from '@components';
 import aboutPageBg from '@images/aboutPageBg.jpg';
-import { getBlocks } from '@utils/notion';
+import {
+  createBlockWithChildren,
+  getBlocks,
+  getNestedChildBlock,
+} from '@utils/notion';
 import { AboutPageProps } from 'global-types';
 
 const AboutPage = ({ blocks }: AboutPageProps) => {
@@ -36,32 +40,11 @@ export const getStaticProps = async () => {
   // Retrieve block children for nested blocks (one level deep), for example toggle blocks
   // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
 
-  const nestedChildBlock = await Promise.all(
-    results
-      //TODO: fix the type later, omg ...
-      .filter((block: any) => block.has_children)
-      .map(async (block) => {
-        return {
-          id: block.id,
-          children: await getBlocks(block.id),
-        };
-      })
+  const nestedChildBlock = await getNestedChildBlock(results);
+
+  const blocksWithChildren = results.map((block) =>
+    createBlockWithChildren(block, nestedChildBlock)
   );
-
-  const createBlockWithChildren = (block: any) => {
-    /* Create new object structure => append nestedChildBlock if needed, for example for toggles
-     based on the has_children prop.
-   */
-    if (block?.has_children && !block[block.type].children) {
-      block[block.type]['children'] = nestedChildBlock.find(
-        (child) => child.id === block.id
-      )?.children;
-    }
-    return block;
-  };
-  //TODO: fix the type later, omg ...
-  const blocksWithChildren = results.map(createBlockWithChildren);
-
   return {
     props: {
       blocks: blocksWithChildren,

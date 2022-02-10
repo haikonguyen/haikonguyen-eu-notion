@@ -1,8 +1,9 @@
 import { Client } from '@notionhq/client';
 import { NotionText } from '@components';
 import React, { Fragment } from 'react';
-import { BlockWithChildrenType } from 'notion';
+import { BlockWithChildrenType, NestedChildBlock } from 'notion';
 import Image from 'next/image';
+import tw from 'twin.macro';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -21,7 +22,6 @@ export const getPage = async (pageId: string) => {
 export const getBlocks = async (blockId: string) => {
   return await notion.blocks.children.list({
     block_id: blockId,
-    page_size: 50,
   });
 };
 
@@ -40,21 +40,35 @@ export const renderBlock = (block: BlockWithChildrenType) => {
             <p>
               <NotionText textContentBlocks={value.text} />
             </p>
-          ) : null}
+          ) : (
+            <br />
+          )}
         </>
       );
 
     case 'heading_1':
       return (
-        <h1>
-          <NotionText textContentBlocks={value.text} />
-        </h1>
+        <>
+          {value.text.length > 0 ? (
+            <h1>
+              <NotionText textContentBlocks={value.text} />
+            </h1>
+          ) : (
+            <br />
+          )}
+        </>
       );
     case 'heading_2':
       return (
-        <h2>
-          <NotionText textContentBlocks={value.text} />
-        </h2>
+        <>
+          {value.text.length > 0 ? (
+            <h2>
+              <NotionText textContentBlocks={value.text} />
+            </h2>
+          ) : (
+            <br />
+          )}
+        </>
       );
     case 'heading_3':
       return (
@@ -66,7 +80,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
     case 'bulleted_list_item':
     case 'numbered_list_item':
       return (
-        <li tw="ml-2 md:ml-5">
+        <li css={tw`ml-2 md:ml-5`}>
           <NotionText textContentBlocks={value.text} />
         </li>
       );
@@ -102,7 +116,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
             blurDataURL={src}
             width={1200}
             height={800}
-            className="rounded-md"
+            className="rounded-lg"
           />
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
@@ -116,4 +130,35 @@ export const renderBlock = (block: BlockWithChildrenType) => {
         type === 'unsupported' ? 'unsupported by Notion API' : type
       })`;
   }
+};
+
+// Retrieve block children for nested blocks (one level deep), for example toggle blocks
+// https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
+export const getNestedChildBlock = async (
+  blocks: any
+): Promise<NestedChildBlock[]> =>
+  await Promise.all(
+    blocks
+      .filter((block: BlockWithChildrenType) => block.has_children)
+      .map(async (block: NestedChildBlock) => {
+        return {
+          id: block.id,
+          children: await getBlocks(block.id),
+        };
+      })
+  );
+
+export const createBlockWithChildren = (
+  block: any,
+  nestedChildBlocks: NestedChildBlock[]
+) => {
+  /* Create new object structure => append nestedChildBlock if needed, for example for toggles
+   based on the has_children prop.
+ */
+  if (block?.has_children && !block[block.type].children) {
+    block[block.type]['children'] = nestedChildBlocks.find(
+      (child) => child.id === block.id
+    )?.children;
+  }
+  return block;
 };

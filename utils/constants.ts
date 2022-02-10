@@ -71,3 +71,9 @@ export enum ToastType {
 
 export const imgPlaceholder =
   'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
+
+export const setSystemPaletteMode = (
+  isSystemDark: boolean,
+  setDarkPaletteMode: () => void,
+  setLightPaletteMode: () => void
+) => (isSystemDark ? setDarkPaletteMode() : setLightPaletteMode());

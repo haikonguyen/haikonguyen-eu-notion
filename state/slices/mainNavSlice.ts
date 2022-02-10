@@ -7,6 +7,13 @@ export const createMainNavSlice = (
   get: GetState<MainNavSliceProps>
 ): MainNavSliceProps => ({
   isDrawerOpened: false,
+  isSettingsEnabled: false,
   setIsDrawerOpened: () =>
-    set({ isDrawerOpened: !get().isDrawerOpened }, false, 'SET_OPEN_DRAWER'),
+    set({ isDrawerOpened: !get().isDrawerOpened }, false, 'TOGGLE_MOBILE_NAV'),
+  setIsSettingsEnabled: () =>
+    set(
+      { isSettingsEnabled: !get().isSettingsEnabled },
+      false,
+      'TOGGLE_SETTINGS_DRAWER'
+    ),
 });

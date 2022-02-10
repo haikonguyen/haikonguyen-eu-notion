@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import tw from 'twin.macro';
 import DesktopNav from './desktop-nav';
 import MobileNav from './mobile-nav';
-import { ThemeSwitcher } from '../theme-switcher';
+import SettingsNav from './settings-nav';
 
 const NavBar = () => {
   const router = useRouter();
@@ -28,7 +28,8 @@ const NavBar = () => {
           <MobileNav />
           {/* Desktop Nav */}
           <DesktopNav />
-          <ThemeSwitcher />
+          {/* Settings Nav */}
+          <SettingsNav />
         </Toolbar>
       </Container>
     </AppBar>
