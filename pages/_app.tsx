@@ -3,6 +3,8 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/system';
 import useCustomTheme from '@themes/main-theme';
 import { ClientOnly, Layout } from '@components';
+import { DefaultSeo } from 'next-seo';
+import SEO from '../utils/next-seo.config';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -10,6 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider theme={useCustomTheme()}>
         <ClientOnly>
           <Layout>
+            <DefaultSeo {...SEO} />
             <Component {...pageProps} />
           </Layout>
         </ClientOnly>
