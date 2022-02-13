@@ -21,6 +21,7 @@ const AboutPage = ({ blocks }: AboutPageProps) => {
 
   console.log('router', router);
   console.log('path', window.location.host);
+  console.log('aboutPageBg', aboutPageBg.src);
 
   return (
     <>
@@ -34,7 +35,7 @@ const AboutPage = ({ blocks }: AboutPageProps) => {
           description: 'Open Graph Description',
           images: [
             {
-              url: `${aboutPageBg}`,
+              url: `${aboutPageBg.src}`,
               width: 800,
               height: 600,
               alt: 'AboutPage image',
