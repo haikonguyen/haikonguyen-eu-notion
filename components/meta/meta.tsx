@@ -34,6 +34,10 @@ const Meta = () => {
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <meta name="description" content={`${siteConfig.description}.`} />
       <meta property="og:image" content={HOME_OG_IMAGE_URL} />
+      <meta
+        name="facebook-domain-verification"
+        content="sqgl4ljh80wnvcn7u3dhkcrz0t3jio"
+      />
     </Head>
   );
 };
