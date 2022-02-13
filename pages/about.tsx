@@ -31,8 +31,8 @@ const AboutPage = ({ blocks }: AboutPageProps) => {
         canonical={domainName}
         openGraph={{
           url: `${domainName}/about`,
-          title: 'Open Graph Title',
-          description: 'Open Graph Description',
+          title: 'About | Haiko Nguyen',
+          description: 'About | Haiko Nguyen',
           images: [
             {
               url: `${aboutPageBg.src}`,
