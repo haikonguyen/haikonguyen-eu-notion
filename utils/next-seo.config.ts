@@ -1,9 +1,9 @@
 export default {
   openGraph: {
-    type: 'website',
+    type: 'blog',
     locale: 'en_US',
     url: 'https://www.haikonguyen.eu/',
-    site_name: 'Haiko Nguyen',
+    site_name: 'Blog | Haiko Nguyen',
   },
   twitter: {
     handle: '@handle',

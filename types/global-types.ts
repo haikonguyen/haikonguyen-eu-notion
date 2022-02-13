@@ -1,4 +1,5 @@
-import { BlockWithChildrenType } from 'notion';
+import { BlockWithChildrenType, BlogPostType } from 'notion';
+import { AtRule } from 'csstype';
 
 export interface EmailBodyProps {
   name: string;
@@ -14,4 +15,5 @@ export interface GetStaticPropsType {
 
 export interface AboutPageProps {
   blocks: BlockWithChildrenType[];
+  pageProps: BlogPostType;
 }

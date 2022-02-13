@@ -10,18 +10,19 @@ import {
   createBlockWithChildren,
   getBlocks,
   getNestedChildBlock,
+  getPage,
 } from '@utils/notion';
 import { AboutPageProps } from 'global-types';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
-const AboutPage = ({ blocks }: AboutPageProps) => {
+const AboutPage = ({ blocks, pageProps }: AboutPageProps) => {
   const router = useRouter();
   const domainName = window.location.host;
+  const { cover } = pageProps;
 
-  console.log('router', router);
-  console.log('path', window.location.host);
-  console.log('aboutPageBg', aboutPageBg.src);
+  console.log('domainName', window.location.host);
+  console.log('pageProps', pageProps);
 
   return (
     <>
@@ -35,7 +36,7 @@ const AboutPage = ({ blocks }: AboutPageProps) => {
           description: 'About | Haiko Nguyen',
           images: [
             {
-              url: `${aboutPageBg.src}`,
+              url: `${cover.external.url}`,
               width: 800,
               height: 600,
               alt: 'AboutPage image',
@@ -66,6 +67,7 @@ export default AboutPage;
 
 export const getStaticProps = async () => {
   const { results } = await getBlocks(`${process.env.ABOUT_PAGE_ID}`);
+  const page = await getPage(`${process.env.ABOUT_PAGE_ID}`);
 
   // Retrieve block children for nested blocks (one level deep), for example toggle blocks
   // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
@@ -78,6 +80,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       blocks: blocksWithChildren,
+      pageProps: page,
     },
     revalidate: 1,
   };
