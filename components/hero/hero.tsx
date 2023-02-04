@@ -9,7 +9,13 @@ const Hero = ({ isHomePage, children, imageSource }: HeroProps) => {
       className="relative flex flex-wrap items-center justify-center w-screen"
       isHomePage={isHomePage}
     >
-      <Image src={imageSource} alt="Hero image" placeholder="blur" />
+      <Image
+        className="absolute object-cover"
+        src={imageSource}
+        alt="Hero image"
+        placeholder="blur"
+        fill
+      />
       {children}
     </HeroWrapper>
   );
