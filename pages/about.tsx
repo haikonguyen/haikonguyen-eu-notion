@@ -14,15 +14,10 @@ import {
 } from '@utils/notion';
 import { AboutPageProps } from 'global-types';
 import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
 
 const AboutPage = ({ blocks, pageProps }: AboutPageProps) => {
-  const router = useRouter();
   const domainName = window.location.host;
   const { cover } = pageProps;
-
-  console.log('domainName', window.location.host);
-  console.log('pageProps', pageProps);
 
   return (
     <>

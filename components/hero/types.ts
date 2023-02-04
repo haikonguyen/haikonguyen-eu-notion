@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
-import { ImageProps } from 'next/image';
+import { StaticImageData } from 'next/image';
 
 export interface HeroProps {
   isHomePage: boolean;
   children: ReactNode;
-  imageSource: ImageProps;
+  imageSource: StaticImageData;
 }
