@@ -4,7 +4,7 @@ import { NotionTextProps } from './types';
 const RenderNotionTextContent = ({ textContentBlocks }: NotionTextProps) => {
   return (
     <>
-      {textContentBlocks.map((value, index: number) => {
+      {textContentBlocks?.map((value, index: number) => {
         const {
           annotations: { bold, code, color, italic, strikethrough, underline },
           text,

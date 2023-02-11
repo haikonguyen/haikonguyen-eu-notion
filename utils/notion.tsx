@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { BlockWithChildrenType, NestedChildBlock } from 'notion';
 import Image from 'next/image';
 import tw from 'twin.macro';
+import { ContentBlockTypes } from '../enums';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -27,18 +28,17 @@ export const getBlocks = async (blockId: string) => {
 
 export const renderBlock = (block: BlockWithChildrenType) => {
   const { type, id } = block;
-  const value = block[type];
-
-  const src = value.type === 'external' ? value.external.url : value.file?.url;
-  const caption = value.caption ? value.caption[0]?.plain_text : '';
+  const richTextValue = block[type]?.rich_text;
+  const imageSrc = block[type]?.file?.url;
+  const caption = block[type]?.caption?.[0]?.plain_text;
 
   switch (type) {
-    case 'paragraph':
+    case ContentBlockTypes.Paragraph:
       return (
         <>
-          {value.text.length > 0 ? (
+          {richTextValue?.length > 0 ? (
             <p>
-              <NotionText textContentBlocks={value.text} />
+              <NotionText textContentBlocks={richTextValue} />
             </p>
           ) : (
             <br />
@@ -46,74 +46,63 @@ export const renderBlock = (block: BlockWithChildrenType) => {
         </>
       );
 
-    case 'heading_1':
+    case ContentBlockTypes.Heading1:
       return (
-        <>
-          {value.text.length > 0 ? (
-            <h1>
-              <NotionText textContentBlocks={value.text} />
-            </h1>
-          ) : (
-            <br />
-          )}
-        </>
+        <>{richTextValue ? <h1>{richTextValue?.[0].plain_text}</h1> : <br />}</>
       );
-    case 'heading_2':
+
+    case ContentBlockTypes.Heading2:
       return (
-        <>
-          {value.text.length > 0 ? (
-            <h2>
-              <NotionText textContentBlocks={value.text} />
-            </h2>
-          ) : (
-            <br />
-          )}
-        </>
+        <>{richTextValue ? <h2>{richTextValue?.[0].plain_text}</h2> : <br />}</>
       );
-    case 'heading_3':
+    case ContentBlockTypes.Heading3:
       return (
-        <h3>
-          <NotionText textContentBlocks={value.text} />
-        </h3>
+        <>{richTextValue ? <h3>{richTextValue?.[0].plain_text}</h3> : <br />}</>
       );
     //: TODO: when available => fix bulleted vs numbered list
-    case 'bulleted_list_item':
-    case 'numbered_list_item':
+    case ContentBlockTypes.BulletedListItem:
+    case ContentBlockTypes.NumberedListItem:
       return (
         <li css={tw`ml-2 md:ml-5`}>
-          <NotionText textContentBlocks={value.text} />
+          <NotionText textContentBlocks={richTextValue} />
         </li>
       );
-    case 'to_do':
+    case ContentBlockTypes.Todo:
       return (
         <div>
           <label htmlFor={id}>
-            <input type="checkbox" id={id} defaultChecked={value.checked} />{' '}
-            <NotionText textContentBlocks={value.text} />
+            <input
+              type="checkbox"
+              id={id}
+              defaultChecked={richTextValue.checked}
+            />{' '}
+            <NotionText textContentBlocks={richTextValue.text} />
           </label>
         </div>
       );
-    case 'toggle':
+    case ContentBlockTypes.Toggle:
       return (
         <details>
           <summary>
-            <NotionText textContentBlocks={value.text} />
+            <NotionText textContentBlocks={richTextValue.text} />
           </summary>
-          {value.children.results?.map((block: BlockWithChildrenType) => (
-            <Fragment key={block.id}>{renderBlock(block)}</Fragment>
-          ))}
+          {richTextValue.children.results?.map(
+            (block: BlockWithChildrenType) => (
+              <Fragment key={block.id}>{renderBlock(block)}</Fragment>
+            )
+          )}
         </details>
       );
-    case 'child_page':
-      return <p>{value.title}</p>;
-    case 'image':
+    case ContentBlockTypes.ChildPage:
+      return <p>{richTextValue.title}</p>;
+    case ContentBlockTypes.Image:
       return (
         <figure>
           <Image
-            src={src}
+            src={imageSrc}
             alt={caption}
             placeholder="blur"
-            blurDataURL={src}
+            blurDataURL={imageSrc}
             width={1200}
             height={800}
             className="rounded-lg"
@@ -121,10 +110,12 @@ export const renderBlock = (block: BlockWithChildrenType) => {
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );
-    case 'divider':
+    case ContentBlockTypes.Divider:
       return <hr key={id} />;
-    case 'quote':
-      return <blockquote key={id}>{value.text[0].plain_text}</blockquote>;
+    case ContentBlockTypes.Quote:
+      return (
+        <blockquote key={id}>{richTextValue.text[0].plain_text}</blockquote>
+      );
     default:
       return `❌ Unsupported block (${
         type === 'unsupported' ? 'unsupported by Notion API' : type

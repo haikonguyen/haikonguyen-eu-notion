@@ -20,7 +20,7 @@
     "@mui/lab": "^5.0.0-alpha.118",
     "@mui/material": "^5.11.7",
     "@mui/styles": "^5.11.7",
-    "@notionhq/client": "^0.4.12",
+    "@notionhq/client": "^2.2.3",
     "dayjs": "^1.10.7",
     "next": "^13.1.6",
     "next-seo": "^5.1.0",
