@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/system';
 import useCustomTheme from '@themes/main-theme';
 import { ClientOnly, Layout } from '@components';
 import { DefaultSeo } from 'next-seo';
-import SEO from '../utils/next-seo.config';
+import { SEO } from '@utils/seo';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

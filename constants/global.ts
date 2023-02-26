@@ -11,6 +11,7 @@ export const siteConfig = {
   },
   copyright: `© Haiko Nguyen ${footerYear}`,
   description: 'A personal blog made by Haiko Nguyen with ❤️',
+  url: 'https://www.haikonguyen.eu/',
   navLinks: [
     {
       id: 'navLink_01',

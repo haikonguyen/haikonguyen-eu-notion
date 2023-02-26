@@ -1,4 +1,4 @@
-import create, { GetState } from 'zustand';
+import { create, GetState } from 'zustand';
 import { devtools, NamedSet, persist } from 'zustand/middleware';
 import {
   createMainNavSlice,

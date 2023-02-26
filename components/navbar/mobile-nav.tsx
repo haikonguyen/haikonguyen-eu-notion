@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TemporaryDrawer from '../drawer';
-import { siteConfig } from '@utils/constants';
+import { siteConfig } from '../../constants';
 import DrawerItemList from '../drawer/drawer-item-list';
 import useStore from '@state/store';
 

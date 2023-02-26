@@ -1,6 +1,6 @@
 import { ExternalCoverType, FileCoverType } from 'notion';
 import { CoverType } from './types';
-import { imgPlaceholder } from '@utils/constants';
+import { imgPlaceholder } from '../../constants';
 
 export const getCoverSource = (cover: ExternalCoverType & FileCoverType) => {
   if (cover?.type === CoverType.EXTERNAL) {
