@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import mailValidationSchema from './validation';
 import Box from '@mui/material/Box';
 import useStore from '@state/store';
-import { ToastType } from '@utils/constants';
+import { ToastType } from '../../constants';
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);

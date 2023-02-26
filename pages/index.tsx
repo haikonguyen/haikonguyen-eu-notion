@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { getDatabase } from '@utils/notion';
 import { BlogPostListType } from 'notion';
 import { Hero, PageContentWrapper, PostList, GlassWrapper } from '@components';
-import { siteConfig } from '@utils/constants';
+import { siteConfig } from '../constants';
 import heroProfileImg from '@images/heroProfileImg.png';
 import heroBg from '@images/heroBg.jpg';
 

@@ -3,7 +3,7 @@ import { CustomThemeOptions } from '@mui/material/styles';
 import useStore from '@state/store';
 import { useMediaQuery } from '@mui/material';
 import { useEffect } from 'react';
-import { setSystemPaletteMode } from '@utils/constants';
+import { setSystemPaletteMode } from '../constants';
 
 export const useThemeOptions = (): CustomThemeOptions => {
   const store = useStore();

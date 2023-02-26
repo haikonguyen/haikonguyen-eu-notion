@@ -1,7 +1,6 @@
-import { State } from 'zustand';
 import { AlertColor, PaletteMode } from '@mui/material';
 
-export interface PaletteModeSliceProps extends State {
+export interface PaletteModeSliceProps {
   paletteMode: PaletteMode | undefined;
   setDarkPaletteMode: () => void;
   setLightPaletteMode: () => void;
@@ -9,14 +8,14 @@ export interface PaletteModeSliceProps extends State {
 
 export type DrawerStateType = boolean;
 
-export interface MainNavSliceProps extends State {
+export interface MainNavSliceProps {
   isDrawerOpened: DrawerStateType;
   isSettingsEnabled: DrawerStateType;
   setIsDrawerOpened: () => void;
   setIsSettingsEnabled: () => void;
 }
 
-export interface ToastSliceProps extends State {
+export interface ToastSliceProps {
   toastSettings: {
     isToastOpened: boolean;
     toastType: AlertColor | undefined;

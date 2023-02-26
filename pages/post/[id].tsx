@@ -13,14 +13,40 @@ import { GlassWrapper, NotionBlocks, TagList } from '@components';
 import { GetStaticPropsType } from 'global-types';
 import PageContentWrapper from '../../components/page-content-wrapper/page-content-wrapper';
 import { EuDateFormat } from '@utils/text-formatting';
+import { NextSeo } from 'next-seo';
 
 export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   if (!page || !blocks) {
     return <></>;
   }
 
+  const publishedDate = page.properties.published_date.date?.start;
+  const tags = page.properties.tags.multi_select.map((tag: any) => tag.name);
+
   return (
     <>
+      <NextSeo
+        openGraph={{
+          type: 'article',
+          article: {
+            publishedTime: publishedDate,
+            modifiedTime: '2022-01-21T18:04:43Z',
+            tags: tags,
+          },
+          url: 'https://www.example.com/page',
+          title: `${page.properties.post_name.title[0].plain_text}`,
+          description: 'Open Graph Description',
+          images: [
+            {
+              url: `${page.cover}`,
+              width: 800,
+              height: 600,
+              alt: 'Og Image Alt',
+            },
+          ],
+        }}
+      />
+
       <Head>
         <title>{page.properties.post_name.title[0].plain_text}</title>
         <link rel="icon" href="/favicon.ico" />
@@ -30,8 +56,6 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
         <Image
           src={getCoverSource(page.cover)}
           alt="Post cover image"
-          objectFit="cover"
-          layout="fill"
           placeholder="blur"
           blurDataURL={getCoverSource(page.cover)}
         />

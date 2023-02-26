@@ -7,7 +7,7 @@ import { Divider, useMediaQuery } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import useStore from '@state/store';
-import { setSystemPaletteMode } from '@utils/constants';
+import { setSystemPaletteMode } from '../../constants';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';

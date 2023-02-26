@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import tw from 'twin.macro';
-import { siteConfig } from '@utils/constants';
+import { siteConfig } from '../../constants';
 
 const DesktopNav = () => {
   const router = useRouter();
