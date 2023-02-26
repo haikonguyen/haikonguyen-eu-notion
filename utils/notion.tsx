@@ -76,7 +76,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
               id={id}
               defaultChecked={richTextValue.checked}
             />{' '}
-            <NotionText textContentBlocks={richTextValue.text} />
+            <NotionText textContentBlocks={richTextValue?.text} />
           </label>
         </div>
       );
@@ -84,7 +84,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
       return (
         <details>
           <summary>
-            <NotionText textContentBlocks={richTextValue.text} />
+            <NotionText textContentBlocks={richTextValue?.text} />
           </summary>
           {richTextValue.children.results?.map(
             (block: BlockWithChildrenType) => (
@@ -114,7 +114,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
       return <hr key={id} />;
     case ContentBlockTypes.Quote:
       return (
-        <blockquote key={id}>{richTextValue.text[0].plain_text}</blockquote>
+        <blockquote key={id}>{richTextValue?.text[0].plain_text}</blockquote>
       );
     default:
       return `❌ Unsupported block (${
