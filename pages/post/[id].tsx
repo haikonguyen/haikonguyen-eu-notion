@@ -56,6 +56,7 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
         <Image
           src={getCoverSource(page.cover)}
           alt="Post cover image"
+          fill
           placeholder="blur"
           blurDataURL={getCoverSource(page.cover)}
         />
