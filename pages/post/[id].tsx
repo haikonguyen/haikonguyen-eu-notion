@@ -14,14 +14,19 @@ import { GetStaticPropsType } from 'global-types';
 import PageContentWrapper from '../../components/page-content-wrapper/page-content-wrapper';
 import { EuDateFormat } from '@utils/text-formatting';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
+import { siteConfig } from '../../constants';
 
 export default function PostTemplate({ page, blocks }: PostTemplateProps) {
+  const { asPath } = useRouter();
   if (!page || !blocks) {
     return <></>;
   }
 
   const publishedDate = page.properties.published_date.date?.start;
   const tags = page.properties.tags.multi_select.map((tag: any) => tag.name);
+  const url = siteConfig.url + asPath;
+  const coverImg = page.cover.file.url;
 
   return (
     <>
@@ -33,12 +38,12 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
             modifiedTime: '2022-01-21T18:04:43Z',
             tags: tags,
           },
-          url: 'https://www.example.com/page',
+          url,
           title: `${page.properties.post_name.title[0].plain_text}`,
           description: 'Open Graph Description',
           images: [
             {
-              url: `${page.cover}`,
+              url: coverImg,
               width: 800,
               height: 600,
               alt: 'Og Image Alt',
