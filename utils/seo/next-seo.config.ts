@@ -15,7 +15,7 @@ export const SEO = {
   },
   twitter: {
     handle: '@haikonguyeneu',
-    site: '@https://twitter.com/haikonguyeneu',
+    site: 'https://twitter.com/haikonguyeneu',
     cardType: 'summary_large_image',
   },
 };

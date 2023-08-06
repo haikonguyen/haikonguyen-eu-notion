@@ -17,6 +17,12 @@ import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { siteConfig } from '../../constants';
 
+interface TagProps {
+  color: string;
+  id: string;
+  name: string;
+}
+
 export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   const { asPath } = useRouter();
   if (!page || !blocks) {
@@ -24,7 +30,9 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   }
 
   const publishedDate = page.properties.published_date.date?.start;
-  const tags = page.properties.tags.multi_select.map((tag: any) => tag.name);
+  const tags = page.properties.tags.multi_select.map((tag: TagProps) => {
+    return tag.name;
+  });
   const url = siteConfig.url + asPath;
   const coverImg = page.cover.file.url;
 

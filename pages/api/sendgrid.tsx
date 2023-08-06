@@ -19,18 +19,27 @@ const getHtmlTemplate = (body: EmailBodyProps) => `
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
   const body = await JSON.parse(req.body);
 
-  //TODO: add BE validation
   try {
     await sendgrid.send({
       to: 'haicorp87@gmail.com', // Your email where you'll receive emails
-      //TODO: add domain email haikonguyen.eu
       from: 'haicorp87@gmail.com', // your website email address here
       subject: `${body.name} - [Email from haikonguyen.eu]`,
       html: `${getHtmlTemplate(body)}`,
     });
     return res.status(200).json({ message: 'OK' });
-  } catch (error: any) {
-    return res.status(error.statusCode || 500).json({ error: error.message });
+  } catch (error: unknown) {
+    let message = 'An error occurred';
+    let statusCode;
+
+    if (error instanceof Error) {
+      message = error.message;
+      // if error is an HttpError (for instance from a library you're using), it could potentially have the statusCode property
+      if ('statusCode' in error) {
+        statusCode = error.statusCode;
+      }
+    }
+
+    return res.status(statusCode as number).json({ error: message });
   }
 };
 export default sendEmail;
