@@ -5,5 +5,5 @@ export type Anchor = 'top' | 'left' | 'bottom' | 'right';
 export type LogoOnClickHandlerType = (
   router: NextRouter,
   isDrawerOpened: DrawerStateType,
-  setIsDrawerOpened: () => void
+  setIsDrawerOpened: () => void,
 ) => void;

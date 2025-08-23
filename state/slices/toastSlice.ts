@@ -1,11 +1,12 @@
-import { NamedSet } from 'zustand/middleware';
-import { GetState } from 'zustand';
+import { StateCreator } from 'zustand';
 import { ToastSliceProps } from '../types';
 
-export const createToastSlice = (
-  set: NamedSet<ToastSliceProps>,
-  get: GetState<ToastSliceProps>
-): ToastSliceProps => ({
+export const createToastSlice: StateCreator<
+  ToastSliceProps,
+  [],
+  [],
+  ToastSliceProps
+> = (set) => ({
   toastSettings: {
     isToastOpened: false,
     toastType: undefined,

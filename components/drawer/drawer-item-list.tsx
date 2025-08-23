@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/router';
 import IconButton from '@mui/material/IconButton';
@@ -41,20 +41,19 @@ const DrawerItemList = ({
           </>
         )}
         {drawerItems.map((link) => (
-          <ListItem
-            button
+          <ListItemButton
             key={link.id}
             onClick={() =>
               listItemClickHandler(
                 router,
                 link.url,
                 isDrawerOpened,
-                setIsDrawerOpened
+                setIsDrawerOpened,
               )
             }
           >
             <ListItemText primary={link.label.toUpperCase()} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
     </Box>

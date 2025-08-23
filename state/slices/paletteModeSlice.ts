@@ -1,11 +1,12 @@
-import { NamedSet } from 'zustand/middleware';
-import { GetState } from 'zustand';
+import { StateCreator } from 'zustand';
 import { PaletteModeSliceProps } from '../types';
 
-export const createPaletteModeSlice = (
-  set: NamedSet<PaletteModeSliceProps>,
-  get: GetState<PaletteModeSliceProps>
-): PaletteModeSliceProps => ({
+export const createPaletteModeSlice: StateCreator<
+  PaletteModeSliceProps,
+  [],
+  [],
+  PaletteModeSliceProps
+> = (set) => ({
   paletteMode: undefined,
   setDarkPaletteMode: () =>
     set(

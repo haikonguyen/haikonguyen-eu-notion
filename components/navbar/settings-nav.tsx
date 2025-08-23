@@ -26,7 +26,7 @@ const SettingsNav = () => {
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    themeToggleValue: string
+    themeToggleValue: string,
   ) => {
     switch (themeToggleValue) {
       case 'dark':
@@ -44,7 +44,7 @@ const SettingsNav = () => {
         setSystemPaletteMode(
           isSystemDark,
           setDarkPaletteMode,
-          setLightPaletteMode
+          setLightPaletteMode,
         );
         break;
     }

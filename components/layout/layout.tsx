@@ -1,14 +1,13 @@
-import { Global } from '@emotion/react';
-import useGlobalStyle from '@styles/global';
 import { NavBar } from '../navbar';
 import { LayoutProps } from './types';
 import { Footer } from '../footer';
 import { Toast } from '../toast';
+import ThemeCssVariables from '../theme-css-variables/theme-css-variables';
 
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <Global styles={useGlobalStyle} />
+      <ThemeCssVariables />
       <NavBar />
       <main className="flex-auto">{children}</main>
       <Footer />

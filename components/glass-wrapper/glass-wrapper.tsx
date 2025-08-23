@@ -6,7 +6,7 @@ interface GlassWrapperProps {
 
 const GlassWrapper = ({ children }: GlassWrapperProps) => {
   return (
-    <div className="rounded-md z-10 flex items-center flex-col p-5 backdrop-filter backdrop-blur-sm bg-white bg-opacity-30 border-gray-200">
+    <div className="rounded-md z-10 flex items-center flex-col p-5 backdrop-blur-sm bg-white/30 border-gray-200">
       {children}
     </div>
   );

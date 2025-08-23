@@ -1,25 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
-import { GlassWrapper, Hero, PageContentWrapper, PostList } from '@components';
+import { GlassWrapper, Hero, PageContentWrapper } from '@components';
 import blogPageBg from '@images/blogPageBgOptimized.jpg';
 import { TextField } from '@mui/material';
-import { getDatabase } from '@utils/notion';
-import { BlogPostListType } from 'notion';
 
-const Blog = ({ blogPostList }: BlogPostListType) => {
-  const [searchField, setSearchField] = useState('');
-
-  const handleChange = (event: Event | undefined) => {
-    const { value } = event?.target as HTMLInputElement;
-
-    setSearchField(value);
+const Blog = () => {
+  const handleChange = () => {
+    // const { value } = event?.target as HTMLInputElement;
   };
-
-  const filteredPosts = blogPostList.filter((post) =>
-    post.properties.post_name.title[0]?.plain_text
-      .toLowerCase()
-      .includes(searchField.toLowerCase())
-  );
 
   return (
     <>
@@ -37,24 +25,12 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
             id="outlined-search"
             label="🔍 search..."
             variant="outlined"
-            onChange={() => handleChange(event)}
+            onChange={() => handleChange()}
           />
         </section>
-        <section>{<PostList blogPostList={filteredPosts} />}</section>
       </PageContentWrapper>
     </>
   );
 };
-
-export async function getStaticProps() {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
-
-  return {
-    props: {
-      blogPostList: results,
-    },
-    revalidate: 1,
-  };
-}
 
 export default Blog;
