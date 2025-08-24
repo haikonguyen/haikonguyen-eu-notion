@@ -89,15 +89,15 @@ const Index = ({ blogPostList }: BlogPostListType) => {
   );
 };
 
-export async function getStaticProps() {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
-
-  return {
-    props: {
-      blogPostList: results.slice(0, 3),
-    },
-    revalidate: 1,
-  };
-}
+// export async function getStaticProps() {
+//   const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+//
+//   return {
+//     props: {
+//       blogPostList: results.slice(0, 3) || [],
+//     },
+//     revalidate: 1,
+//   };
+// }
 
 export default Index;

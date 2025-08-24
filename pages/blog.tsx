@@ -15,7 +15,7 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
     setSearchField(value);
   };
 
-  const filteredPosts = blogPostList.filter((post) =>
+  const filteredPosts = blogPostList?.filter((post) =>
     post.properties.post_name.title[0]?.plain_text
       .toLowerCase()
       .includes(searchField.toLowerCase())
@@ -40,21 +40,21 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
             onChange={() => handleChange(event)}
           />
         </section>
-        <section>{<PostList blogPostList={filteredPosts} />}</section>
+        {/*<section>{<PostList blogPostList={filteredPosts} />}</section>*/}
       </PageContentWrapper>
     </>
   );
 };
 
-export async function getStaticProps() {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
-
-  return {
-    props: {
-      blogPostList: results,
-    },
-    revalidate: 1,
-  };
-}
+// export async function getStaticProps() {
+//   const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+//
+//   return {
+//     props: {
+//       blogPostList: results || [],
+//     },
+//     revalidate: 1,
+//   };
+// }
 
 export default Blog;
