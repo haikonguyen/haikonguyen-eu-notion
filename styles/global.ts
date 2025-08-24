@@ -14,9 +14,9 @@ const useGlobalStyle = () => {
     }
 
     body {
-      color: ${palette.text.primary};
+      color: ${palette?.text.primary};
       font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-      background-color: ${palette.background.default};
+      background-color: ${palette?.background.default};
       outline: none;
       overflow-wrap: break-word;
       word-wrap: break-word;
