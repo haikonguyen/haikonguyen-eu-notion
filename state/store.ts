@@ -1,25 +1,26 @@
-import { create, GetState } from 'zustand';
-import { devtools, NamedSet, persist } from 'zustand/middleware';
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 import {
   createMainNavSlice,
   createPaletteModeSlice,
   createToastSlice,
 } from '@state/slices';
+import { StoreProps } from './types';
 
-const useStore = create(
+const useStore = create<StoreProps>()(
   persist(
-    devtools((set: NamedSet<any>, get: GetState<any>) => ({
-      ...createMainNavSlice(set, get),
-      ...createToastSlice(set, get),
-      ...createPaletteModeSlice(set, get),
+    devtools((...a) => ({
+      ...createMainNavSlice(...a),
+      ...createToastSlice(...a),
+      ...createPaletteModeSlice(...a),
     })),
     {
       name: 'PERSISTED_STATE',
       partialize: (state) => ({
         paletteMode: state.paletteMode,
       }),
-    }
-  )
+    },
+  ),
 );
 
 export default useStore;

@@ -1,19 +1,16 @@
-import { NamedSet } from 'zustand/middleware';
-import { GetState } from 'zustand';
+import { StateCreator } from 'zustand';
 import { MainNavSliceProps } from '../types';
 
-export const createMainNavSlice = (
-  set: NamedSet<MainNavSliceProps>,
-  get: GetState<MainNavSliceProps>
-): MainNavSliceProps => ({
+export const createMainNavSlice: StateCreator<
+  MainNavSliceProps,
+  [],
+  [],
+  MainNavSliceProps
+> = (set, get) => ({
   isDrawerOpened: false,
   isSettingsEnabled: false,
   setIsDrawerOpened: () =>
-    set({ isDrawerOpened: !get().isDrawerOpened }, false, 'TOGGLE_MOBILE_NAV'),
+    set({ isDrawerOpened: !get().isDrawerOpened }, false),
   setIsSettingsEnabled: () =>
-    set(
-      { isSettingsEnabled: !get().isSettingsEnabled },
-      false,
-      'TOGGLE_SETTINGS_DRAWER'
-    ),
+    set({ isSettingsEnabled: !get().isSettingsEnabled }, false),
 });

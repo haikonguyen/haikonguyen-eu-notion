@@ -32,18 +32,20 @@ const ContactForm = () => {
       });
 
       const data = await response.json();
-      data.status = 200 && setLoading(false);
+      if (data.status === 200) {
+        setLoading(false);
+      }
       setToastSettings(
         true,
         ToastType.SUCCESS,
-        'Thank you, your email was sent successfully 🎉.'
+        'Thank you, your email was sent successfully 🎉.',
       );
       reset();
-    } catch (e) {
+    } catch {
       setToastSettings(
         true,
         ToastType.ERROR,
-        'Ouch, there was a service error, please try again later 😔.'
+        'Ouch, there was a service error, please try again later 😔.',
       );
       setLoading(false);
     }
