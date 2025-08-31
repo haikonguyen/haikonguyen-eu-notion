@@ -1,8 +1,16 @@
 import Head from 'next/head';
+import {
+  getDatabase,
+  getPage,
+  getBlocks,
+  getNestedChildBlock,
+  createBlockWithChildren,
+} from '@utils/notion';
 import { PostTemplateProps } from 'notion';
 import Image from 'next/image';
 import { getCoverSource } from '../../components/post-card/utils';
 import { GlassWrapper, NotionBlocks, TagList } from '@components';
+import { GetStaticPropsType } from 'global-types';
 import PageContentWrapper from '../../components/page-content-wrapper/page-content-wrapper';
 import { EuDateFormat } from '@utils/text-formatting';
 import { NextSeo } from 'next-seo';
@@ -93,35 +101,35 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
   );
 }
 
-// export const getStaticPaths = async () => {
-//   const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
-//
-//   return {
-//     paths: results.map((page) => ({
-//       params: {
-//         id: page.id,
-//       },
-//     })),
-//     fallback: true,
-//   };
-// };
-//
-// export const getStaticProps = async ({ params }: GetStaticPropsType) => {
-//   const { id } = params;
-//   const page = await getPage(id);
-//   const { results } = await getBlocks(id);
-//
-//   const nestedChildBlock = await getNestedChildBlock(results);
-//
-//   const blocksWithChildren = results.map((block) =>
-//     createBlockWithChildren(block, nestedChildBlock)
-//   );
-//
-//   return {
-//     props: {
-//       page,
-//       blocks: blocksWithChildren,
-//     },
-//     revalidate: 1,
-//   };
-// };
+export const getStaticPaths = async () => {
+  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+
+  return {
+    paths: results.map((page) => ({
+      params: {
+        id: page.id,
+      },
+    })),
+    fallback: true,
+  };
+};
+
+export const getStaticProps = async ({ params }: GetStaticPropsType) => {
+  const { id } = params;
+  const page = await getPage(id);
+  const { results } = await getBlocks(id);
+
+  const nestedChildBlock = await getNestedChildBlock(results);
+
+  const blocksWithChildren = results.map((block) =>
+    createBlockWithChildren(block, nestedChildBlock),
+  );
+
+  return {
+    props: {
+      page,
+      blocks: blocksWithChildren,
+    },
+    revalidate: 1,
+  };
+};

@@ -5,6 +5,7 @@ import aboutProfileImg from '@images/aboutProfileImg.png';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
+import { getDatabase } from '@utils/notion';
 import { BlogPostListType } from 'notion';
 import { Hero, PageContentWrapper, PostList, GlassWrapper } from '@components';
 import { siteConfig } from '../constants';
@@ -87,5 +88,16 @@ const Index = ({ blogPostList }: BlogPostListType) => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+
+  return {
+    props: {
+      blogPostList: results.slice(0, 3),
+    },
+    revalidate: 1,
+  };
+}
 
 export default Index;
