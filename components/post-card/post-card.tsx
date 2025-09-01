@@ -40,9 +40,10 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
       </div>
       <CardContent>
         <Typography
-          css={{ minHeight: '120px' }}
+          sx={{ minHeight: '120px' }}
           variant="body2"
           color="text.secondary"
+          component="p"
         >
           {truncateText(properties.excerpt.rich_text[0]?.plain_text, 160)}
         </Typography>
