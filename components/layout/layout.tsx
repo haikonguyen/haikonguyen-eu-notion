@@ -2,14 +2,23 @@ import { NavBar } from '../navbar';
 import { LayoutProps } from './types';
 import { Footer } from '../footer';
 import { Toast } from '../toast';
-import ThemeCssVariables from '../theme-css-variables/theme-css-variables';
+import Box from '@mui/material/Box';
 
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <ThemeCssVariables />
       <NavBar />
-      <main className="flex-auto">{children}</main>
+      <Box
+        component="main"
+        sx={(theme) => ({
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
+          flex: '1 1 auto',
+        })}
+      >
+        {children}
+      </Box>
+
       <Footer />
       <Toast />
     </>

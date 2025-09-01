@@ -12,7 +12,9 @@ const DesktopNav = () => {
         <Button
           key={navLink.id}
           onClick={() => router.push(navLink.url.toLocaleLowerCase())}
-          className="my-2 block text-white"
+          sx={(theme) => ({
+            color: theme.palette.text.primary,
+          })}
         >
           {navLink.label}
         </Button>
