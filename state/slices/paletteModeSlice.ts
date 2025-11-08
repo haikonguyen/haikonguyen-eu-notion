@@ -13,15 +13,13 @@ export const createPaletteModeSlice: StateCreator<
       {
         paletteMode: 'dark',
       },
-      false,
-      'SET_DARK_PALETTE_MODE'
+      false
     ),
   setLightPaletteMode: () =>
     set(
       {
         paletteMode: 'light',
       },
-      false,
-      'SET_LIGHT_PALETTE_MODE'
+      false
     ),
 });

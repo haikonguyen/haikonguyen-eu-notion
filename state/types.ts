@@ -27,3 +27,7 @@ export interface ToastSliceProps {
     toastMessage?: string
   ) => void;
 }
+
+export type StoreProps = PaletteModeSliceProps &
+  MainNavSliceProps &
+  ToastSliceProps;
