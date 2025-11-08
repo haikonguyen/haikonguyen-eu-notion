@@ -3,7 +3,6 @@ import { NotionText } from '@components';
 import React, { Fragment } from 'react';
 import { BlockWithChildrenType, NestedChildBlock } from 'notion';
 import Image from 'next/image';
-import tw from 'twin.macro';
 import { ContentBlockTypes } from '../enums';
 
 const notion = new Client({
@@ -63,7 +62,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
     case ContentBlockTypes.BulletedListItem:
     case ContentBlockTypes.NumberedListItem:
       return (
-        <li css={tw`ml-2 md:ml-5`}>
+        <li className="ml-2 md:ml-5">
           <NotionText textContentBlocks={richTextValue} />
         </li>
       );

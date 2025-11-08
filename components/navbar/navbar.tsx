@@ -5,7 +5,6 @@ import Container from '@mui/material/Container';
 import Image from 'next/image';
 import mainLogo from '../../public/assets/images/mainLogoOptimized.png';
 import { useRouter } from 'next/router';
-import tw from 'twin.macro';
 import DesktopNav from './desktop-nav';
 import MobileNav from './mobile-nav';
 import SettingsNav from './settings-nav';
@@ -18,7 +17,7 @@ const NavBar = () => {
         <Toolbar disableGutters>
           {/*Desktop Logo*/}
           <IconButton
-            css={tw`mr-2 hidden lg:flex`}
+            className="mr-2 hidden lg:flex"
             aria-label="menu"
             onClick={() => router.push('/')}
           >

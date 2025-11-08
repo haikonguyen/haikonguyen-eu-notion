@@ -15,10 +15,10 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
     setSearchField(value);
   };
 
-  const filteredPosts = blogPostList.filter((post) =>
+  const filteredPosts = blogPostList?.filter((post) =>
     post.properties.post_name.title[0]?.plain_text
       .toLowerCase()
-      .includes(searchField.toLowerCase())
+      .includes(searchField.toLowerCase()),
   );
 
   return (

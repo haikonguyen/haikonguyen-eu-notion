@@ -6,14 +6,14 @@ import { SxProps, Theme } from '@mui/system';
 
 export type ToggleDrawerType = (
   isDrawerOpened: DrawerStateType,
-  setIsDrawerOpened: () => void
+  setIsDrawerOpened: () => void,
 ) => void;
 
 export type ListItemClickHandlerType = (
   router: NextRouter,
   linkValue: string,
   isDrawerOpened: DrawerStateType,
-  setIsDrawerOpened: () => void
+  setIsDrawerOpened: () => void,
 ) => void;
 
 export interface NavLinkProps {

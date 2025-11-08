@@ -1,3 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--primary-text-color);
+  background-color: var(--primary-background-color);
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  outline: none;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h1 {
+  @apply text-2xl md:text-4xl font-bold;
+}
+
+h2 {
+  @apply text-xl md:text-3xl font-bold;
+}
+
+h3 {
+  @apply text-lg md:text-xl font-bold;
+}
+
+p {
+  @apply text-base py-2 md:py-4;
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
+}

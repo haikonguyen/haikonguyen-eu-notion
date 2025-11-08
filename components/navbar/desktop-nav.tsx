@@ -2,7 +2,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
-import tw from 'twin.macro';
 import { siteConfig } from '../../constants';
 
 const DesktopNav = () => {
@@ -13,7 +12,9 @@ const DesktopNav = () => {
         <Button
           key={navLink.id}
           onClick={() => router.push(navLink.url.toLocaleLowerCase())}
-          css={tw`my-2 block text-white`}
+          sx={(theme) => ({
+            color: theme.palette.text.primary,
+          })}
         >
           {navLink.label}
         </Button>

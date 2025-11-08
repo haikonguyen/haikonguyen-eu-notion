@@ -1,10 +1,12 @@
-const Favicon = (): JSX.Element => {
+import React from 'react';
+
+const Favicon = () => {
   return (
     <>
       <link
         rel="apple-touch-icon"
         sizes="152x152"
-        href="/apple-touch-icon.png"
+        href="/favicon/apple-touch-icon.png"
       />
       <link
         rel="icon"

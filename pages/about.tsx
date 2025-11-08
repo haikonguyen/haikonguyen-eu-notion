@@ -17,7 +17,7 @@ import { NextSeo } from 'next-seo';
 
 const AboutPage = ({ blocks, pageProps }: AboutPageProps) => {
   const domainName = window.location.host;
-  const { cover } = pageProps;
+  const { cover } = pageProps || '';
 
   return (
     <>
@@ -31,7 +31,7 @@ const AboutPage = ({ blocks, pageProps }: AboutPageProps) => {
           description: 'About | Haiko Nguyen',
           images: [
             {
-              url: `${cover.external.url}`,
+              url: `${cover?.external.url}`,
               width: 800,
               height: 600,
               alt: 'AboutPage image',
@@ -70,7 +70,7 @@ export const getStaticProps = async () => {
   const nestedChildBlock = await getNestedChildBlock(results);
 
   const blocksWithChildren = results.map((block) =>
-    createBlockWithChildren(block, nestedChildBlock)
+    createBlockWithChildren(block, nestedChildBlock),
   );
   return {
     props: {

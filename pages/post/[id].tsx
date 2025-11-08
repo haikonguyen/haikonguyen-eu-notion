@@ -122,7 +122,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsType) => {
   const nestedChildBlock = await getNestedChildBlock(results);
 
   const blocksWithChildren = results.map((block) =>
-    createBlockWithChildren(block, nestedChildBlock)
+    createBlockWithChildren(block, nestedChildBlock),
   );
 
   return {

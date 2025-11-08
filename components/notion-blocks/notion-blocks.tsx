@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { renderBlock } from '@utils/notion';
 import { NotionBlocksProps } from 'notion';
 
 const NotionBlocks = ({ blocks }: NotionBlocksProps) => {
   return (
     <>
-      {blocks.map((block) => (
+      {blocks?.map((block) => (
         <Fragment key={block.id}>{renderBlock(block)}</Fragment>
       ))}
     </>

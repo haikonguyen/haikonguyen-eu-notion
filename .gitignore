@@ -35,3 +35,10 @@ yarn-error.log*
 
 # tina generated files
 /tina/__generated__
+
+
+# environments
+./.env
+
+# jules
+/jules-scratch
