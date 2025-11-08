@@ -8,16 +8,14 @@ import { SEO } from '@utils/seo';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
-      <ThemeProvider theme={useCustomTheme()}>
-        <ClientOnly>
-          <Layout>
-            <DefaultSeo {...SEO} />
-            <Component {...pageProps} />
-          </Layout>
-        </ClientOnly>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={useCustomTheme()}>
+      <ClientOnly>
+        <Layout>
+          <DefaultSeo {...SEO} />
+          <Component {...pageProps} />
+        </Layout>
+      </ClientOnly>
+    </ThemeProvider>
   );
 };
 

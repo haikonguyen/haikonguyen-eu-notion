@@ -6,7 +6,7 @@ import {
   getNestedChildBlock,
   createBlockWithChildren,
 } from '@utils/notion';
-import { PostTemplateProps } from 'notion';
+import { BlockWithChildrenType, PostTemplateProps } from 'notion';
 import Image from 'next/image';
 import { getCoverSource } from '../../components/post-card/utils';
 import { GlassWrapper, NotionBlocks, TagList } from '@components';
@@ -119,10 +119,14 @@ export const getStaticProps = async ({ params }: GetStaticPropsType) => {
   const page = await getPage(id);
   const { results } = await getBlocks(id);
 
-  const nestedChildBlock = await getNestedChildBlock(results);
+  const fullBlocks = results.filter((block) => 'type' in block);
 
-  const blocksWithChildren = results.map((block) =>
-    createBlockWithChildren(block, nestedChildBlock),
+  const nestedChildBlock = await getNestedChildBlock(
+    fullBlocks as BlockWithChildrenType[],
+  );
+
+  const blocksWithChildren = fullBlocks.map((block) =>
+    createBlockWithChildren(block as BlockWithChildrenType, nestedChildBlock),
   );
 
   return {

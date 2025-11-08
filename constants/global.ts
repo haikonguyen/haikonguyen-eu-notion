@@ -73,5 +73,5 @@ export const imgPlaceholder =
 export const setSystemPaletteMode = (
   isSystemDark: boolean,
   setDarkPaletteMode: () => void,
-  setLightPaletteMode: () => void
+  setLightPaletteMode: () => void,
 ) => (isSystemDark ? setDarkPaletteMode() : setLightPaletteMode());

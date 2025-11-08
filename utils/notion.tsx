@@ -88,7 +88,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
           {richTextValue.children.results?.map(
             (block: BlockWithChildrenType) => (
               <Fragment key={block.id}>{renderBlock(block)}</Fragment>
-            )
+            ),
           )}
         </details>
       );
@@ -125,29 +125,29 @@ export const renderBlock = (block: BlockWithChildrenType) => {
 // Retrieve block children for nested blocks (one level deep), for example toggle blocks
 // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
 export const getNestedChildBlock = async (
-  blocks: any
+  blocks: BlockWithChildrenType[],
 ): Promise<NestedChildBlock[]> =>
   await Promise.all(
     blocks
       .filter((block: BlockWithChildrenType) => block.has_children)
-      .map(async (block: NestedChildBlock) => {
+        .map(async (block: BlockWithChildrenType) => {
         return {
           id: block.id,
           children: await getBlocks(block.id),
         };
-      })
+      }),
   );
 
 export const createBlockWithChildren = (
-  block: any,
-  nestedChildBlocks: NestedChildBlock[]
+  block: BlockWithChildrenType,
+  nestedChildBlocks: NestedChildBlock[],
 ) => {
   /* Create new object structure => append nestedChildBlock if needed, for example for toggles
    based on the has_children prop.
  */
   if (block?.has_children && !block[block.type].children) {
     block[block.type]['children'] = nestedChildBlocks.find(
-      (child) => child.id === block.id
+      (child) => child.id === block.id,
     )?.children;
   }
   return block;
