@@ -17,12 +17,13 @@ export interface BlockWithoutChildrenType {
   has_children: boolean;
   archived: boolean;
   type: string;
-  url: string;
+  url?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
 export interface BlockWithChildrenType extends BlockWithoutChildrenType {
-  children?: any;
+  children?: BlockWithChildrenType[];
 }
 
 export interface BlogPostType {
@@ -113,13 +114,13 @@ export interface NameType {
       };
       plain_text: string;
       href?: string;
-    }
+    },
   ];
 }
 
 export interface NestedChildBlock {
   id: string;
-  children: ListBlockChildrenResponse[];
+  children: ListBlockChildrenResponse;
 }
 
 export interface NotionBlocksProps {

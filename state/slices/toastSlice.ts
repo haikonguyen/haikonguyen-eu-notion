@@ -21,7 +21,7 @@ export const createToastSlice: StateCreator<
           toastMessage,
         },
       },
-      false
+      false,
     );
   },
 });

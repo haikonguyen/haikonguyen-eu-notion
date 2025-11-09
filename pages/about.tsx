@@ -13,6 +13,7 @@ import {
   getPage,
 } from '@utils/notion';
 import { AboutPageProps } from 'global-types';
+import { BlockWithChildrenType } from 'notion';
 import { NextSeo } from 'next-seo';
 
 const AboutPage = ({ blocks, pageProps }: AboutPageProps) => {
@@ -67,10 +68,14 @@ export const getStaticProps = async () => {
   // Retrieve block children for nested blocks (one level deep), for example toggle blocks
   // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
 
-  const nestedChildBlock = await getNestedChildBlock(results);
+  const fullBlocks = results.filter((block) => 'type' in block);
 
-  const blocksWithChildren = results.map((block) =>
-    createBlockWithChildren(block, nestedChildBlock),
+  const nestedChildBlock = await getNestedChildBlock(
+    fullBlocks as BlockWithChildrenType[],
+  );
+
+  const blocksWithChildren = fullBlocks.map((block) =>
+    createBlockWithChildren(block as BlockWithChildrenType, nestedChildBlock),
   );
   return {
     props: {

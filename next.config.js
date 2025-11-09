@@ -1,12 +1,30 @@
 module.exports = {
   images: {
-    domains: [
-      'images.unsplash.com',
-      'www.notion.so',
-      'lh3.googleusercontent.com',
-      's3.us-west-2.amazonaws.com',
-      'socialistmodernism.com',
-      'prod-files-secure.s3.us-west-2.amazonaws.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.notion.so',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.us-west-2.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'socialistmodernism.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
+      },
     ],
   },
 };

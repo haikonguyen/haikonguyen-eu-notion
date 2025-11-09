@@ -30,6 +30,6 @@ declare module '@mui/material/styles' {
     palette: PaletteOptions;
   }
   // override default createTheme function with custom theme configuration
-  // eslint-disable-next-line no-unused-vars
+
   export function createTheme(options?: CustomThemeOptions): CustomTheme;
 }

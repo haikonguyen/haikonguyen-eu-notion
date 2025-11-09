@@ -24,7 +24,7 @@ export interface ToastSliceProps {
   setToastSettings: (
     isToastOpened: boolean,
     toastType?: AlertColor,
-    toastMessage?: string
+    toastMessage?: string,
   ) => void;
 }
 

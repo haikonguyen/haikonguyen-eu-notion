@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -21,15 +21,33 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@components": ["components"],
-      "@images/*": ["public/assets/images/*"],
-      "@lib/*": ["lib/*"],
-      "@services/*": ["services/*"],
-      "@state/*": ["state/*"],
-      "@styles/*": ["styles/*"],
-      "@themes/*": ["themes/*"],
-      "@utils/*": ["utils/*"],
-      "*": ["types/*"]
+      "@components": [
+        "components"
+      ],
+      "@images/*": [
+        "public/assets/images/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@state/*": [
+        "state/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@themes/*": [
+        "themes/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "*": [
+        "types/*"
+      ]
     },
     "noImplicitAny": true,
     "noImplicitThis": true,
