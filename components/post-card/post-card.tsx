@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { getCoverSource } from './utils';
 import AvatarImage from './avatar-image';
+import { getImageSource } from '@utils/image-cache-client';
 import { PostCardProps } from './types';
 import { TagList } from '@components';
 import { EuDateFormat, truncateText } from '@utils/text-formatting';
@@ -30,12 +31,11 @@ export default function PostCard({ id, cover, properties }: PostCardProps) {
       />
       <div className="relative h-48">
         <Image
-          src={getCoverSource(cover)}
+          src={getImageSource(getCoverSource(cover))}
           alt="Id Cover"
-          objectFit="cover"
-          layout="fill"
-          placeholder="blur"
-          blurDataURL={getCoverSource(cover)}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: 'cover' }}
         />
       </div>
       <CardContent>

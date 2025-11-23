@@ -9,6 +9,11 @@ import {
 import { BlockWithChildrenType, PostTemplateProps } from 'notion';
 import Image from 'next/image';
 import { getCoverSource } from '../../components/post-card/utils';
+import { getImageSource } from '@utils/image-cache-client';
+import {
+  replaceNotionImages,
+  replaceNotionImagesInBlocks,
+} from '@utils/replace-notion-images';
 import { GlassWrapper, NotionBlocks, TagList } from '@components';
 import { GetStaticPropsType } from 'global-types';
 import PageContentWrapper from '../../components/page-content-wrapper/page-content-wrapper';
@@ -67,11 +72,10 @@ export default function PostTemplate({ page, blocks }: PostTemplateProps) {
 
       <div className="relative flex flex-wrap items-center justify-center h-72 md:h-96 py-24 px-4 mb-5 text-center">
         <Image
-          src={getCoverSource(page.cover)}
+          src={getImageSource(getCoverSource(page.cover))}
           alt="Post cover image"
           fill
-          placeholder="blur"
-          blurDataURL={getCoverSource(page.cover)}
+          sizes="100vw"
         />
 
         <GlassWrapper>
@@ -129,10 +133,15 @@ export const getStaticProps = async ({ params }: GetStaticPropsType) => {
     createBlockWithChildren(block as BlockWithChildrenType, nestedChildBlock),
   );
 
+  // Replace Notion image URLs with cached local versions
+  const pageWithCachedImages = replaceNotionImages(page);
+  const blocksWithCachedImages =
+    replaceNotionImagesInBlocks(blocksWithChildren);
+
   return {
     props: {
-      page,
-      blocks: blocksWithChildren,
+      page: pageWithCachedImages,
+      blocks: blocksWithCachedImages,
     },
     revalidate: 1,
   };

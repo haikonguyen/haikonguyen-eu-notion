@@ -7,10 +7,9 @@ const AvatarImage = ({ avatarUrl }: AvatarImageProps) =>
     <Image
       src={avatarUrl}
       alt="Avatar"
-      objectFit="cover"
-      layout="fill"
-      placeholder="blur"
-      blurDataURL={avatarUrl}
+      fill
+      sizes="40px"
+      style={{ objectFit: 'cover' }}
       referrerPolicy="no-referrer"
     />
   ) : (

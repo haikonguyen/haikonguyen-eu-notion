@@ -5,6 +5,7 @@ import blogPageBg from '@images/blogPageBgOptimized.jpg';
 import { TextField } from '@mui/material';
 import { getDatabase } from '@utils/notion';
 import { BlogPostListType } from 'notion';
+import { replaceNotionImagesInList } from '@utils/replace-notion-images';
 
 const Blog = ({ blogPostList }: BlogPostListType) => {
   const [searchField, setSearchField] = useState('');
@@ -49,9 +50,12 @@ const Blog = ({ blogPostList }: BlogPostListType) => {
 export async function getStaticProps() {
   const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
 
+  // Replace Notion image URLs with cached local versions
+  const blogPostList = replaceNotionImagesInList(results);
+
   return {
     props: {
-      blogPostList: results,
+      blogPostList,
     },
     revalidate: 1,
   };
