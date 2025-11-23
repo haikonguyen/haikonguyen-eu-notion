@@ -42,3 +42,12 @@ yarn-error.log*
 
 # jules
 /jules-scratch
+
+# cached notion images (downloaded at build time)
+/public/cached-images/*.jpg
+/public/cached-images/*.jpeg
+/public/cached-images/*.png
+/public/cached-images/*.gif
+/public/cached-images/*.webp
+# but keep the image map
+!/public/cached-images/image-map.json

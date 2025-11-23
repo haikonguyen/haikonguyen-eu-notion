@@ -15,6 +15,7 @@ const Hero = ({ isHomePage, children, imageSource }: HeroProps) => {
         alt="Hero image"
         placeholder="blur"
         fill
+        sizes="100vw"
       />
       {children}
     </div>

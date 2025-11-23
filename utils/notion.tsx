@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { BlockWithChildrenType, NestedChildBlock } from 'notion';
 import Image from 'next/image';
 import { ContentBlockTypes } from '../enums';
+import { getImageSource } from './image-cache-client';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -94,14 +95,13 @@ export const renderBlock = (block: BlockWithChildrenType) => {
       );
     case ContentBlockTypes.ChildPage:
       return <p>{richTextValue.title}</p>;
-    case ContentBlockTypes.Image:
+    case ContentBlockTypes.Image: {
+      const cachedImageSrc = getImageSource(imageSrc);
       return (
         <figure>
           <Image
-            src={imageSrc}
-            alt={caption}
-            placeholder="blur"
-            blurDataURL={imageSrc}
+            src={cachedImageSrc}
+            alt={caption || 'Post image'}
             width={1200}
             height={800}
             className="rounded-lg"
@@ -109,6 +109,7 @@ export const renderBlock = (block: BlockWithChildrenType) => {
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );
+    }
     case ContentBlockTypes.Divider:
       return <hr key={id} />;
     case ContentBlockTypes.Quote:
@@ -130,7 +131,7 @@ export const getNestedChildBlock = async (
   await Promise.all(
     blocks
       .filter((block: BlockWithChildrenType) => block.has_children)
-        .map(async (block: BlockWithChildrenType) => {
+      .map(async (block: BlockWithChildrenType) => {
         return {
           id: block.id,
           children: await getBlocks(block.id),

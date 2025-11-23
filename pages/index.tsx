@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { getDatabase } from '@utils/notion';
 import { BlogPostListType } from 'notion';
+import { replaceNotionImagesInList } from '@utils/replace-notion-images';
 import { Hero, PageContentWrapper, PostList, GlassWrapper } from '@components';
 import { siteConfig } from '../constants';
 import heroProfileImg from '@images/heroProfileImg.png';
@@ -27,10 +28,10 @@ const Index = ({ blogPostList }: BlogPostListType) => {
             <Image
               src={heroProfileImg}
               width={150}
-              height={150}
               alt="Hero image"
               placeholder="blur"
               className="rounded-full"
+              style={{ height: 'auto' }}
             />
           </section>
           <section>
@@ -92,9 +93,12 @@ const Index = ({ blogPostList }: BlogPostListType) => {
 export async function getStaticProps() {
   const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
 
+  // Replace Notion image URLs with cached local versions
+  const blogPostList = replaceNotionImagesInList(results.slice(0, 3));
+
   return {
     props: {
-      blogPostList: results.slice(0, 3),
+      blogPostList,
     },
     revalidate: 1,
   };
