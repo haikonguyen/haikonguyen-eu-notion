@@ -15,48 +15,58 @@
     ],
     "allowJs": true,
     "noEmit": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
     "baseUrl": ".",
     "paths": {
       "@components": [
-        "components"
+        "src/components"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@config": [
+        "src/config"
+      ],
+      "@config/*": [
+        "src/config/*"
       ],
       "@images/*": [
         "public/assets/images/*"
       ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@services/*": [
-        "services/*"
-      ],
-      "@state/*": [
-        "state/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
       "@themes/*": [
-        "themes/*"
+        "src/themes/*"
       ],
-      "@utils/*": [
-        "utils/*"
+      "@enums/*": [
+        "src/enums/*"
       ],
       "*": [
-        "types/*"
+        "src/types/*"
       ]
     },
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

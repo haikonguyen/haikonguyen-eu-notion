@@ -1,0 +1,66 @@
+'use client';
+
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import { blue } from '@mui/material/colors';
+import { Image } from '@imagekit/next';
+import Button from '@mui/material/Button';
+import { useRouter } from 'next/navigation';
+import { getCoverSource } from './utils';
+import AvatarImage from './avatar-image';
+import { PostCardProps } from './types';
+import { TagList } from '../tag-list';
+import { EuDateFormat } from '@lib/notion';
+import { truncateText } from '@lib/notion/text-formatting';
+
+export default function PostCard({
+  id,
+  cover,
+  properties,
+  slug,
+}: PostCardProps) {
+  const router = useRouter();
+  const postUrl = slug || id;
+
+  return (
+    <Card className="rounded-lg" elevation={3}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
+            <AvatarImage avatarUrl={properties.author.created_by.avatar_url} />
+          </Avatar>
+        }
+        title={properties.post_name.title[0]?.plain_text}
+        subheader={EuDateFormat(properties.published_date.date?.start)}
+      />
+      <div className="relative h-48">
+        <Image
+          src={getCoverSource(cover) || '/placeholder.jpg'}
+          alt="Post cover"
+          fill
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
+      <CardContent>
+        <Typography
+          sx={{ minHeight: '120px' }}
+          variant="body2"
+          color="text.secondary"
+          component="p"
+        >
+          {truncateText(properties.excerpt.rich_text[0]?.plain_text, 160)}
+        </Typography>
+      </CardContent>
+      <CardActions className="flex justify-between" disableSpacing>
+        <TagList tags={properties.tags.multi_select} />
+        <Button onClick={() => router.push(`post/${postUrl}`)} size="small">
+          Read more
+        </Button>
+      </CardActions>
+    </Card>
+  );
+}

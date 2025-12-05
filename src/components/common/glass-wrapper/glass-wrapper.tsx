@@ -1,0 +1,13 @@
+import React from 'react';
+
+interface GlassWrapperProps {
+  children: React.ReactNode;
+}
+
+export const GlassWrapper = ({ children }: GlassWrapperProps) => {
+  return (
+    <div className="rounded-md z-10 flex items-center flex-col p-5 backdrop-blur-sm bg-white/30 border-gray-200">
+      {children}
+    </div>
+  );
+};
