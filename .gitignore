@@ -25,6 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -36,9 +37,10 @@ yarn-error.log*
 # tina generated files
 /tina/__generated__
 
-
-# environments
-./.env
-
 # jules
 /jules-scratch
+
+
+# imagekit
+NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=public_D3VwY4Tp3cLG6OPGe2G4Bj6TSyU=
+IMAGEKIT_PRIVATE_KEY=private_SZ9QK3wj6Mw5wGYZGYphXewTEvM=

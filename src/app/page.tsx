@@ -1,0 +1,84 @@
+import { Divider } from '@mui/material';
+import Image from 'next/image';
+import aboutProfileImg from '@images/aboutProfileImg.png';
+import heroProfileImg from '@images/heroProfileImg.png';
+import heroBg from '@images/heroBg.jpg';
+import { GlassWrapper, Hero, PageContentWrapper } from '@components';
+import { PostList } from '@features/blog';
+import { getDatabase } from '@lib/notion';
+import { BlogPostType } from 'notion';
+import { ContactOrStoryButton } from './ContactOrStoryButton';
+
+export const revalidate = 1; // Revalidate every 1 second (same as before)
+
+async function getLatestPosts(): Promise<BlogPostType[]> {
+  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+  return results.slice(0, 3) as BlogPostType[];
+}
+
+export default async function HomePage() {
+  const blogPostList = await getLatestPosts();
+
+  return (
+    <>
+      <Hero isHomePage imageSource={heroBg}>
+        <GlassWrapper>
+          <section>
+            <Image
+              src={heroProfileImg}
+              width={150}
+              height={150}
+              alt="Hero image"
+              placeholder="blur"
+              className="rounded-full"
+            />
+          </section>
+          <section>
+            <h1>Haiko Nguyen</h1>
+            <p>DEVELOPER, PHOTOGRAPHER, VLOGGER</p>
+          </section>
+          <ContactOrStoryButton />
+        </GlassWrapper>
+      </Hero>
+      <PageContentWrapper isPost={false}>
+        {/* About Section */}
+        <section>
+          <h1 className="uppercase text-center">About</h1>
+          <hr className="border-blue-500 max-w-[15%] mx-auto" />
+          <div className="flex flex-wrap flex-col md:flex-row">
+            <div className="sm:basis-6/12 md:basis-4/12 md:mr-6">
+              <Image
+                src={aboutProfileImg}
+                alt="Hero image"
+                placeholder="blur"
+                className="rounded-2xl"
+              />
+            </div>
+            <div className="sm:basis-6/12 md:basis-7/12">
+              <p className="pt-0">
+                Hello dear friend! Welcome to my personal blog. On this site you
+                you can find my latest post primarily about things that are
+                dearest to my heart. The main topics are usually tech related,
+                such as DEVELOPMENT (mostly Web, because I am a web-developer),
+                PHOTOGRAPHY, TRAVEL, VLOGS, GAMING and my personal stories. As I
+                am self-taught developer and photographer, I would like to share
+                throughout my writings my personal experience, and maybe inspire
+                more people to learn in our SUPER FAST PACE WORLD :-). If you
+                want to find out more about my story, be sure to click on the
+                button below.
+              </p>
+              <ContactOrStoryButton showReadStory />
+            </div>
+          </div>
+        </section>
+        <Divider />
+        {/* Blog Section */}
+        <section>
+          <h1 className="uppercase text-center">Latest Posts</h1>
+          <hr className="border-blue-500 max-w-[15%] mx-auto" />
+          <PostList blogPostList={blogPostList} />
+        </section>
+      </PageContentWrapper>
+    </>
+  );
+}
