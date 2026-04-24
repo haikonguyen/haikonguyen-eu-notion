@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 import { PostList } from '@features/blog';
-import { BlogPostType } from 'notion';
+import { BlogPostType } from '@app-types/notion';
 
 interface BlogSearchProps {
   blogPostList: BlogPostType[];
@@ -16,11 +16,11 @@ export function BlogSearch({ blogPostList }: BlogSearchProps) {
     setSearchField(event.target.value);
   };
 
-  const filteredPosts = blogPostList?.filter((post) =>
-    post.properties.post_name.title[0]?.plain_text
-      .toLowerCase()
-      .includes(searchField.toLowerCase()),
-  );
+  const filteredPosts = blogPostList?.filter((post) => {
+    const title =
+      post.properties.post_name?.title?.[0]?.plain_text?.trim() ?? '';
+    return title.toLowerCase().includes(searchField.toLowerCase());
+  });
 
   return (
     <>

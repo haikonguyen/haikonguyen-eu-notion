@@ -1,20 +1,26 @@
 'use client';
 
 import { ImageKitProvider } from '@imagekit/next';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 
-const IMAGEKIT_URL_ENDPOINT =
-  process.env.NEXT_PUBLIC_IMAGEKIT_URL || 'https://ik.imagekit.io/8qy7obkhf';
+function requireImageKitUrlEndpoint(): string {
+  const url = process.env.NEXT_PUBLIC_IMAGEKIT_URL?.trim();
+  if (!url) {
+    throw new Error(
+      'Missing NEXT_PUBLIC_IMAGEKIT_URL: set it in .env.local to your ImageKit URL endpoint.',
+    );
+  }
+  return url;
+}
 
 interface ImageKitWrapperProps {
   children: ReactNode;
 }
 
 export const ImageKitWrapper = ({ children }: ImageKitWrapperProps) => {
+  const urlEndpoint = useMemo(() => requireImageKitUrlEndpoint(), []);
   return (
-    <ImageKitProvider urlEndpoint={IMAGEKIT_URL_ENDPOINT}>
-      {children}
-    </ImageKitProvider>
+    <ImageKitProvider urlEndpoint={urlEndpoint}>{children}</ImageKitProvider>
   );
 };
 

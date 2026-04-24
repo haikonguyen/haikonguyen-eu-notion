@@ -57,7 +57,7 @@ export default function PostCard({
       </CardContent>
       <CardActions className="flex justify-between" disableSpacing>
         <TagList tags={properties.tags.multi_select} />
-        <Button onClick={() => router.push(`post/${postUrl}`)} size="small">
+        <Button onClick={() => router.push(`/post/${postUrl}`)} size="small">
           Read more
         </Button>
       </CardActions>

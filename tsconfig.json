@@ -48,7 +48,7 @@
       "@enums/*": [
         "src/enums/*"
       ],
-      "*": [
+      "@app-types/*": [
         "src/types/*"
       ]
     },

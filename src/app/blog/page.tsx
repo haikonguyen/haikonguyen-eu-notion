@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { GlassWrapper, Hero, PageContentWrapper } from '@components';
 import blogPageBg from '@images/blogPageBgOptimized.jpg';
-import { getDatabase } from '@lib/notion';
-import { BlogPostType } from 'notion';
+import { getDatabase, requireDatabaseId } from '@lib/notion';
+import { BlogPostType } from '@app-types/notion';
 import { BlogSearch } from './BlogSearch';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export const revalidate = 1;
 
 async function getAllPosts(): Promise<BlogPostType[]> {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+  const { results } = await getDatabase(requireDatabaseId());
   return results as BlogPostType[];
 }
 

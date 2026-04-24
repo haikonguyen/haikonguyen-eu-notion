@@ -16,4 +16,3 @@ const AvatarImage = ({ avatarUrl }: AvatarImageProps) =>
   );
 
 export default AvatarImage;
-

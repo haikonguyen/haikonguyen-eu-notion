@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { cache } from 'react';
 import { Image } from '@imagekit/next';
 import { getCoverSource, NotionBlocks, TagList } from '@features/blog';
 import { GlassWrapper, PageContentWrapper } from '@components';
@@ -10,19 +11,27 @@ import {
   getDatabase,
   getNestedChildBlock,
   getPage,
+  requireDatabaseId,
 } from '@lib/notion';
 import { notFound } from 'next/navigation';
-import { BlogPage } from 'notion';
+import { BlogPage } from '@app-types/notion';
 
 export const revalidate = 1;
 
+/** One Notion DB query per request (shared by generateMetadata + getPostData + static params). */
+const getBlogDatabaseCached = cache(async () => {
+  const databaseId = requireDatabaseId();
+  return getDatabase(databaseId);
+});
+
 const getPageSlug = (page: BlogPage): string => {
-  const slugProperty = page.properties?.slug?.rich_text?.[0]?.plain_text;
-  return slugProperty || page.id;
+  const slugProperty =
+    page.properties?.slug?.rich_text?.[0]?.plain_text?.trim();
+  return slugProperty && slugProperty.length > 0 ? slugProperty : page.id;
 };
 
 export async function generateStaticParams() {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+  const { results } = await getBlogDatabaseCached();
 
   return results.map((page) => ({
     slug: getPageSlug(page as BlogPage),
@@ -35,7 +44,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+  const { results } = await getBlogDatabaseCached();
 
   const matchingPage = results.find((page) => {
     const pageSlug = getPageSlug(page as BlogPage);
@@ -49,7 +58,11 @@ export async function generateMetadata({
   // Cast to BlogPage for proper type safety on properties
   const page = (await getPage(matchingPage.id)) as BlogPage;
 
-  const title = page.properties.post_name.title[0]?.plain_text || 'Post';
+  const title =
+    page.properties.post_name.title?.length &&
+    page.properties.post_name.title[0]?.plain_text
+      ? page.properties.post_name.title[0].plain_text
+      : 'Post';
   const description =
     page.properties.excerpt.rich_text[0]?.plain_text ||
     "Read this article on Haiko Nguyen's blog";
@@ -93,7 +106,7 @@ export async function generateMetadata({
 }
 
 async function getPostData(slug: string) {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+  const { results } = await getBlogDatabaseCached();
 
   const matchingPage = results.find((page) => {
     const pageSlug = getPageSlug(page as BlogPage);
@@ -130,6 +143,11 @@ export default async function PostPage({
 
   const { page, blocks } = data;
   const coverSrc = getCoverSource(page.cover);
+  const postTitle =
+    page.properties.post_name.title?.length &&
+    page.properties.post_name.title[0]?.plain_text
+      ? page.properties.post_name.title[0].plain_text
+      : 'Untitled';
 
   return (
     <>
@@ -142,9 +160,7 @@ export default async function PostPage({
         />
 
         <GlassWrapper>
-          <h1 className="z-10 uppercase">
-            {page.properties.post_name.title[0].plain_text}
-          </h1>
+          <h1 className="z-10 uppercase">{postTitle}</h1>
           <div className="items-center flex">
             <span className="mr-1">
               {page.properties.author.created_by.name}

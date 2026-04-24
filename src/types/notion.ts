@@ -91,20 +91,18 @@ export interface AnnotationsType {
 }
 
 // =============================================================================
-// Cover Types
+// Cover Types (discriminated union — matches Notion page cover object)
 // =============================================================================
 
-export interface CoverType {
-  type: 'file' | 'external';
-}
-
-export interface ExternalCoverType extends CoverType {
+export interface ExternalCoverType {
+  type: 'external';
   external: {
     url: string;
   };
 }
 
-export interface FileCoverType extends CoverType {
+export interface FileCoverType {
+  type: 'file';
   file: {
     url: string;
     expiry_time: string;
@@ -233,7 +231,7 @@ export interface BlogPostType {
   id: string;
   created_time: string;
   last_edited_time: string;
-  cover: ExternalCoverType & FileCoverType;
+  cover: ExternalCoverType | FileCoverType | null;
   icon?: IconType;
   parent: ParentType;
   archived: boolean;

@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NotionText } from '@features/blog';
 import { Fragment } from 'react';
-import { NestedChildBlock, NotionBlock } from 'notion';
+import { NestedChildBlock, NotionBlock } from '@app-types/notion';
 import { Image } from '@imagekit/next';
 import { ContentBlockTypes } from '@enums/contentBlockTypes';
 import type {
@@ -18,9 +18,26 @@ const notion = new Client({
 export const getDatabase = async (
   databaseId: string,
 ): Promise<QueryDatabaseResponse> => {
-  return notion.databases.query({
-    database_id: databaseId,
-  });
+  const allResults: QueryDatabaseResponse['results'] = [];
+  let start_cursor: string | undefined;
+  let has_more = true;
+
+  while (has_more) {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+      ...(start_cursor ? { start_cursor } : {}),
+    });
+    allResults.push(...response.results);
+    has_more = response.has_more;
+    start_cursor = response.next_cursor ?? undefined;
+  }
+
+  return {
+    object: 'list',
+    results: allResults,
+    has_more: false,
+    next_cursor: null,
+  } as QueryDatabaseResponse;
 };
 
 export const getPage = async (pageId: string): Promise<GetPageResponse> => {
@@ -30,9 +47,35 @@ export const getPage = async (pageId: string): Promise<GetPageResponse> => {
 export const getBlocks = async (
   blockId: string,
 ): Promise<ListBlockChildrenResponse> => {
-  return notion.blocks.children.list({
-    block_id: blockId,
-  });
+  const allResults: ListBlockChildrenResponse['results'] = [];
+  let start_cursor: string | undefined;
+  let has_more = true;
+  let last: ListBlockChildrenResponse | undefined;
+
+  while (has_more) {
+    const response = await notion.blocks.children.list({
+      block_id: blockId,
+      ...(start_cursor ? { start_cursor } : {}),
+    });
+    last = response;
+    allResults.push(...response.results);
+    has_more = response.has_more;
+    start_cursor = response.next_cursor ?? undefined;
+  }
+
+  return {
+    ...(last ?? {
+      object: 'list',
+      type: 'block',
+      block: {},
+      results: [],
+      has_more: false,
+      next_cursor: null,
+    }),
+    results: allResults,
+    has_more: false,
+    next_cursor: null,
+  } as ListBlockChildrenResponse;
 };
 
 const isImageBlock = (
@@ -118,17 +161,25 @@ export const renderBlock = (block: NotionBlock) => {
           </label>
         </div>
       );
-    case ContentBlockTypes.Toggle:
+    case ContentBlockTypes.Toggle: {
+      const toggleBlock = block[type] as {
+        children?: ListBlockChildrenResponse;
+      };
       return (
         <details>
           <summary>
-            <NotionText textContentBlocks={richTextValue?.text} />
+            <NotionText
+              textContentBlocks={richTextValue?.text ?? richTextValue}
+            />
           </summary>
-          {richTextValue.children.results?.map((block: NotionBlock) => (
-            <Fragment key={block.id}>{renderBlock(block)}</Fragment>
+          {(toggleBlock?.children?.results ?? []).map((childBlock) => (
+            <Fragment key={(childBlock as NotionBlock).id}>
+              {renderBlock(childBlock as NotionBlock)}
+            </Fragment>
           ))}
         </details>
       );
+    }
     case ContentBlockTypes.ChildPage:
       return <p>{richTextValue.title}</p>;
     case ContentBlockTypes.Image: {

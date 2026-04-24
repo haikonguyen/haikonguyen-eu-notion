@@ -5,7 +5,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-import { EmailBodyProps } from 'global-types';
+import { EmailBodyProps } from '@app-types/global-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import mailValidationSchema from './validation';
 import Box from '@mui/material/Box';
@@ -49,22 +49,34 @@ const ContactForm = () => {
         body: JSON.stringify(emailContent),
       });
 
-      const data = await response.json();
-      if (data.status === 200) {
-        setLoading(false);
+      const data = (await response.json()) as {
+        status?: number;
+        error?: string;
+        message?: string;
+      };
+
+      if (response.ok && data.status === 200) {
+        setToastSettings(
+          true,
+          ToastType.SUCCESS,
+          'Thank you, your email was sent successfully 🎉.',
+        );
+        reset();
+      } else {
+        setToastSettings(
+          true,
+          ToastType.ERROR,
+          data.error ||
+            'Ouch, there was a service error, please try again later 😔.',
+        );
       }
-      setToastSettings(
-        true,
-        ToastType.SUCCESS,
-        'Thank you, your email was sent successfully 🎉.',
-      );
-      reset();
     } catch {
       setToastSettings(
         true,
         ToastType.ERROR,
         'Ouch, there was a service error, please try again later 😔.',
       );
+    } finally {
       setLoading(false);
     }
   };

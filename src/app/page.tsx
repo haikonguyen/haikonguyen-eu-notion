@@ -5,14 +5,14 @@ import heroProfileImg from '@images/heroProfileImg.png';
 import heroBg from '@images/heroBg.jpg';
 import { GlassWrapper, Hero, PageContentWrapper } from '@components';
 import { PostList } from '@features/blog';
-import { getDatabase } from '@lib/notion';
-import { BlogPostType } from 'notion';
+import { getDatabase, requireDatabaseId } from '@lib/notion';
+import { BlogPostType } from '@app-types/notion';
 import { ContactOrStoryButton } from './ContactOrStoryButton';
 
 export const revalidate = 1; // Revalidate every 1 second (same as before)
 
 async function getLatestPosts(): Promise<BlogPostType[]> {
-  const { results } = await getDatabase(`${process.env.DATABASE_ID}`);
+  const { results } = await getDatabase(requireDatabaseId());
   return results.slice(0, 3) as BlogPostType[];
 }
 

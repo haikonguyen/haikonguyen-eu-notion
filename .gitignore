@@ -41,6 +41,4 @@ yarn-error.log*
 /jules-scratch
 
 
-# imagekit
-NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=public_D3VwY4Tp3cLG6OPGe2G4Bj6TSyU=
-IMAGEKIT_PRIVATE_KEY=private_SZ9QK3wj6Mw5wGYZGYphXewTEvM=
+# ImageKit: set keys in .env / .env.local (never commit real values).
