@@ -9,8 +9,16 @@ import { EmailBodyProps } from 'global-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import mailValidationSchema from './validation';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { useStore } from '@lib/store';
 import { ToastType } from '@config';
+
+const inputStyles = {
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '12px',
+  },
+};
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -19,17 +27,25 @@ const ContactForm = () => {
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm<EmailBodyProps>({
     resolver: zodResolver(mailValidationSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      mailMessage: '',
+    },
   });
+
   const onSubmit: SubmitHandler<EmailBodyProps> = async (emailContent) => {
     setLoading(true);
 
     try {
       const response = await fetch('/api/sendgrid', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(emailContent),
       });
 
@@ -54,66 +70,92 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap">
-      <Controller
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="w-full mb-4"
-            label={errors.name ? 'Required *' : 'Your name:'}
-            variant="standard"
-            error={!!errors.name}
-            helperText={errors.name?.message}
-          />
-        )}
-        name="name"
-        control={control}
-        defaultValue=""
-      />
-      <Controller
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="w-full mb-8"
-            label={errors.email ? 'Required *' : 'Your email:'}
-            variant="standard"
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
-        )}
-        name="email"
-        control={control}
-        defaultValue=""
-      />
-      <Box
-        sx={{ color: errors.mailMessage ? 'error.main' : 'text.secondary' }}
-        className="w-full"
+    <Box className="w-full max-w-2xl mx-auto my-12">
+      <Paper
+        elevation={0}
+        className="p-8 md:p-12 rounded-3xl border border-gray-200/60 dark:border-neutral-800/60 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)]"
       >
-        {errors.mailMessage ? 'Required *' : 'Your message:'}
-      </Box>
-      <textarea
-        className="w-full mb-4 rounded-sm h-56 border border-b-gray-500 bg-transparent"
-        {...register('mailMessage')}
-      />
-      {errors.mailMessage?.message && (
-        <Box sx={{ color: 'error.main' }} className="w-full">
-          {errors.mailMessage?.message}
-        </Box>
-      )}
-
-      <div className="flex w-full justify-end">
-        <LoadingButton
-          endIcon={<SendIcon />}
-          loading={loading}
-          loadingPosition="end"
-          variant="contained"
-          className="mt-3"
-          type="submit"
+        <Typography
+          variant="h5"
+          component="h2"
+          className="mb-8 font-semibold text-gray-800 dark:text-gray-100"
         >
-          Send
-        </LoadingButton>
-      </div>
-    </form>
+          Send me a message
+        </Typography>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Your Name"
+                variant="outlined"
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                sx={inputStyles}
+              />
+            )}
+          />
+
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Your Email"
+                variant="outlined"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                sx={inputStyles}
+              />
+            )}
+          />
+
+          <Controller
+            name="mailMessage"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Your Message"
+                variant="outlined"
+                multiline
+                minRows={5}
+                error={!!errors.mailMessage}
+                helperText={errors.mailMessage?.message}
+                sx={inputStyles}
+              />
+            )}
+          />
+
+          <Box className="flex w-full justify-end pt-4">
+            <LoadingButton
+              endIcon={<SendIcon />}
+              loading={loading}
+              loadingPosition="end"
+              variant="contained"
+              type="submit"
+              disableElevation
+              sx={{
+                borderRadius: '12px',
+                padding: '12px 32px',
+                textTransform: 'none',
+                fontWeight: 600,
+                fontSize: '1rem',
+              }}
+            >
+              Send Message
+            </LoadingButton>
+          </Box>
+        </form>
+      </Paper>
+    </Box>
   );
 };
 
