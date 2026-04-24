@@ -1,20 +1,19 @@
-import React from 'react';
-import { Chip, Stack } from '@mui/material';
-import { TagListProps } from './types';
+import { Badge } from "@/components/ui/badge";
+import { TagListProps } from "./types";
 
 const TagList = ({ tags }: TagListProps) => {
   return (
-    <Stack direction="row" spacing={1}>
+    <div className="flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <Chip
+        <Badge
           key={tag.id}
-          label={tag.name}
-          color="primary"
-          variant="outlined"
-          size="small"
-        />
+          variant="secondary"
+          className="text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+        >
+          {tag.name}
+        </Badge>
       ))}
-    </Stack>
+    </div>
   );
 };
 
