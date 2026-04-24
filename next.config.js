@@ -4,6 +4,7 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'ik.imagekit.io',
+        pathname: '/8qy7obkhf/**',
       },
       {
         protocol: 'https',

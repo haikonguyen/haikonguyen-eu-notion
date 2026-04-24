@@ -1,11 +1,11 @@
 'use client';
 
-import { BlogPostListType, PropertiesType } from 'notion';
+import { BlogPostListType, PropertiesType } from '@app-types/notion';
 import { PostCard } from '../post-card';
 
 const getPostSlug = (id: string, properties: PropertiesType): string => {
-  const slugValue = properties?.slug?.rich_text?.[0]?.plain_text;
-  return slugValue || id;
+  const slugValue = properties?.slug?.rich_text?.[0]?.plain_text?.trim();
+  return slugValue && slugValue.length > 0 ? slugValue : id;
 };
 
 const PostList = ({ blogPostList }: BlogPostListType) => {

@@ -5,7 +5,6 @@ import {
   createBlockWithChildren,
   getBlocks,
   getNestedChildBlock,
-  getPage,
 } from '@lib/notion';
 import aboutPageBg from '@images/aboutPageBg.jpg';
 
@@ -16,8 +15,11 @@ export const metadata: Metadata = {
 export const revalidate = 1;
 
 const getAboutContent = async () => {
-  const pageId = process.env.ABOUT_PAGE_ID!;
-  const page = await getPage(pageId);
+  const pageId = process.env.ABOUT_PAGE_ID?.trim();
+  if (!pageId) {
+    throw new Error('Missing ABOUT_PAGE_ID env var');
+  }
+
   const { results } = await getBlocks(pageId);
 
   const fullBlocks = results.filter((block) => 'type' in block);
@@ -26,7 +28,7 @@ const getAboutContent = async () => {
     createBlockWithChildren(block, nestedChildBlock),
   );
 
-  return { page, blocks: blocksWithChildren };
+  return { blocks: blocksWithChildren };
 };
 
 export default async function AboutPage() {

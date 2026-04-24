@@ -10,6 +10,5 @@ export const listItemClickHandler: ListItemClickHandlerType = (
   setIsDrawerOpened,
 ) => {
   setIsDrawerOpened();
-  router.push(link.toLocaleLowerCase());
+  router.push(link);
 };
-
