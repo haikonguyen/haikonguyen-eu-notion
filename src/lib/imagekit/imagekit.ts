@@ -8,6 +8,7 @@
  * @see https://docs.imagekit.io/features/image-transformations
  */
 
+/** Public base URL; falls back so CI/prerender works when env is unset at build time. */
 export const IMAGEKIT_BASE_URL =
   process.env.NEXT_PUBLIC_IMAGEKIT_URL || 'https://ik.imagekit.io/8qy7obkhf';
 
