@@ -1,0 +1,13 @@
+---
+description: next-intl usage for every user-facing string
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# i18n
+
+- Server: `const t = await getTranslations("Namespace");`
+- Client: `const t = useTranslations("Namespace");`
+- Add keys to `messages/en.json`, then `messages/cs.json` and `messages/vi.json`.
+- Zod messages must use `t()`, not English literals.
+- `aria-label`, placeholders, button labels, empty states, and metadata titles are all translated.

@@ -1,5 +1,5 @@
-import { NotionTextProps } from './types';
 import RenderNotionTextContent from './RenderNotionTextContent';
+import { NotionTextProps } from './types';
 
 const NotionText = ({ textContentBlocks }: NotionTextProps) => {
   if (textContentBlocks) {

@@ -4,10 +4,10 @@ const footerYear = d.getFullYear();
 export const siteConfig = {
   author: {
     name: 'Haiko Nguyen',
-    summary: 'Developer, Photographer, Vlogger',
+    summary: 'Senior React Developer, Photographer & Vlogger',
   },
   copyright: `© Haiko Nguyen ${footerYear}`,
-  description: 'A personal blog made by Haiko Nguyen with ❤️',
+  description: 'Personal portfolio and creative space of Haiko Nguyen',
   url: 'https://www.haikonguyen.eu',
   navLinks: [
     {
@@ -22,11 +22,16 @@ export const siteConfig = {
     },
     {
       id: 'navLink_03',
-      label: 'Blog',
-      url: '/blog',
+      label: 'Portfolio',
+      url: '/portfolio',
     },
     {
       id: 'navLink_04',
+      label: 'Vlogs',
+      url: '/vlogs',
+    },
+    {
+      id: 'navLink_05',
       label: 'Contact',
       url: '/contact',
     },
@@ -61,17 +66,11 @@ export const siteConfig = {
 };
 
 export enum ToastType {
-  SUCCESS = 'success',
-  INFO = 'info',
-  WARNING = 'warning',
-  ERROR = 'error',
+  Success = 'success',
+  Info = 'info',
+  Warning = 'warning',
+  Error = 'error',
 }
 
 export const imgPlaceholder =
   'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
-
-export const setSystemPaletteMode = (
-  isSystemDark: boolean,
-  setDarkPaletteMode: () => void,
-  setLightPaletteMode: () => void,
-) => (isSystemDark ? setDarkPaletteMode() : setLightPaletteMode());

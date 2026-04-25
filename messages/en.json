@@ -1,0 +1,350 @@
+{
+  "Metadata": {
+    "siteTitle": "Haiko Nguyen - Developer, Photographer, Vlogger",
+    "siteDescription": "A personal blog made by Haiko Nguyen with ❤️",
+    "openGraphDescription": "Personal portfolio and creative studio of Haiko Nguyen",
+    "appleWebAppTitle": "Haiko Nguyen",
+    "blogTitle": "Blog | Haiko Nguyen",
+    "aboutTitle": "About | Haiko Nguyen",
+    "contactTitle": "Contact & Booking | Haiko Nguyen",
+    "servicesTitle": "Services | Haiko Nguyen",
+    "servicesDescription": "Full-stack Web Development, Photography, and Video Production services by Haiko Nguyen",
+    "favoritesTitle": "Favorites | Haiko Nguyen",
+    "favoritesDescription": "Your bookmarked articles, projects, and services",
+    "postNotFound": "Post Not Found",
+    "postFallbackTitle": "Post",
+    "postFallbackDescription": "Read this article on Haiko Nguyen's blog",
+    "postTitle": "{title} | Haiko Nguyen",
+    "blogSiteName": "Haiko Nguyen Blog",
+    "untitledPost": "Untitled"
+  },
+  "Common": {
+    "author": "Author",
+    "close": "Close",
+    "learnMore": "Learn More",
+    "currencyEur": "EUR",
+    "loading": "Loading",
+    "carousel": "Content carousel",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "goToSlide": "Go to slide {index}"
+  },
+  "Nav": {
+    "home": "Home",
+    "homeAria": "Haiko Nguyen home",
+    "blog": "Blog",
+    "services": "Services",
+    "favorites": "Favorites",
+    "cart": "Cart",
+    "account": "Account",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "shoppingCart": "Shopping Cart",
+    "userAccount": "User Account",
+    "mobileNavigation": "Mobile Navigation"
+  },
+  "Theme": {
+    "toggle": "Toggle theme mode",
+    "title": "Theme: {mode} (Click to change: Dark / Light / System)",
+    "dark": "dark",
+    "light": "light",
+    "system": "system"
+  },
+  "Home": {
+    "backgroundAlt": "Atmospheric Background",
+    "aboutTitle": "About Me",
+    "profileAlt": "Haiko Nguyen",
+    "role": "Senior Software Engineer & Visual Artist",
+    "intro": "Hello! I'm Haiko, a senior software engineer based in Prague building elegant solutions with React and a creative with a love for visual storytelling.",
+    "learnMore": "Learn More",
+    "latestProjectTitle": "Latest Project",
+    "latestProjectDescription": "Developing high-performance web interfaces.",
+    "latestProjectSubtext": "High-performance architectures with React 19 & Turbopack.",
+    "photographyBadge": "Photography",
+    "photographyShowcaseAlt": "Photography Showcase",
+    "visualStorytellingTitle": "Visual Storytelling",
+    "visualStorytellingBody": "Capturing cinematic light, authentic moments, and expressive portraits.",
+    "viewGallery": "View Gallery",
+    "recentVlogBadge": "Recent Vlog",
+    "recentVlogAlt": "Recent Vlog",
+    "recentVlogTitle": "Creating the V2: Behind the Scenes",
+    "recentVlogBody": "Exploring the workflow of building next-gen web & visual applications.",
+    "engineeringBadge": "Engineering",
+    "engineeringTitle": "Next.js & PWA Architecture",
+    "engineeringBody": "High-performance React 19 web applications with instant navigation and liquid glass design systems.",
+    "exploreProjects": "Explore Projects",
+    "bookACallTitle": "Book A Call",
+    "calendarMonth": "April 2026",
+    "weekdaySu": "Su",
+    "weekdayMo": "Mo",
+    "weekdayTu": "Tu",
+    "weekdayWe": "We",
+    "weekdayTh": "Th",
+    "weekdayFr": "Fr",
+    "weekdaySa": "Sa",
+    "weekdayMon": "Mon",
+    "weekdayTue": "Tue",
+    "weekdayWed": "Wed",
+    "weekdayThu": "Thu",
+    "weekdayFri": "Fri",
+    "selectSlot": "Select A Slot",
+    "confirmBooking": "Confirm Booking",
+    "slotMorning": "9:00 AM",
+    "slotMidMorning": "11:30 AM",
+    "slotAfternoon": "2:00 PM",
+    "slotLateAfternoon": "4:30 PM"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts on development, visual storytelling, and the future of creative technology.",
+    "searchPlaceholder": "Search articles & thoughts..."
+  },
+  "Cart": {
+    "title": "Booking & Cart",
+    "subtitle": "Review your selected services, consultation slots, and project packages.",
+    "clearAll": "Clear all",
+    "emptyTitle": "Your cart is currently empty",
+    "emptyBody": "Explore our web engineering, photography, and video services to add packages or book consultation slots.",
+    "browseServices": "Browse Services",
+    "removeItem": "Remove item",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "totalItems": "Total Items",
+    "proceed": "Proceed with Inquiry / Booking",
+    "categories": {
+      "web-dev": "Web Dev",
+      "photography": "Photography",
+      "video": "Video",
+      "consultation": "Consultation",
+      "digital": "Digital"
+    }
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Exploring the intersection of code, light, and motion.",
+    "categoryAll": "All",
+    "categoryDev": "Dev",
+    "categoryPhoto": "Photo",
+    "categoryVlogs": "Vlogs",
+    "expertiseEyebrow": "/ Expertise",
+    "softwareHeading": "Software Architecture",
+    "visualsEyebrow": "/ Visuals",
+    "photographyHeading": "Photography",
+    "motionEyebrow": "/ Motion",
+    "vlogsHeading": "Vlogs & Stories",
+    "exploreDetails": "Explore Details",
+    "photoMistyPeaks": "Misty Peaks",
+    "photoUrbanSolitude": "Urban Solitude",
+    "photoSilentForest": "Silent Forest",
+    "photoNeonNights": "Neon Nights",
+    "photoSummitLight": "Summit Light",
+    "photoForestPath": "Forest Path",
+    "projects": {
+      "quantumCrm": {
+        "title": "Quantum CRM",
+        "description": "A high-performance CRM architecture built with Next.js 15 and distributed PostgreSQL.",
+        "longDescription": "Quantum CRM was designed to handle high-frequency data streams for global sales teams, featuring real-time caching and edge sync."
+      },
+      "novaUi": {
+        "title": "Nova UI",
+        "description": "Ultra-lightweight, glassmorphic component library for modern web applications.",
+        "longDescription": "Nova UI is a design-first component library focusing on accessibility, micro-animations, and liquid glass aesthetic."
+      }
+    },
+    "vlogs": {
+      "v1": {
+        "title": "Creating the V2: Behind the Scenes | AC Vlog",
+        "description": "The full making-of process of building AC Portfolio V2."
+      },
+      "v2": {
+        "title": "Prague in Winter — A Cinematic Vlog",
+        "description": "Exploring the magical winter streets of Prague."
+      }
+    },
+    "modal": {
+      "challenge": "The Challenge",
+      "techStack": "Tech Stack",
+      "liveDemo": "Live Demo",
+      "sourceCode": "Source Code",
+      "close": "Close project"
+    }
+  },
+  "Post": {
+    "authorAlt": "Author",
+    "by": "by"
+  },
+  "Account": {
+    "portalTitle": "Client Portal",
+    "portalSubtitle": "Sign in to manage your appointments, view project deliverables, and access exclusive resources.",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "haiko@example.com",
+    "continueWithEmail": "Continue with Email",
+    "needContact": "Need direct contact?",
+    "contactDirectly": "Contact Haiko directly",
+    "memberBadge": "Client Member",
+    "signOut": "Sign Out",
+    "upcomingBookings": "Upcoming Bookings",
+    "activeCount": "0 Active",
+    "noBookings": "No active bookings scheduled.",
+    "bookSession": "Book a session",
+    "quickResources": "Quick Resources",
+    "viewProjects": "View Completed Projects",
+    "interactiveCv": "Interactive CV & Experience",
+    "errors": {
+      "emailInvalid": "Invalid email address"
+    }
+  },
+  "Services": {
+    "eyebrow": "Creative & Engineering Services",
+    "title": "Transforming Ideas Into Digital Reality",
+    "subtitle": "Specialized in building next-generation web applications, cinematic photography, and engaging video content.",
+    "webDev": {
+      "title": "Web Application Development",
+      "category": "Engineering",
+      "description": "High-performance Next.js & React web applications, custom UI/UX design systems, PWA architectures, and performance optimizations.",
+      "highlights": {
+        "next": "Next.js 16 / React 19",
+        "pwa": "PWA & Mobile-first",
+        "tailwind": "Tailwind CSS & Liquid Glass",
+        "api": "API & Headless Integration"
+      },
+      "cta": "Inquire Web Dev"
+    },
+    "photography": {
+      "title": "Visual Photography",
+      "category": "Visual Arts",
+      "description": "Commercial, portrait, brand identity, and street photography with cinematic grading and visual storytelling.",
+      "highlights": {
+        "brand": "Brand & Editorial",
+        "portrait": "Portrait Sessions",
+        "deliverables": "High-res Deliverables",
+        "grading": "Color Grading"
+      },
+      "cta": "Book Photoshoot"
+    },
+    "video": {
+      "title": "Video & Motion Production",
+      "category": "Media & Motion",
+      "description": "Cinematic YouTube production, product reels, behind-the-scenes vlogs, and storytelling for modern digital creators.",
+      "highlights": {
+        "cinematic": "4K Cinematic Production",
+        "post": "Post-production & Sound Design",
+        "social": "Social Media Teasers",
+        "vlog": "Vlog Storytelling"
+      },
+      "cta": "Inquire Video"
+    }
+  },
+  "About": {
+    "title": "About",
+    "subtitle": "Exploring the intersection of code, light, and motion.",
+    "tabStory": "Story",
+    "tabCv": "Interactive CV",
+    "downloadPdf": "Download PDF",
+    "technicalArsenal": "Technical Arsenal",
+    "education": "Education",
+    "degree": "MSc in Computer Science",
+    "university": "Czech Technical University",
+    "educationFocus": "Focus on Software Engineering and Human-Computer Interaction.",
+    "professionalJourney": "Professional Journey",
+    "skills": {
+      "react": "React / Next.js",
+      "typescript": "TypeScript",
+      "tailwind": "Tailwind CSS",
+      "node": "Node.js",
+      "postgres": "PostgreSQL",
+      "photo": "Photography / Video"
+    },
+    "experience": {
+      "senior": {
+        "role": "Senior Frontend Engineer",
+        "company": "Tech Innovators Inc.",
+        "period": "2024 - Present",
+        "description": "Leading the development of highly scalable Next.js architectures. Spearheaded the transition to React 19, improving global performance metrics by 40%."
+      },
+      "uiux": {
+        "role": "UI/UX Developer",
+        "company": "Creative Studio EU",
+        "period": "2021 - 2024",
+        "description": "Designed and implemented interactive web experiences. Specialized in framer-motion animations and building robust design systems."
+      },
+      "freelance": {
+        "role": "Freelance Developer & Photographer",
+        "company": "Self-Employed",
+        "period": "2018 - 2021",
+        "description": "Delivered premium visual storytelling campaigns merging custom web solutions with professional photography for boutique brands."
+      }
+    }
+  },
+  "Contact": {
+    "title": "Get in Touch",
+    "subtitle": "Whether you want to collaborate on a React project, book a photography session, or just say hi—I'd love to hear from you.",
+    "directChannels": "Direct Channels",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "form": {
+      "title": "Send a Message",
+      "name": "Name",
+      "namePlaceholder": "Your Name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "message": "Message",
+      "messagePlaceholder": "How can I help you?",
+      "send": "Send Message",
+      "successTitle": "Message Sent!",
+      "successBody": "Thank you for reaching out. I'll get back to you soon.",
+      "sendAnother": "Send another message",
+      "errors": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Invalid email address",
+        "messageMin": "Message must be at least 10 characters"
+      }
+    },
+    "booking": {
+      "title": "Book a 1:1 Session",
+      "name": "Name",
+      "namePlaceholder": "Your Name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "date": "Date",
+      "time": "Time",
+      "confirm": "Confirm Booking",
+      "successTitle": "Booking Confirmed!",
+      "successBody": "Thank you. I'll see you on the scheduled time.",
+      "errors": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Invalid email address",
+        "dateRequired": "Please select a date",
+        "timeRequired": "Please select a time"
+      }
+    }
+  },
+  "Favorites": {
+    "title": "Saved & Favorites",
+    "subtitle": "Articles, portfolio pieces, and services you have saved for later.",
+    "emptyTitle": "No saved items yet",
+    "emptyBody": "Browse through articles on our blog or explore portfolio projects to bookmark your favorites.",
+    "exploreBlog": "Explore Blog"
+  },
+  "Vlogs": {
+    "title": "Vlogs",
+    "subtitle": "Behind the scenes and stories from my journey.",
+    "codingTitle": "Creative Coding in 2026",
+    "codingDescription": "How AI and new tools are changing the way we build.",
+    "codingMeta": "18:45 • Published Apr 2026",
+    "gearTitle": "Photography Gear Breakdown",
+    "gearDescription": "What's in my bag for 2026.",
+    "sfTitle": "A Week in San Francisco",
+    "sfDescription": "Vlog 042 - Life of a developer/photographer."
+  },
+  "VideoModal": {
+    "close": "Close Video",
+    "nowPlaying": "Now Playing"
+  },
+  "Cta": {
+    "readStory": "Read my story",
+    "contactMe": "Contact Me"
+  }
+}

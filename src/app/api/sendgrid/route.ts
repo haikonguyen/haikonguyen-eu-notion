@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import sendgrid from '@sendgrid/mail';
 import { EmailBodyProps } from '@app-types/global-types';
+import sendgrid from '@sendgrid/mail';
+import { NextRequest, NextResponse } from 'next/server';
 
 sendgrid.setApiKey(`${process.env.SENDGRID_API_KEY}`);
 

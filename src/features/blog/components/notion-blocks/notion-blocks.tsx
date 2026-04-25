@@ -1,6 +1,6 @@
-import { Fragment } from 'react';
-import { renderBlock } from '@lib/notion';
 import { NotionBlock } from '@app-types/notion';
+import { renderBlock } from '@lib/notion';
+import { Fragment } from 'react';
 
 interface NotionBlocksProps {
   blocks: NotionBlock[];

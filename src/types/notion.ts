@@ -73,6 +73,11 @@ export interface BlogPage extends Omit<PageObjectResponse, 'properties'> {
       type: 'rich_text';
       rich_text: Array<{ plain_text: string }>;
     };
+    imagekit_path?: {
+      id: string;
+      type: 'rich_text';
+      rich_text: Array<{ plain_text: string }>;
+    };
   };
   // Cover is inherited from PageObjectResponse
 }

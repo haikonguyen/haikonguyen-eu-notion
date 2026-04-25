@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageContentWrapperProps } from './types';
 
 const PageContentWrapper = ({ children, isPost }: PageContentWrapperProps) => {

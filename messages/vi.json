@@ -1,0 +1,350 @@
+{
+  "Metadata": {
+    "siteTitle": "Haiko Nguyen - lập trình viên, nhiếp ảnh, vlogger",
+    "siteDescription": "Blog cá nhân của Haiko Nguyen làm bằng ❤️",
+    "openGraphDescription": "Portfolio và studio sáng tạo của Haiko Nguyen",
+    "appleWebAppTitle": "Haiko Nguyen",
+    "blogTitle": "Blog | Haiko Nguyen",
+    "aboutTitle": "Giới thiệu | Haiko Nguyen",
+    "contactTitle": "Liên hệ & đặt lịch | Haiko Nguyen",
+    "servicesTitle": "Dịch vụ | Haiko Nguyen",
+    "servicesDescription": "Phát triển web full-stack, nhiếp ảnh và sản xuất video bởi Haiko Nguyen",
+    "favoritesTitle": "Yêu thích | Haiko Nguyen",
+    "favoritesDescription": "Bài viết, dự án và dịch vụ bạn đã lưu",
+    "postNotFound": "Không tìm thấy bài viết",
+    "postFallbackTitle": "Bài viết",
+    "postFallbackDescription": "Đọc bài viết này trên blog của Haiko Nguyen",
+    "postTitle": "{title} | Haiko Nguyen",
+    "blogSiteName": "Blog Haiko Nguyen",
+    "untitledPost": "Chưa có tiêu đề"
+  },
+  "Common": {
+    "author": "Tác giả",
+    "close": "Đóng",
+    "learnMore": "Tìm hiểu thêm",
+    "currencyEur": "EUR",
+    "loading": "Đang tải",
+    "carousel": "Băng chuyền nội dung",
+    "previousSlide": "Slide trước",
+    "nextSlide": "Slide tiếp",
+    "goToSlide": "Đến slide {index}"
+  },
+  "Nav": {
+    "home": "Trang chủ",
+    "homeAria": "Trang chủ Haiko Nguyen",
+    "blog": "Blog",
+    "services": "Dịch vụ",
+    "favorites": "Yêu thích",
+    "cart": "Giỏ hàng",
+    "account": "Tài khoản",
+    "portfolio": "Portfolio",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "signIn": "Đăng nhập",
+    "shoppingCart": "Giỏ hàng",
+    "userAccount": "Tài khoản",
+    "mobileNavigation": "Điều hướng di động"
+  },
+  "Theme": {
+    "toggle": "Đổi chế độ giao diện",
+    "title": "Giao diện: {mode} (Bấm: Tối / Sáng / Hệ thống)",
+    "dark": "tối",
+    "light": "sáng",
+    "system": "hệ thống"
+  },
+  "Home": {
+    "backgroundAlt": "Nền không khí",
+    "aboutTitle": "Về tôi",
+    "profileAlt": "Haiko Nguyen",
+    "role": "Kỹ sư phần mềm senior & nghệ sĩ thị giác",
+    "intro": "Xin chào! Tôi là Haiko, kỹ sư phần mềm senior ở Prague, xây giải pháp React tinh gọn và yêu kể chuyện bằng hình ảnh.",
+    "learnMore": "Tìm hiểu thêm",
+    "latestProjectTitle": "Dự án mới nhất",
+    "latestProjectDescription": "Phát triển giao diện web hiệu năng cao.",
+    "latestProjectSubtext": "Kiến trúc hiệu năng cao với React 19 & Turbopack.",
+    "photographyBadge": "Nhiếp ảnh",
+    "photographyShowcaseAlt": "Trưng bày nhiếp ảnh",
+    "visualStorytellingTitle": "Kể chuyện bằng hình ảnh",
+    "visualStorytellingBody": "Ghi lại ánh sáng điện ảnh, khoảnh khắc chân thực và chân dung giàu cảm xúc.",
+    "viewGallery": "Xem gallery",
+    "recentVlogBadge": "Vlog mới",
+    "recentVlogAlt": "Vlog mới",
+    "recentVlogTitle": "Làm V2: Behind the Scenes",
+    "recentVlogBody": "Quy trình xây ứng dụng web và visual thế hệ mới.",
+    "engineeringBadge": "Engineering",
+    "engineeringTitle": "Kiến trúc Next.js & PWA",
+    "engineeringBody": "Ứng dụng React 19 hiệu năng cao, điều hướng tức thì và hệ thống liquid glass.",
+    "exploreProjects": "Xem dự án",
+    "bookACallTitle": "Đặt cuộc gọi",
+    "calendarMonth": "Tháng 4 2026",
+    "weekdaySu": "CN",
+    "weekdayMo": "T2",
+    "weekdayTu": "T3",
+    "weekdayWe": "T4",
+    "weekdayTh": "T5",
+    "weekdayFr": "T6",
+    "weekdaySa": "T7",
+    "weekdayMon": "T2",
+    "weekdayTue": "T3",
+    "weekdayWed": "T4",
+    "weekdayThu": "T5",
+    "weekdayFri": "T6",
+    "selectSlot": "Chọn khung giờ",
+    "confirmBooking": "Xác nhận đặt lịch",
+    "slotMorning": "9:00",
+    "slotMidMorning": "11:30",
+    "slotAfternoon": "14:00",
+    "slotLateAfternoon": "16:30"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Suy nghĩ về lập trình, kể chuyện thị giác và tương lai của công nghệ sáng tạo.",
+    "searchPlaceholder": "Tìm bài viết & ý tưởng..."
+  },
+  "Cart": {
+    "title": "Đặt lịch & giỏ hàng",
+    "subtitle": "Xem lại dịch vụ, slot tư vấn và gói dự án đã chọn.",
+    "clearAll": "Xóa tất cả",
+    "emptyTitle": "Giỏ hàng đang trống",
+    "emptyBody": "Khám phá web, nhiếp ảnh và video để thêm gói hoặc đặt tư vấn.",
+    "browseServices": "Xem dịch vụ",
+    "removeItem": "Xóa mục",
+    "decreaseQuantity": "Giảm số lượng",
+    "increaseQuantity": "Tăng số lượng",
+    "totalItems": "Tổng số mục",
+    "proceed": "Tiếp tục gửi yêu cầu / đặt lịch",
+    "categories": {
+      "web-dev": "Web",
+      "photography": "Nhiếp ảnh",
+      "video": "Video",
+      "consultation": "Tư vấn",
+      "digital": "Digital"
+    }
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Giao điểm của code, ánh sáng và chuyển động.",
+    "categoryAll": "Tất cả",
+    "categoryDev": "Dev",
+    "categoryPhoto": "Ảnh",
+    "categoryVlogs": "Vlog",
+    "expertiseEyebrow": "/ Expertise",
+    "softwareHeading": "Kiến trúc phần mềm",
+    "visualsEyebrow": "/ Visuals",
+    "photographyHeading": "Nhiếp ảnh",
+    "motionEyebrow": "/ Motion",
+    "vlogsHeading": "Vlog & câu chuyện",
+    "exploreDetails": "Xem chi tiết",
+    "photoMistyPeaks": "Đỉnh núi sương mù",
+    "photoUrbanSolitude": "Cô tịch đô thị",
+    "photoSilentForest": "Rừng im lặng",
+    "photoNeonNights": "Đêm neon",
+    "photoSummitLight": "Ánh sáng đỉnh núi",
+    "photoForestPath": "Đường rừng",
+    "projects": {
+      "quantumCrm": {
+        "title": "Quantum CRM",
+        "description": "Kiến trúc CRM hiệu năng cao với Next.js 15 và PostgreSQL phân tán.",
+        "longDescription": "Quantum CRM xử lý luồng dữ liệu tần suất cao cho đội sales toàn cầu, cache realtime và đồng bộ edge."
+      },
+      "novaUi": {
+        "title": "Nova UI",
+        "description": "Thư viện component glassmorphic siêu nhẹ cho web hiện đại.",
+        "longDescription": "Nova UI ưu tiên thiết kế, tập trung accessibility, micro-animation và thẩm mỹ liquid glass."
+      }
+    },
+    "vlogs": {
+      "v1": {
+        "title": "Làm V2: Behind the Scenes | AC Vlog",
+        "description": "Toàn bộ quá trình xây AC Portfolio V2."
+      },
+      "v2": {
+        "title": "Praha mùa đông — vlog điện ảnh",
+        "description": "Khám phá phố đông Praha mùa đông."
+      }
+    },
+    "modal": {
+      "challenge": "Thách thức",
+      "techStack": "Tech stack",
+      "liveDemo": "Demo live",
+      "sourceCode": "Mã nguồn",
+      "close": "Đóng dự án"
+    }
+  },
+  "Post": {
+    "authorAlt": "Tác giả",
+    "by": "bởi"
+  },
+  "Account": {
+    "portalTitle": "Cổng khách hàng",
+    "portalSubtitle": "Đăng nhập để quản lý lịch, xem deliverable và tài nguyên độc quyền.",
+    "emailLabel": "Địa chỉ email",
+    "emailPlaceholder": "haiko@example.com",
+    "continueWithEmail": "Tiếp tục với email",
+    "needContact": "Cần liên hệ trực tiếp?",
+    "contactDirectly": "Liên hệ Haiko trực tiếp",
+    "memberBadge": "Khách hàng",
+    "signOut": "Đăng xuất",
+    "upcomingBookings": "Lịch sắp tới",
+    "activeCount": "0 đang hoạt động",
+    "noBookings": "Chưa có lịch nào.",
+    "bookSession": "Đặt buổi",
+    "quickResources": "Tài nguyên nhanh",
+    "viewProjects": "Dự án đã hoàn thành",
+    "interactiveCv": "CV tương tác & kinh nghiệm",
+    "errors": {
+      "emailInvalid": "Địa chỉ email không hợp lệ"
+    }
+  },
+  "Services": {
+    "eyebrow": "Dịch vụ sáng tạo & kỹ thuật",
+    "title": "Biến ý tưởng thành hiện thực số",
+    "subtitle": "Chuyên ứng dụng web thế hệ mới, nhiếp ảnh điện ảnh và video.",
+    "webDev": {
+      "title": "Phát triển ứng dụng web",
+      "category": "Engineering",
+      "description": "Ứng dụng Next.js & React hiệu năng cao, design system UI/UX, kiến trúc PWA và tối ưu hiệu suất.",
+      "highlights": {
+        "next": "Next.js 16 / React 19",
+        "pwa": "PWA & mobile-first",
+        "tailwind": "Tailwind CSS & liquid glass",
+        "api": "API & headless"
+      },
+      "cta": "Tư vấn web"
+    },
+    "photography": {
+      "title": "Nhiếp ảnh",
+      "category": "Nghệ thuật thị giác",
+      "description": "Ảnh thương mại, chân dung, brand và đường phố với grading điện ảnh.",
+      "highlights": {
+        "brand": "Brand & editorial",
+        "portrait": "Buổi chân dung",
+        "deliverables": "File độ phân giải cao",
+        "grading": "Color grading"
+      },
+      "cta": "Đặt buổi chụp"
+    },
+    "video": {
+      "title": "Video & motion",
+      "category": "Media & chuyển động",
+      "description": "Sản xuất YouTube điện ảnh, reel sản phẩm, vlog hậu trường và storytelling.",
+      "highlights": {
+        "cinematic": "Sản xuất 4K điện ảnh",
+        "post": "Hậu kỳ & âm thanh",
+        "social": "Teaser mạng xã hội",
+        "vlog": "Vlog storytelling"
+      },
+      "cta": "Tư vấn video"
+    }
+  },
+  "About": {
+    "title": "Giới thiệu",
+    "subtitle": "Giao điểm của code, ánh sáng và chuyển động.",
+    "tabStory": "Câu chuyện",
+    "tabCv": "CV tương tác",
+    "downloadPdf": "Tải PDF",
+    "technicalArsenal": "Kỹ năng kỹ thuật",
+    "education": "Học vấn",
+    "degree": "Thạc sĩ Khoa học máy tính",
+    "university": "Đại học Bách khoa Séc",
+    "educationFocus": "Tập trung Software Engineering và HCI.",
+    "professionalJourney": "Hành trình nghề nghiệp",
+    "skills": {
+      "react": "React / Next.js",
+      "typescript": "TypeScript",
+      "tailwind": "Tailwind CSS",
+      "node": "Node.js",
+      "postgres": "PostgreSQL",
+      "photo": "Nhiếp ảnh / video"
+    },
+    "experience": {
+      "senior": {
+        "role": "Senior Frontend Engineer",
+        "company": "Tech Innovators Inc.",
+        "period": "2024 - nay",
+        "description": "Dẫn dắt kiến trúc Next.js quy mô lớn. Chuyển sang React 19, cải thiện metric hiệu năng toàn cục 40%."
+      },
+      "uiux": {
+        "role": "UI/UX Developer",
+        "company": "Creative Studio EU",
+        "period": "2021 - 2024",
+        "description": "Thiết kế và triển khai trải nghiệm web tương tác. Chuyên Framer Motion và design system."
+      },
+      "freelance": {
+        "role": "Freelance developer & nhiếp ảnh",
+        "company": "Tự doanh",
+        "period": "2018 - 2021",
+        "description": "Chiến dịch kể chuyện thị giác kết hợp web custom và nhiếp ảnh chuyên nghiệp cho thương hiệu boutique."
+      }
+    }
+  },
+  "Contact": {
+    "title": "Liên hệ",
+    "subtitle": "Muốn hợp tác React, đặt buổi chụp, hay chỉ chào hỏi — mình rất vui được nghe từ bạn.",
+    "directChannels": "Kênh trực tiếp",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "form": {
+      "title": "Gửi tin nhắn",
+      "name": "Tên",
+      "namePlaceholder": "Tên của bạn",
+      "email": "Email",
+      "emailPlaceholder": "ban@email.com",
+      "message": "Tin nhắn",
+      "messagePlaceholder": "Mình có thể giúp gì?",
+      "send": "Gửi tin nhắn",
+      "successTitle": "Đã gửi!",
+      "successBody": "Cảm ơn bạn. Mình sẽ phản hồi sớm.",
+      "sendAnother": "Gửi tin khác",
+      "errors": {
+        "nameMin": "Tên phải có ít nhất 2 ký tự",
+        "emailInvalid": "Email không hợp lệ",
+        "messageMin": "Tin nhắn phải có ít nhất 10 ký tự"
+      }
+    },
+    "booking": {
+      "title": "Đặt buổi 1:1",
+      "name": "Tên",
+      "namePlaceholder": "Tên của bạn",
+      "email": "Email",
+      "emailPlaceholder": "ban@email.com",
+      "date": "Ngày",
+      "time": "Giờ",
+      "confirm": "Xác nhận đặt lịch",
+      "successTitle": "Đã xác nhận!",
+      "successBody": "Cảm ơn bạn. Hẹn gặp vào giờ đã chọn.",
+      "errors": {
+        "nameMin": "Tên phải có ít nhất 2 ký tự",
+        "emailInvalid": "Email không hợp lệ",
+        "dateRequired": "Vui lòng chọn ngày",
+        "timeRequired": "Vui lòng chọn giờ"
+      }
+    }
+  },
+  "Favorites": {
+    "title": "Đã lưu & yêu thích",
+    "subtitle": "Bài viết, portfolio và dịch vụ bạn lưu để xem sau.",
+    "emptyTitle": "Chưa có mục nào",
+    "emptyBody": "Duyệt blog hoặc portfolio để đánh dấu yêu thích.",
+    "exploreBlog": "Xem blog"
+  },
+  "Vlogs": {
+    "title": "Vlog",
+    "subtitle": "Hậu trường và câu chuyện trên hành trình của tôi.",
+    "codingTitle": "Creative coding 2026",
+    "codingDescription": "AI và công cụ mới đang đổi cách chúng ta xây sản phẩm.",
+    "codingMeta": "18:45 • Xuất bản tháng 4 2026",
+    "gearTitle": "Phân tích đồ nghề nhiếp ảnh",
+    "gearDescription": "Trong túi tôi năm 2026 có gì.",
+    "sfTitle": "Một tuần ở San Francisco",
+    "sfDescription": "Vlog 042 — đời sống developer/nhiếp ảnh."
+  },
+  "VideoModal": {
+    "close": "Đóng video",
+    "nowPlaying": "Đang phát"
+  },
+  "Cta": {
+    "readStory": "Đọc câu chuyện của tôi",
+    "contactMe": "Liên hệ"
+  }
+}

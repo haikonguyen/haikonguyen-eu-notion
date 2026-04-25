@@ -15,6 +15,10 @@
 # production
 /build
 
+# typescript build info cache
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
 # misc
 .DS_Store
 *.pem

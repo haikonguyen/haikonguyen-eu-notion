@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import { HeroProps } from './types';
 
@@ -15,6 +14,7 @@ const Hero = ({ isHomePage, children, imageSource }: HeroProps) => {
         alt="Hero image"
         placeholder="blur"
         fill
+        sizes="100vw"
       />
       {children}
     </div>

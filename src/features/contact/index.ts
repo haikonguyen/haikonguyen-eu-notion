@@ -1,1 +1,2 @@
-export * from './components/contact-form';
+export * from './components/BookingForm/BookingForm';
+export * from './components/ContactForm';
