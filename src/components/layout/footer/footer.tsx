@@ -1,29 +1,31 @@
-import IconButton from '@mui/material/IconButton';
-import { Divider, Paper } from '@mui/material';
 import React from 'react';
-import { SocialIcons } from '@components/common/social-icons';
 import { siteConfig } from '@config';
+import { SocialIcons } from '@components/common/social-icons';
 
 export const Footer = () => {
   const { copyright, userLinks } = siteConfig;
 
   return (
-    <footer className="shrink-0">
-      <Paper elevation={3}>
-        <div className="my-0 mx-auto justify-center flex flex-wrap py-3">
+    <footer className="mt-auto border-t border-white/10 bg-black py-12 px-4 md:px-6">
+      <div className="container mx-auto flex flex-col items-center justify-between gap-6 md:flex-row">
+        <div className="text-sm text-muted-foreground">
+          {copyright}
+        </div>
+        
+        <div className="flex items-center gap-4">
           {userLinks.map((userLink) => (
-            <a key={userLink.id} href={userLink.url} target="blank">
-              <IconButton>
-                <SocialIcons iconVariant={userLink.icon} />
-              </IconButton>
+            <a
+              key={userLink.id}
+              href={userLink.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground transition-colors hover:text-primary"
+            >
+              <SocialIcons iconVariant={userLink.icon} />
             </a>
           ))}
         </div>
-        <Divider />
-        <div className="h-12 flex items-center justify-center py-2.5 px-0">
-          {copyright}
-        </div>
-      </Paper>
+      </div>
     </footer>
   );
 };

@@ -1,174 +1,144 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@mui/icons-material/Send';
-import { EmailBodyProps } from '@app-types/global-types';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import mailValidationSchema from './validation';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { useStore } from '@lib/store';
-import { ToastType } from '@config';
+import * as z from 'zod';
+import { cn } from '@lib/utils';
+import { FaPaperPlane, FaUser, FaEnvelope, FaCommentAlt } from 'react-icons/fa';
 
-const inputStyles = {
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '12px',
-  },
-};
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
 
-const ContactForm = () => {
-  const [loading, setLoading] = useState(false);
-  const { setToastSettings } = useStore();
+type ContactFormValues = z.infer<typeof contactSchema>;
+
+export const ContactForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
     formState: { errors },
-  } = useForm<EmailBodyProps>({
-    resolver: zodResolver(mailValidationSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      mailMessage: '',
-    },
+    reset,
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit: SubmitHandler<EmailBodyProps> = async (emailContent) => {
-    setLoading(true);
-
+  const onSubmit = async (data: ContactFormValues) => {
+    setIsSubmitting(true);
     try {
       const response = await fetch('/api/sendgrid', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(emailContent),
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          mailMessage: data.message, // Sendgrid route expects mailMessage
+        }),
       });
 
-      const data = (await response.json()) as {
-        status?: number;
-        error?: string;
-        message?: string;
-      };
-
-      if (response.ok && data.status === 200) {
-        setToastSettings(
-          true,
-          ToastType.SUCCESS,
-          'Thank you, your email was sent successfully 🎉.',
-        );
+      if (response.ok) {
+        setIsSuccess(true);
         reset();
-      } else {
-        setToastSettings(
-          true,
-          ToastType.ERROR,
-          data.error ||
-            'Ouch, there was a service error, please try again later 😔.',
-        );
       }
-    } catch {
-      setToastSettings(
-        true,
-        ToastType.ERROR,
-        'Ouch, there was a service error, please try again later 😔.',
-      );
+    } catch (error) {
+      console.error("Message failed:", error);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <Box className="w-full max-w-2xl mx-auto my-12">
-      <Paper
-        elevation={0}
-        className="p-8 md:p-12 rounded-3xl border border-gray-200/60 dark:border-neutral-800/60 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)]"
-      >
-        <Typography
-          variant="h5"
-          component="h2"
-          className="mb-8 font-semibold text-gray-800 dark:text-gray-100"
-        >
-          Send me a message
-        </Typography>
+    <div className="bg-card rounded-3xl border border-white/10 p-6 md:p-8 h-full">
+      <div className="flex items-center gap-3 mb-6">
+        <FaCommentAlt className="text-primary text-xl" />
+        <h3 className="text-xl font-bold">Send a Message</h3>
+      </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Your Name"
-                variant="outlined"
-                error={!!errors.name}
-                helperText={errors.name?.message}
-                sx={inputStyles}
+      {isSuccess ? (
+        <div className="flex flex-col items-center justify-center p-8 text-center h-[300px]">
+          <div className="h-16 w-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+            <FaPaperPlane className="text-primary text-2xl" />
+          </div>
+          <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
+          <p className="text-muted-foreground">Thank you for reaching out. I'll get back to you soon.</p>
+          <button 
+            onClick={() => setIsSuccess(false)}
+            className="mt-6 text-primary font-medium hover:underline"
+          >
+            Send another message
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Name</label>
+            <div className="relative">
+              <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm" />
+              <input
+                {...register("name")}
+                placeholder="Your Name"
+                className={cn(
+                  "w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                  errors.name && "border-red-500"
+                )}
               />
-            )}
-          />
+            </div>
+            {errors.name && <p className="text-red-500 text-xs ml-1">{errors.name.message}</p>}
+          </div>
 
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Your Email"
-                variant="outlined"
-                error={!!errors.email}
-                helperText={errors.email?.message}
-                sx={inputStyles}
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Email</label>
+            <div className="relative">
+              <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm" />
+              <input
+                {...register("email")}
+                placeholder="your@email.com"
+                className={cn(
+                  "w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                  errors.email && "border-red-500"
+                )}
               />
-            )}
-          />
+            </div>
+            {errors.email && <p className="text-red-500 text-xs ml-1">{errors.email.message}</p>}
+          </div>
 
-          <Controller
-            name="mailMessage"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Your Message"
-                variant="outlined"
-                multiline
-                minRows={5}
-                error={!!errors.mailMessage}
-                helperText={errors.mailMessage?.message}
-                sx={inputStyles}
-              />
-            )}
-          />
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Message</label>
+            <textarea
+              {...register("message")}
+              rows={5}
+              placeholder="How can I help you?"
+              className={cn(
+                "w-full bg-black/40 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none",
+                errors.message && "border-red-500"
+              )}
+            />
+            {errors.message && <p className="text-red-500 text-xs ml-1">{errors.message.message}</p>}
+          </div>
 
-          <Box className="flex w-full justify-end pt-4">
-            <LoadingButton
-              endIcon={<SendIcon />}
-              loading={loading}
-              loadingPosition="end"
-              variant="contained"
-              type="submit"
-              disableElevation
-              sx={{
-                borderRadius: '12px',
-                padding: '12px 32px',
-                textTransform: 'none',
-                fontWeight: 600,
-                fontSize: '1rem',
-              }}
-            >
-              Send Message
-            </LoadingButton>
-          </Box>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full mt-4 py-4 rounded-xl bg-white text-black font-bold hover:bg-neutral-200 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {isSubmitting ? (
+              <div className="h-4 w-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <>
+                Send Message
+                <FaPaperPlane className="text-sm opacity-50" />
+              </>
+            )}
+          </button>
         </form>
-      </Paper>
-    </Box>
+      )}
+    </div>
   );
 };
-
-export default ContactForm;

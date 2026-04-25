@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { NestedChildBlock, NotionBlock } from '@app-types/notion';
 import { Image } from '@imagekit/next';
 import { ContentBlockTypes } from '@enums/contentBlockTypes';
+import { cn } from '@lib/utils';
 import type {
   ImageBlockObjectResponse,
   QueryDatabaseResponse,
@@ -84,10 +85,6 @@ const isImageBlock = (
   return block.type === 'image';
 };
 
-/**
- * Gets the image source URL from an image block
- * Prioritizes external URLs (won't expire) over file URLs (Notion S3 - expires)
- */
 const getImageSource = (block: NotionBlock): string => {
   if (!isImageBlock(block)) {
     return '/placeholder.jpg';
@@ -95,12 +92,10 @@ const getImageSource = (block: NotionBlock): string => {
 
   const { image } = block;
 
-  // External URLs (ImageKit, Unsplash, etc.) - preferred, won't expire
   if (image.type === 'external') {
     return image.external.url;
   }
 
-  // File URLs (Notion S3) - may expire after ~1 hour
   if (image.type === 'file') {
     return image.file.url;
   }
@@ -116,103 +111,146 @@ export const renderBlock = (block: NotionBlock) => {
   switch (type) {
     case ContentBlockTypes.Paragraph:
       return (
-        <>
+        <div className="my-6">
           {richTextValue?.length > 0 ? (
-            <p>
+            <p className="text-zinc-400 leading-[1.8] text-lg">
               <NotionText textContentBlocks={richTextValue} />
             </p>
           ) : (
-            <br />
+            <div className="h-4" />
           )}
-        </>
+        </div>
       );
 
     case ContentBlockTypes.Heading1:
       return (
-        <>{richTextValue ? <h1>{richTextValue?.[0].plain_text}</h1> : <br />}</>
+        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mt-16 mb-8">
+          <NotionText textContentBlocks={richTextValue} />
+        </h1>
       );
 
     case ContentBlockTypes.Heading2:
       return (
-        <>{richTextValue ? <h2>{richTextValue?.[0].plain_text}</h2> : <br />}</>
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mt-12 mb-6">
+          <NotionText textContentBlocks={richTextValue} />
+        </h2>
       );
+
     case ContentBlockTypes.Heading3:
       return (
-        <>{richTextValue ? <h3>{richTextValue?.[0].plain_text}</h3> : <br />}</>
+        <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mt-10 mb-4">
+          <NotionText textContentBlocks={richTextValue} />
+        </h3>
       );
-    //: TODO: when available => fix bulleted vs numbered list
+
     case ContentBlockTypes.BulletedListItem:
     case ContentBlockTypes.NumberedListItem:
       return (
-        <li className="ml-2 md:ml-5">
+        <li className="ml-6 my-2 text-zinc-400 text-lg leading-relaxed list-disc">
           <NotionText textContentBlocks={richTextValue} />
         </li>
       );
+
     case ContentBlockTypes.Todo:
       return (
-        <div>
-          <label htmlFor={id}>
-            <input
-              type="checkbox"
-              id={id}
-              defaultChecked={richTextValue.checked}
-            />{' '}
-            <NotionText textContentBlocks={richTextValue?.text} />
+        <div className="flex items-center gap-3 my-2">
+          <input
+            type="checkbox"
+            id={id}
+            defaultChecked={block[type].checked}
+            className="w-5 h-5 rounded border-white/10 bg-white/5 text-primary focus:ring-primary focus:ring-offset-black"
+          />
+          <label htmlFor={id} className="text-zinc-400 text-lg">
+            <NotionText textContentBlocks={richTextValue} />
           </label>
         </div>
       );
+
     case ContentBlockTypes.Toggle: {
       const toggleBlock = block[type] as {
         children?: ListBlockChildrenResponse;
       };
       return (
-        <details>
-          <summary>
-            <NotionText
-              textContentBlocks={richTextValue?.text ?? richTextValue}
-            />
+        <details className="group my-6 p-6 rounded-3xl bg-white/5 border border-white/10 transition-all hover:bg-white/[0.08]">
+          <summary className="cursor-pointer text-white font-bold text-lg list-none flex items-center gap-4">
+            <div className="w-6 h-6 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-open:rotate-90 transition-transform">
+               ▶
+            </div>
+            <NotionText textContentBlocks={richTextValue} />
           </summary>
-          {(toggleBlock?.children?.results ?? []).map((childBlock) => (
-            <Fragment key={(childBlock as NotionBlock).id}>
-              {renderBlock(childBlock as NotionBlock)}
-            </Fragment>
-          ))}
+          <div className="mt-6 ml-10 space-y-4">
+            {(toggleBlock?.children?.results ?? []).map((childBlock) => (
+              <Fragment key={(childBlock as NotionBlock).id}>
+                {renderBlock(childBlock as NotionBlock)}
+              </Fragment>
+            ))}
+          </div>
         </details>
       );
     }
-    case ContentBlockTypes.ChildPage:
-      return <p>{richTextValue.title}</p>;
+
     case ContentBlockTypes.Image: {
       const imageSrc = getImageSource(block);
+      if (!imageSrc || imageSrc === '/placeholder.jpg') return null;
+
       return (
-        <figure>
-          <Image
-            src={imageSrc}
-            alt={caption || 'Blog image'}
-            width={1200}
-            height={800}
-            className="rounded-lg"
-            style={{ width: '100%', height: 'auto' }}
-          />
-          {caption && <figcaption>{caption}</figcaption>}
+        <figure className="my-16 group">
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl transition-all duration-700 group-hover:shadow-primary/5">
+            <Image
+              src={imageSrc}
+              alt={caption || 'Blog image'}
+              width={1200}
+              height={800}
+              className="object-cover transition-transform duration-1000 group-hover:scale-[1.02]"
+            />
+          </div>
+          {caption && (
+            <figcaption className="mt-6 text-center text-sm font-medium text-zinc-500 italic tracking-wide">
+              {caption}
+            </figcaption>
+          )}
         </figure>
       );
     }
+
     case ContentBlockTypes.Divider:
-      return <hr key={id} />;
+      return <hr className="my-16 border-white/5" />;
+
     case ContentBlockTypes.Quote:
       return (
-        <blockquote key={id}>{richTextValue?.text[0].plain_text}</blockquote>
+        <blockquote className="my-12 p-8 md:p-12 rounded-[2.5rem] bg-white/5 border-l-4 border-primary/50 relative overflow-hidden italic shadow-2xl">
+          <div className="absolute top-4 left-6 text-6xl text-primary/10 font-serif opacity-50 select-none">"</div>
+          <p className="text-xl md:text-2xl text-white/90 leading-relaxed relative z-10">
+            <NotionText textContentBlocks={richTextValue} />
+          </p>
+        </blockquote>
       );
+
+    case ContentBlockTypes.Code: {
+       const code = block[type].rich_text[0]?.plain_text;
+       const language = block[type].language;
+       return (
+          <div className="my-10 p-8 rounded-[2rem] bg-[#0d1117] border border-white/10 font-mono text-sm leading-relaxed overflow-x-auto shadow-2xl">
+             <div className="flex justify-between items-center mb-6 opacity-40">
+                <div className="flex gap-2">
+                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+                </div>
+                <span className="text-[10px] uppercase tracking-widest font-bold">{language}</span>
+             </div>
+             <pre className="text-zinc-300">
+                <code>{code}</code>
+             </pre>
+          </div>
+       );
+    }
+
     default:
-      return `❌ Unsupported block (${
-        type === 'unsupported' ? 'unsupported by Notion API' : type
-      })`;
+      return null;
   }
 };
 
-// Retrieve block children for nested blocks (one level deep), for example toggle blocks
-// https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
 export const getNestedChildBlock = async (
   blocks: NotionBlock[],
 ): Promise<NestedChildBlock[]> =>
@@ -231,9 +269,6 @@ export const createBlockWithChildren = (
   block: NotionBlock,
   nestedChildBlocks: NestedChildBlock[],
 ) => {
-  /* Create new object structure => append nestedChildBlock if needed, for example for toggles
-   based on the has_children prop.
- */
   if (block?.has_children && !block[block.type].children) {
     block[block.type]['children'] = nestedChildBlocks.find(
       (child) => child.id === block.id,

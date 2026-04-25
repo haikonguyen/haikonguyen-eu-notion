@@ -4,10 +4,10 @@ const footerYear = d.getFullYear();
 export const siteConfig = {
   author: {
     name: 'Haiko Nguyen',
-    summary: 'Developer, Photographer, Vlogger',
+    summary: 'Senior React Developer, Photographer & Vlogger',
   },
   copyright: `© Haiko Nguyen ${footerYear}`,
-  description: 'A personal blog made by Haiko Nguyen with ❤️',
+  description: 'Personal portfolio and creative space of Haiko Nguyen',
   url: 'https://www.haikonguyen.eu',
   navLinks: [
     {
@@ -22,11 +22,16 @@ export const siteConfig = {
     },
     {
       id: 'navLink_03',
-      label: 'Blog',
-      url: '/blog',
+      label: 'Portfolio',
+      url: '/portfolio',
     },
     {
       id: 'navLink_04',
+      label: 'Vlogs',
+      url: '/vlogs',
+    },
+    {
+      id: 'navLink_05',
       label: 'Contact',
       url: '/contact',
     },

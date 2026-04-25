@@ -1,7 +1,20 @@
 import type { Metadata } from 'next';
+import { Outfit, Inter } from 'next/font/google';
 import '../styles/index.css';
 import { Providers } from './providers';
 import { Layout } from '@components';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Haiko Nguyen - Developer, Photographer, Vlogger',
@@ -25,8 +38,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
+      <body className="font-sans antialiased">
         <Providers>
           <Layout>{children}</Layout>
         </Providers>

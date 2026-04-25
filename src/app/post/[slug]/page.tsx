@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { cache } from 'react';
-import { Image } from '@imagekit/next';
+import Image from 'next/image';
 import { getCoverSource, NotionBlocks, TagList } from '@features/blog';
-import { GlassWrapper, PageContentWrapper } from '@components';
 import { siteConfig } from '@config';
 import {
   createBlockWithChildren,
@@ -15,10 +14,10 @@ import {
 } from '@lib/notion';
 import { notFound } from 'next/navigation';
 import { BlogPage } from '@app-types/notion';
+import Container from '@components/layout/container/container';
 
 export const revalidate = 1;
 
-/** One Notion DB query per request (shared by generateMetadata + getPostData + static params). */
 const getBlogDatabaseCached = cache(async () => {
   const databaseId = requireDatabaseId();
   return getDatabase(databaseId);
@@ -55,7 +54,6 @@ export async function generateMetadata({
     return { title: 'Post Not Found' };
   }
 
-  // Cast to BlogPage for proper type safety on properties
   const page = (await getPage(matchingPage.id)) as BlogPage;
 
   const title =
@@ -66,13 +64,14 @@ export async function generateMetadata({
   const description =
     page.properties.excerpt.rich_text[0]?.plain_text ||
     "Read this article on Haiko Nguyen's blog";
-  const coverSrc = getCoverSource(page.cover);
-
-  // Ensure image URL is absolute (required by Facebook/Twitter)
+  
+  // High-fidelity cover detection
+  const imagekitPath = (page.properties as any).imagekit_path?.rich_text?.[0]?.plain_text;
+  const coverSrc = getCoverSource(page.cover, imagekitPath);
+  
   const absoluteImageUrl = coverSrc.startsWith('http')
     ? coverSrc
     : `${siteConfig.url}${coverSrc}`;
-
   const postUrl = `${siteConfig.url}/post/${slug}`;
 
   return {
@@ -142,7 +141,11 @@ export default async function PostPage({
   }
 
   const { page, blocks } = data;
-  const coverSrc = getCoverSource(page.cover);
+  
+  // High-fidelity cover detection
+  const imagekitPath = (page.properties as any).imagekit_path?.rich_text?.[0]?.plain_text;
+  const coverSrc = getCoverSource(page.cover, imagekitPath);
+  
   const postTitle =
     page.properties.post_name.title?.length &&
     page.properties.post_name.title[0]?.plain_text
@@ -150,36 +153,53 @@ export default async function PostPage({
       : 'Untitled';
 
   return (
-    <>
-      <div className="relative flex flex-wrap items-center justify-center h-72 md:h-96 py-24 px-4 mb-5 text-center">
-        <Image
-          src={coverSrc || '/placeholder.jpg'}
-          alt="Post cover image"
-          fill
-          style={{ objectFit: 'cover' }}
-        />
-
-        <GlassWrapper>
-          <h1 className="z-10 uppercase">{postTitle}</h1>
-          <div className="items-center flex">
-            <span className="mr-1">
-              {page.properties.author.created_by.name}
-            </span>
-            <span className="mr-1">
-              | {EuDateFormat(page.properties.published_date.date?.start)}
-            </span>
+    <main className="pt-32 pb-20 bg-background min-h-screen">
+      <Container>
+        {/* Cinematic Header */}
+        <div className="relative h-[60vh] min-h-[400px] w-full rounded-[3rem] overflow-hidden mb-16 border border-white/10 shadow-2xl">
+          <Image
+            src={coverSrc}
+            alt={postTitle}
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          
+          <div className="absolute inset-0 flex flex-col justify-end p-12 md:p-20">
+            <div className="max-w-4xl space-y-6">
+              <div className="flex flex-wrap gap-3">
+                 <TagList tags={page.properties.tags.multi_select} />
+              </div>
+              <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-white leading-[1.1]">
+                {postTitle}
+              </h1>
+              <div className="flex items-center gap-6 text-white/60 font-bold uppercase tracking-widest text-[10px]">
+                <div className="flex items-center gap-3">
+                   <div className="relative h-8 w-8 rounded-full overflow-hidden border border-white/20">
+                      <Image 
+                        src={page.properties.author.created_by.avatar_url || "/placeholder.jpg"} 
+                        alt="Author" 
+                        fill 
+                        className="object-cover" 
+                      />
+                   </div>
+                   <span>{page.properties.author.created_by.name}</span>
+                </div>
+                <span>•</span>
+                <span>{EuDateFormat(page.properties.published_date?.date?.start)}</span>
+              </div>
+            </div>
           </div>
-        </GlassWrapper>
-        <section className="absolute bottom-0.5 left-0.5 z-10">
-          <TagList tags={page.properties.tags.multi_select} />
-        </section>
-      </div>
+        </div>
 
-      <PageContentWrapper isPost>
-        <article>
-          <NotionBlocks blocks={blocks} />
-        </article>
-      </PageContentWrapper>
-    </>
+        {/* Article Content */}
+        <div className="max-w-4xl mx-auto">
+          <article className="prose prose-invert prose-lg max-w-none">
+            <NotionBlocks blocks={blocks} />
+          </article>
+        </div>
+      </Container>
+    </main>
   );
 }
