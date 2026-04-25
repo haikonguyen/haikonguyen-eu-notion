@@ -1,0 +1,350 @@
+{
+  "Metadata": {
+    "siteTitle": "Haiko Nguyen - vývojář, fotograf, vloger",
+    "siteDescription": "Osobní blog Haika Nguyena vytvořený s ❤️",
+    "openGraphDescription": "Osobní portfolio a kreativní studio Haika Nguyena",
+    "appleWebAppTitle": "Haiko Nguyen",
+    "blogTitle": "Blog | Haiko Nguyen",
+    "aboutTitle": "O mně | Haiko Nguyen",
+    "contactTitle": "Kontakt a rezervace | Haiko Nguyen",
+    "servicesTitle": "Služby | Haiko Nguyen",
+    "servicesDescription": "Full-stack webový vývoj, fotografie a video produkce od Haika Nguyena",
+    "favoritesTitle": "Oblíbené | Haiko Nguyen",
+    "favoritesDescription": "Vaše uložené články, projekty a služby",
+    "postNotFound": "Příspěvek nenalezen",
+    "postFallbackTitle": "Příspěvek",
+    "postFallbackDescription": "Přečtěte si tento článek na blogu Haika Nguyena",
+    "postTitle": "{title} | Haiko Nguyen",
+    "blogSiteName": "Blog Haika Nguyena",
+    "untitledPost": "Bez názvu"
+  },
+  "Common": {
+    "author": "Autor",
+    "close": "Zavřít",
+    "learnMore": "Zjistit více",
+    "currencyEur": "EUR",
+    "loading": "Načítání",
+    "carousel": "Karusel",
+    "previousSlide": "Předchozí snímek",
+    "nextSlide": "Další snímek",
+    "goToSlide": "Přejít na snímek {index}"
+  },
+  "Nav": {
+    "home": "Domů",
+    "homeAria": "Haiko Nguyen — Domů",
+    "blog": "Blog",
+    "services": "Služby",
+    "favorites": "Oblíbené",
+    "cart": "Košík",
+    "account": "Účet",
+    "portfolio": "Portfolio",
+    "about": "O mně",
+    "contact": "Kontakt",
+    "signIn": "Přihlásit se",
+    "shoppingCart": "Nákupní košík",
+    "userAccount": "Uživatelský účet",
+    "mobileNavigation": "Mobilní navigace"
+  },
+  "Theme": {
+    "toggle": "Přepnout režim motivu",
+    "title": "Motiv: {mode} (Klikněte: Tmavý / Světlý / Systém)",
+    "dark": "tmavý",
+    "light": "světlý",
+    "system": "systém"
+  },
+  "Home": {
+    "backgroundAlt": "Atmosférické pozadí",
+    "aboutTitle": "O mně",
+    "profileAlt": "Haiko Nguyen",
+    "role": "Senior software engineer a vizuální umělec",
+    "intro": "Ahoj! Jsem Haiko, senior software engineer v Praze. Stavím elegantní řešení v Reactu a miluji vizuální vyprávění příběhů.",
+    "learnMore": "Zjistit více",
+    "latestProjectTitle": "Nejnovější projekt",
+    "latestProjectDescription": "Vývoj vysoce výkonných webových rozhraní.",
+    "latestProjectSubtext": "Vysoce výkonná architektura s React 19 a Turbopackem.",
+    "photographyBadge": "Fotografie",
+    "photographyShowcaseAlt": "Ukázka fotografie",
+    "visualStorytellingTitle": "Vizuální storytelling",
+    "visualStorytellingBody": "Zachycuji filmové světlo, autentické okamžiky a expresivní portréty.",
+    "viewGallery": "Zobrazit galerii",
+    "recentVlogBadge": "Nejnovější vlog",
+    "recentVlogAlt": "Nejnovější vlog",
+    "recentVlogTitle": "Tvorba V2: Behind the Scenes",
+    "recentVlogBody": "Průzkum workflow při stavbě nové generace webu a vizuálních aplikací.",
+    "engineeringBadge": "Engineering",
+    "engineeringTitle": "Architektura Next.js a PWA",
+    "engineeringBody": "Vysoce výkonné React 19 aplikace s okamžitou navigací a liquid glass design systémem.",
+    "exploreProjects": "Prozkoumat projekty",
+    "bookACallTitle": "Rezervovat hovor",
+    "calendarMonth": "Duben 2026",
+    "weekdaySu": "Ne",
+    "weekdayMo": "Po",
+    "weekdayTu": "Út",
+    "weekdayWe": "St",
+    "weekdayTh": "Čt",
+    "weekdayFr": "Pá",
+    "weekdaySa": "So",
+    "weekdayMon": "Po",
+    "weekdayTue": "Út",
+    "weekdayWed": "St",
+    "weekdayThu": "Čt",
+    "weekdayFri": "Pá",
+    "selectSlot": "Vyberte termín",
+    "confirmBooking": "Potvrdit rezervaci",
+    "slotMorning": "9:00",
+    "slotMidMorning": "11:30",
+    "slotAfternoon": "14:00",
+    "slotLateAfternoon": "16:30"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Myšlenky o vývoji, vizuálním storytellingu a budoucnosti kreativních technologií.",
+    "searchPlaceholder": "Hledat články a myšlenky..."
+  },
+  "Cart": {
+    "title": "Rezervace a košík",
+    "subtitle": "Zkontrolujte vybrané služby, konzultace a projektové balíčky.",
+    "clearAll": "Vymazat vše",
+    "emptyTitle": "Košík je prázdný",
+    "emptyBody": "Prohlédněte si webový vývoj, fotografii a video služby a přidejte balíček nebo rezervujte konzultaci.",
+    "browseServices": "Prohlédnout služby",
+    "removeItem": "Odebrat položku",
+    "decreaseQuantity": "Snížit množství",
+    "increaseQuantity": "Zvýšit množství",
+    "totalItems": "Položek celkem",
+    "proceed": "Pokračovat na poptávku / rezervaci",
+    "categories": {
+      "web-dev": "Web",
+      "photography": "Fotografie",
+      "video": "Video",
+      "consultation": "Konzultace",
+      "digital": "Digitál"
+    }
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Průsečík kódu, světla a pohybu.",
+    "categoryAll": "Vše",
+    "categoryDev": "Dev",
+    "categoryPhoto": "Foto",
+    "categoryVlogs": "Vlogy",
+    "expertiseEyebrow": "/ Expertise",
+    "softwareHeading": "Softwarová architektura",
+    "visualsEyebrow": "/ Visuals",
+    "photographyHeading": "Fotografie",
+    "motionEyebrow": "/ Motion",
+    "vlogsHeading": "Vlogy a příběhy",
+    "exploreDetails": "Zobrazit detail",
+    "photoMistyPeaks": "Mlžné vrcholy",
+    "photoUrbanSolitude": "Městská samota",
+    "photoSilentForest": "Tichý les",
+    "photoNeonNights": "Neonové noci",
+    "photoSummitLight": "Světlo na vrcholu",
+    "photoForestPath": "Lesní cesta",
+    "projects": {
+      "quantumCrm": {
+        "title": "Quantum CRM",
+        "description": "Výkonná CRM architektura postavená na Next.js 15 a distribuovaném PostgreSQL.",
+        "longDescription": "Quantum CRM zvládá vysokofrekvenční datové toky pro globální obchodní týmy, s real-time cache a edge synchronizací."
+      },
+      "novaUi": {
+        "title": "Nova UI",
+        "description": "Ultralehká glassmorphic knihovna komponent pro moderní web.",
+        "longDescription": "Nova UI je design-first knihovna zaměřená na přístupnost, mikroanimace a liquid glass estetiku."
+      }
+    },
+    "vlogs": {
+      "v1": {
+        "title": "Tvorba V2: Behind the Scenes | AC Vlog",
+        "description": "Kompletní proces vzniku AC Portfolio V2."
+      },
+      "v2": {
+        "title": "Praha v zimě — filmový vlog",
+        "description": "Procházka magickými zimními ulicemi Prahy."
+      }
+    },
+    "modal": {
+      "challenge": "Výzva",
+      "techStack": "Tech stack",
+      "liveDemo": "Živé demo",
+      "sourceCode": "Zdrojový kód",
+      "close": "Zavřít projekt"
+    }
+  },
+  "Post": {
+    "authorAlt": "Autor",
+    "by": "autor"
+  },
+  "Account": {
+    "portalTitle": "Klientský portál",
+    "portalSubtitle": "Přihlaste se ke správě termínů, výstupů projektů a exkluzivních materiálů.",
+    "emailLabel": "E-mailová adresa",
+    "emailPlaceholder": "haiko@example.com",
+    "continueWithEmail": "Pokračovat e-mailem",
+    "needContact": "Potřebujete přímý kontakt?",
+    "contactDirectly": "Kontaktovat Haika přímo",
+    "memberBadge": "Klient",
+    "signOut": "Odhlásit se",
+    "upcomingBookings": "Nadcházející rezervace",
+    "activeCount": "0 aktivních",
+    "noBookings": "Žádné aktivní rezervace.",
+    "bookSession": "Rezervovat sezení",
+    "quickResources": "Rychlé odkazy",
+    "viewProjects": "Dokončené projekty",
+    "interactiveCv": "Interaktivní CV a zkušenosti",
+    "errors": {
+      "emailInvalid": "Neplatná e-mailová adresa"
+    }
+  },
+  "Services": {
+    "eyebrow": "Kreativní a engineering služby",
+    "title": "Proměňuji nápady v digitální realitu",
+    "subtitle": "Specializuji se na webové aplikace nové generace, filmovou fotografii a video.",
+    "webDev": {
+      "title": "Vývoj webových aplikací",
+      "category": "Engineering",
+      "description": "Výkonné Next.js a React aplikace, vlastní UI/UX systémy, PWA architektury a optimalizace výkonu.",
+      "highlights": {
+        "next": "Next.js 16 / React 19",
+        "pwa": "PWA a mobile-first",
+        "tailwind": "Tailwind CSS a liquid glass",
+        "api": "API a headless integrace"
+      },
+      "cta": "Poptat web"
+    },
+    "photography": {
+      "title": "Vizuální fotografie",
+      "category": "Vizuální umění",
+      "description": "Komerční, portrétní, brand a street fotografie s filmovým gradingem a storytellingem.",
+      "highlights": {
+        "brand": "Brand a editorial",
+        "portrait": "Portrétní sezení",
+        "deliverables": "Výstupy ve vysokém rozlišení",
+        "grading": "Color grading"
+      },
+      "cta": "Rezervovat focení"
+    },
+    "video": {
+      "title": "Video a motion",
+      "category": "Média a pohyb",
+      "description": "Filmová YouTube produkce, produktové reely, behind-the-scenes vlogy a storytelling.",
+      "highlights": {
+        "cinematic": "4K filmová produkce",
+        "post": "Postprodukce a zvuk",
+        "social": "Teasery pro sociální sítě",
+        "vlog": "Vlog storytelling"
+      },
+      "cta": "Poptat video"
+    }
+  },
+  "About": {
+    "title": "O mně",
+    "subtitle": "Průsečík kódu, světla a pohybu.",
+    "tabStory": "Příběh",
+    "tabCv": "Interaktivní CV",
+    "downloadPdf": "Stáhnout PDF",
+    "technicalArsenal": "Technický arzenál",
+    "education": "Vzdělání",
+    "degree": "Ing. informatika",
+    "university": "České vysoké učení technické",
+    "educationFocus": "Zaměření na softwarové inženýrství a HCI.",
+    "professionalJourney": "Profesní cesta",
+    "skills": {
+      "react": "React / Next.js",
+      "typescript": "TypeScript",
+      "tailwind": "Tailwind CSS",
+      "node": "Node.js",
+      "postgres": "PostgreSQL",
+      "photo": "Fotografie / video"
+    },
+    "experience": {
+      "senior": {
+        "role": "Senior frontend engineer",
+        "company": "Tech Innovators Inc.",
+        "period": "2024 – současnost",
+        "description": "Vedl jsem vývoj škálovatelných Next.js architektur. Přechod na React 19 zlepšil globální výkonnostní metriky o 40 %."
+      },
+      "uiux": {
+        "role": "UI/UX vývojář",
+        "company": "Creative Studio EU",
+        "period": "2021 – 2024",
+        "description": "Navrhoval a implementoval interaktivní weby. Specializace na Framer Motion a design systémy."
+      },
+      "freelance": {
+        "role": "Freelance vývojář a fotograf",
+        "company": "OSVČ",
+        "period": "2018 – 2021",
+        "description": "Prémiové vizuální kampaně spojující custom web s profesionální fotografií pro butikové značky."
+      }
+    }
+  },
+  "Contact": {
+    "title": "Napište mi",
+    "subtitle": "Ať už chcete spolupracovat na React projektu, rezervovat focení, nebo jen pozdravit — rád se ozvu.",
+    "directChannels": "Přímé kanály",
+    "email": "E-mail",
+    "linkedin": "LinkedIn",
+    "form": {
+      "title": "Poslat zprávu",
+      "name": "Jméno",
+      "namePlaceholder": "Vaše jméno",
+      "email": "E-mail",
+      "emailPlaceholder": "vas@email.com",
+      "message": "Zpráva",
+      "messagePlaceholder": "Jak vám mohu pomoct?",
+      "send": "Odeslat zprávu",
+      "successTitle": "Zpráva odeslána!",
+      "successBody": "Díky za zprávu. Brzy se ozvu.",
+      "sendAnother": "Poslat další zprávu",
+      "errors": {
+        "nameMin": "Jméno musí mít alespoň 2 znaky",
+        "emailInvalid": "Neplatná e-mailová adresa",
+        "messageMin": "Zpráva musí mít alespoň 10 znaků"
+      }
+    },
+    "booking": {
+      "title": "Rezervovat 1:1 sezení",
+      "name": "Jméno",
+      "namePlaceholder": "Vaše jméno",
+      "email": "E-mail",
+      "emailPlaceholder": "vas@email.com",
+      "date": "Datum",
+      "time": "Čas",
+      "confirm": "Potvrdit rezervaci",
+      "successTitle": "Rezervace potvrzena!",
+      "successBody": "Děkuji. Uvidíme se v domluveném čase.",
+      "errors": {
+        "nameMin": "Jméno musí mít alespoň 2 znaky",
+        "emailInvalid": "Neplatná e-mailová adresa",
+        "dateRequired": "Vyberte datum",
+        "timeRequired": "Vyberte čas"
+      }
+    }
+  },
+  "Favorites": {
+    "title": "Uložené a oblíbené",
+    "subtitle": "Články, portfolio a služby uložené na později.",
+    "emptyTitle": "Zatím nic uloženo",
+    "emptyBody": "Procházejte blog nebo portfolio a ukládejte oblíbené položky.",
+    "exploreBlog": "Prohlédnout blog"
+  },
+  "Vlogs": {
+    "title": "Vlogy",
+    "subtitle": "Zákulisí a příběhy z mé cesty.",
+    "codingTitle": "Creative coding v roce 2026",
+    "codingDescription": "Jak AI a nové nástroje mění způsob, jakým stavíme.",
+    "codingMeta": "18:45 • Publikováno duben 2026",
+    "gearTitle": "Rozbor fotografické výbavy",
+    "gearDescription": "Co mám v brašně v roce 2026.",
+    "sfTitle": "Týden v San Franciscu",
+    "sfDescription": "Vlog 042 — život vývojáře a fotografa."
+  },
+  "VideoModal": {
+    "close": "Zavřít video",
+    "nowPlaying": "Právě hraje"
+  },
+  "Cta": {
+    "readStory": "Přečíst můj příběh",
+    "contactMe": "Kontaktujte mě"
+  }
+}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { NotionTextProps } from './types';
 
 const RenderNotionTextContent = ({ textContentBlocks }: NotionTextProps) => {

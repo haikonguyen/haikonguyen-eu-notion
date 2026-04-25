@@ -1,26 +1,12 @@
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
-import {
-  createMainNavSlice,
-  createPaletteModeSlice,
-  createToastSlice,
-} from './slices';
+import { devtools } from 'zustand/middleware';
+import { createToastSlice } from './slices';
 import { StoreProps } from './types';
 
 const useStore = create<StoreProps>()(
-  persist(
-    devtools((...a) => ({
-      ...createMainNavSlice(...a),
-      ...createToastSlice(...a),
-      ...createPaletteModeSlice(...a),
-    })),
-    {
-      name: 'PERSISTED_STATE',
-      partialize: (state) => ({
-        paletteMode: state.paletteMode,
-      }),
-    },
-  ),
+  devtools((...a) => ({
+    ...createToastSlice(...a),
+  })),
 );
 
 export default useStore;

@@ -1,33 +1,16 @@
-import { AlertColor, PaletteMode } from '@mui/material';
-
-export interface PaletteModeSliceProps {
-  paletteMode: PaletteMode | undefined;
-  setDarkPaletteMode: () => void;
-  setLightPaletteMode: () => void;
-}
-
-export type DrawerStateType = boolean;
-
-export interface MainNavSliceProps {
-  isDrawerOpened: DrawerStateType;
-  isSettingsEnabled: DrawerStateType;
-  setIsDrawerOpened: () => void;
-  setIsSettingsEnabled: () => void;
-}
+import { ToastType } from '@config';
 
 export interface ToastSliceProps {
   toastSettings: {
     isToastOpened: boolean;
-    toastType: AlertColor | undefined;
+    toastType: ToastType | undefined;
     toastMessage: string | undefined;
   };
   setToastSettings: (
     isToastOpened: boolean,
-    toastType?: AlertColor,
+    toastType?: ToastType,
     toastMessage?: string,
   ) => void;
 }
 
-export type StoreProps = PaletteModeSliceProps &
-  MainNavSliceProps &
-  ToastSliceProps;
+export type StoreProps = ToastSliceProps;

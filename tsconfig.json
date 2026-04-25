@@ -1,56 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2022",
     "module": "esnext",
     "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "es6"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "noEmit": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "baseUrl": ".",
     "paths": {
-      "@components": [
-        "src/components"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@features/*": [
-        "src/features/*"
-      ],
-      "@lib/*": [
-        "src/lib/*"
-      ],
-      "@config": [
-        "src/config"
-      ],
-      "@config/*": [
-        "src/config/*"
-      ],
-      "@images/*": [
-        "public/assets/images/*"
-      ],
-      "@themes/*": [
-        "src/themes/*"
-      ],
-      "@enums/*": [
-        "src/enums/*"
-      ],
-      "@app-types/*": [
-        "src/types/*"
-      ]
+      "@/*": ["./src/*"],
+      "@i18n/*": ["./i18n/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@features/*": ["./src/features/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@config": ["./src/config"],
+      "@config/*": ["./src/config/*"],
+      "@images/*": ["./public/assets/images/*"],
+      "@enums/*": ["./src/enums/*"],
+      "@app-types/*": ["./src/types/*"]
     },
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -68,7 +43,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

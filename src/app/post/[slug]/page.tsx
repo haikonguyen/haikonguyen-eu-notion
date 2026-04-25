@@ -1,34 +1,25 @@
-import type { Metadata } from 'next';
-import { cache } from 'react';
-import { Image } from '@imagekit/next';
-import { getCoverSource, NotionBlocks, TagList } from '@features/blog';
-import { GlassWrapper, PageContentWrapper } from '@components';
+import type { BlogPage } from '@app-types/notion';
+import { AppPageShell, AppPageShellSize } from '@components/layout';
 import { siteConfig } from '@config';
+import { getCoverSource } from '@features/blog';
+import { PostArticle } from '@features/blog/components/PostArticle';
+import { PostHero } from '@features/blog/components/PostHero';
+import { getPageSlug } from '@features/blog/utils/get-page-slug';
 import {
-  createBlockWithChildren,
-  EuDateFormat,
-  getBlocks,
-  getDatabase,
-  getNestedChildBlock,
-  getPage,
-  requireDatabaseId,
-} from '@lib/notion';
+  getImagekitPath,
+  getPostExcerpt,
+  getPostTitle,
+} from '@features/blog/utils/get-post-fields';
+import {
+  findBlogPageBySlug,
+  getBlogDatabaseCached,
+  getPostBlocks,
+} from '@features/blog/utils/load-post';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { BlogPage } from '@app-types/notion';
+import { getTranslations } from 'next-intl/server';
 
 export const revalidate = 1;
-
-/** One Notion DB query per request (shared by generateMetadata + getPostData + static params). */
-const getBlogDatabaseCached = cache(async () => {
-  const databaseId = requireDatabaseId();
-  return getDatabase(databaseId);
-});
-
-const getPageSlug = (page: BlogPage): string => {
-  const slugProperty =
-    page.properties?.slug?.rich_text?.[0]?.plain_text?.trim();
-  return slugProperty && slugProperty.length > 0 ? slugProperty : page.id;
-};
 
 export async function generateStaticParams() {
   const { results } = await getBlogDatabaseCached();
@@ -44,54 +35,30 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { results } = await getBlogDatabaseCached();
+  const t = await getTranslations('Metadata');
+  const page = await findBlogPageBySlug(slug);
 
-  const matchingPage = results.find((page) => {
-    const pageSlug = getPageSlug(page as BlogPage);
-    return pageSlug === slug;
-  });
-
-  if (!matchingPage) {
-    return { title: 'Post Not Found' };
+  if (!page) {
+    return { title: t('postNotFound') };
   }
 
-  // Cast to BlogPage for proper type safety on properties
-  const page = (await getPage(matchingPage.id)) as BlogPage;
-
-  const title =
-    page.properties.post_name.title?.length &&
-    page.properties.post_name.title[0]?.plain_text
-      ? page.properties.post_name.title[0].plain_text
-      : 'Post';
-  const description =
-    page.properties.excerpt.rich_text[0]?.plain_text ||
-    "Read this article on Haiko Nguyen's blog";
-  const coverSrc = getCoverSource(page.cover);
-
-  // Ensure image URL is absolute (required by Facebook/Twitter)
+  const title = getPostTitle(page, t('postFallbackTitle'));
+  const description = getPostExcerpt(page, t('postFallbackDescription'));
+  const coverSrc = getCoverSource(page.cover, getImagekitPath(page));
   const absoluteImageUrl = coverSrc.startsWith('http')
     ? coverSrc
     : `${siteConfig.url}${coverSrc}`;
 
-  const postUrl = `${siteConfig.url}/post/${slug}`;
-
   return {
-    title: `${title} | Haiko Nguyen`,
+    title: t('postTitle', { title }),
     description,
     openGraph: {
       type: 'article',
-      url: postUrl,
+      url: `${siteConfig.url}/post/${slug}`,
       title,
       description,
-      siteName: 'Haiko Nguyen Blog',
-      images: [
-        {
-          url: absoluteImageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      siteName: t('blogSiteName'),
+      images: [{ url: absoluteImageUrl, width: 1200, height: 630, alt: title }],
       locale: 'en_US',
     },
     twitter: {
@@ -105,81 +72,27 @@ export async function generateMetadata({
   };
 }
 
-async function getPostData(slug: string) {
-  const { results } = await getBlogDatabaseCached();
-
-  const matchingPage = results.find((page) => {
-    const pageSlug = getPageSlug(page as BlogPage);
-    return pageSlug === slug;
-  });
-
-  if (!matchingPage) {
-    return null;
-  }
-
-  const page = await getPage(matchingPage.id);
-  const { results: blockResults } = await getBlocks(matchingPage.id);
-
-  const fullBlocks = blockResults.filter((block) => 'type' in block);
-  const nestedChildBlock = await getNestedChildBlock(fullBlocks);
-  const blocksWithChildren = fullBlocks.map((block) =>
-    createBlockWithChildren(block, nestedChildBlock),
-  );
-
-  return { page: page as BlogPage, blocks: blocksWithChildren };
-}
-
 export default async function PostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const data = await getPostData(slug);
+  const t = await getTranslations('Metadata');
+  const page = await findBlogPageBySlug(slug);
 
-  if (!data) {
+  if (!page) {
     notFound();
   }
 
-  const { page, blocks } = data;
-  const coverSrc = getCoverSource(page.cover);
-  const postTitle =
-    page.properties.post_name.title?.length &&
-    page.properties.post_name.title[0]?.plain_text
-      ? page.properties.post_name.title[0].plain_text
-      : 'Untitled';
+  const blocks = await getPostBlocks(page.id);
+  const postTitle = getPostTitle(page, t('untitledPost'));
+  const coverSrc = getCoverSource(page.cover, getImagekitPath(page));
 
   return (
-    <>
-      <div className="relative flex flex-wrap items-center justify-center h-72 md:h-96 py-24 px-4 mb-5 text-center">
-        <Image
-          src={coverSrc || '/placeholder.jpg'}
-          alt="Post cover image"
-          fill
-          style={{ objectFit: 'cover' }}
-        />
-
-        <GlassWrapper>
-          <h1 className="z-10 uppercase">{postTitle}</h1>
-          <div className="items-center flex">
-            <span className="mr-1">
-              {page.properties.author.created_by.name}
-            </span>
-            <span className="mr-1">
-              | {EuDateFormat(page.properties.published_date.date?.start)}
-            </span>
-          </div>
-        </GlassWrapper>
-        <section className="absolute bottom-0.5 left-0.5 z-10">
-          <TagList tags={page.properties.tags.multi_select} />
-        </section>
-      </div>
-
-      <PageContentWrapper isPost>
-        <article>
-          <NotionBlocks blocks={blocks} />
-        </article>
-      </PageContentWrapper>
-    </>
+    <AppPageShell size={AppPageShellSize.Article}>
+      <PostHero page={page} coverSrc={coverSrc} postTitle={postTitle} />
+      <PostArticle blocks={blocks} />
+    </AppPageShell>
   );
 }

@@ -1,0 +1,14 @@
+---
+description: Always follow this repo's AGENTS.md and SKILLS.md
+alwaysApply: true
+---
+
+Read and follow `AGENTS.md` and `SKILLS.md` before changing code.
+
+- Max 150 lines per file; extract with `SKILL-refactor-component.md`.
+- No hardcoded UI strings — `next-intl` (`getTranslations` / `useTranslations`).
+- No `any`. No nested ternaries. No `import React from "react"`.
+- `"use client"` only when required. Avoid `useEffect` unless syncing with an external system.
+- New components: PascalCase. Utils: kebab-case. Enums: Microsoft PascalCase.
+- After structural edits: `npx tsc --noEmit` and `npx biome check --write .`.
+- Read the scoped `AGENTS.md` in `src/app/`, `src/components/`, `src/features/`, `src/lib/`, or `src/app/api/` when working in those trees.

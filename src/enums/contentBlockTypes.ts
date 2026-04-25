@@ -1,6 +1,7 @@
 export enum ContentBlockTypes {
   BulletedListItem = 'bulleted_list_item',
   ChildPage = 'child_page',
+  Code = 'code',
   Divider = 'divider',
   NumberedListItem = 'numbered_list_item',
   Heading1 = 'heading_1',

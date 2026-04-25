@@ -1,18 +1,24 @@
-import type { Metadata } from 'next';
-import { GlassWrapper, Hero, PageContentWrapper } from '@components';
-import { NotionBlocks } from '@features/blog';
+import {
+  AppPageShell,
+  AppPageShellSize,
+  PageHeader,
+  PageHeaderAlign,
+} from '@components/layout';
+import { AboutTabs } from '@features/about';
 import {
   createBlockWithChildren,
   getBlocks,
   getNestedChildBlock,
 } from '@lib/notion';
-import aboutPageBg from '@images/aboutPageBg.jpg';
-
-export const metadata: Metadata = {
-  title: 'About | Haiko Nguyen',
-};
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 export const revalidate = 1;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('Metadata');
+  return { title: t('aboutTitle') };
+}
 
 const getAboutContent = async () => {
   const pageId = process.env.ABOUT_PAGE_ID?.trim();
@@ -21,31 +27,30 @@ const getAboutContent = async () => {
   }
 
   const { results } = await getBlocks(pageId);
-
   const fullBlocks = results.filter((block) => 'type' in block);
   const nestedChildBlock = await getNestedChildBlock(fullBlocks);
-  const blocksWithChildren = fullBlocks.map((block) =>
+
+  return fullBlocks.map((block) =>
     createBlockWithChildren(block, nestedChildBlock),
   );
-
-  return { blocks: blocksWithChildren };
 };
 
 export default async function AboutPage() {
-  const { blocks } = await getAboutContent();
+  const t = await getTranslations('About');
+  const blocks = await getAboutContent();
 
   return (
-    <>
-      <Hero isHomePage={false} imageSource={aboutPageBg}>
-        <GlassWrapper>
-          <h1>About</h1>
-        </GlassWrapper>
-      </Hero>
-      <PageContentWrapper isPost>
-        <article>
-          <NotionBlocks blocks={blocks} />
-        </article>
-      </PageContentWrapper>
-    </>
+    <AppPageShell
+      size={AppPageShellSize.Default}
+      className="relative overflow-hidden"
+    >
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.05),transparent_50%)]" />
+      <PageHeader
+        title={t('title')}
+        subtitle={t('subtitle')}
+        align={PageHeaderAlign.Center}
+      />
+      <AboutTabs storyBlocks={blocks} />
+    </AppPageShell>
   );
 }
