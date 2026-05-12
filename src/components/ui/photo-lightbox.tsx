@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import PhotoAlbum, { type Photo } from 'react-photo-album';
+import React, { useState } from 'react';
+import PhotoAlbum, { type Photo, type RenderPhoto } from 'react-photo-album';
 import 'react-photo-album/rows.css';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
@@ -25,25 +25,27 @@ interface PhotoLightboxProps {
   className?: string;
 }
 
-// Next.js-optimised render for react-photo-album
-function NextJsImage({
-  photo,
-  imageProps: { alt, title, sizes, className, onClick },
-  wrapperStyle,
-}: Parameters<NonNullable<React.ComponentProps<typeof PhotoAlbum>['renderPhoto']>>[0]) {
+// Next.js-optimised render for react-photo-album v3 (`render.photo` replaces removed `renderPhoto`).
+const nextImageSizes =
+  '(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1280px) 1100px, min(1200px, 90vw)';
+
+function NextJsImage(
+  { onClick }: Parameters<RenderPhoto<Photo>>[0],
+  { photo, width, height }: Parameters<RenderPhoto<Photo>>[1],
+) {
   return (
     <div
-      style={{ ...wrapperStyle, position: 'relative' }}
+      style={{ position: 'relative', width, height }}
       className="overflow-hidden rounded-[1.5rem] cursor-pointer group"
       onClick={onClick}
     >
       <NextImage
         fill
         src={photo.src}
-        alt={alt || photo.alt || ''}
-        title={title}
-        sizes={sizes}
-        className={`${className ?? ''} object-cover transition-transform duration-700 group-hover:scale-110`}
+        alt={photo.alt ?? ''}
+        title={photo.title}
+        sizes={nextImageSizes}
+        className="object-cover transition-transform duration-700 group-hover:scale-110"
       />
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 rounded-[1.5rem]" />
@@ -68,7 +70,7 @@ export const PhotoLightbox = ({ photos, className }: PhotoLightboxProps) => {
         photos={photos}
         targetRowHeight={300}
         spacing={16}
-        renderPhoto={NextJsImage}
+        render={{ photo: NextJsImage }}
         onClick={({ index: idx }) => setIndex(idx)}
       />
 
