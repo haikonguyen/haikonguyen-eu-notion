@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
+@plugin "./typography-plugin.js";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
