@@ -145,7 +145,7 @@ _Redesign the landing page into a native-like mobile personal brand hub._
 - **Tasks**:
   - Article preview card with cover image (R2 URL via `next/image`), category/tag badge, publication date, title, and excerpt.
   - "Read Article →" link with page transition to `/post/[slug]` (current route; not `/blog/[slug]`).
-- **Acceptance Criteria**: Renders latest posts from Keystatic with skeleton loading states; zero Notion API calls.
+- **Acceptance Criteria**: Renders latest posts from Keystatic with skeleton loading states; zero external CMS API calls.
 
 #### `TICKET-HOME-03`: "Featured Work" Visual Showcase Hub
 

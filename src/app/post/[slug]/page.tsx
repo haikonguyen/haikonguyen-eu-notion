@@ -1,32 +1,16 @@
-import type { BlogPage } from '@app-types/notion';
 import { AppPageShell, AppPageShellSize } from '@components/layout';
 import { siteConfig } from '@config';
-import { getCoverSource } from '@features/blog';
 import { PostArticle } from '@features/blog/components/PostArticle';
+import { CoverFallback } from '@features/blog/components/PostCard/types';
 import { PostHero } from '@features/blog/components/PostHero';
-import { getPageSlug } from '@features/blog/utils/get-page-slug';
-import {
-  getImagekitPath,
-  getPostExcerpt,
-  getPostTitle,
-} from '@features/blog/utils/get-post-fields';
-import {
-  findBlogPageBySlug,
-  getBlogDatabaseCached,
-  getPostBlocks,
-} from '@features/blog/utils/load-post';
+import { getAllPosts, getPostBySlug } from '@lib/keystatic';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-export const revalidate = 1;
-
 export async function generateStaticParams() {
-  const { results } = await getBlogDatabaseCached();
-
-  return results.map((page) => ({
-    slug: getPageSlug(page as BlogPage),
-  }));
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -36,15 +20,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const t = await getTranslations('Metadata');
-  const page = await findBlogPageBySlug(slug);
+  const post = await getPostBySlug(slug);
 
-  if (!page) {
+  if (!post) {
     return { title: t('postNotFound') };
   }
 
-  const title = getPostTitle(page, t('postFallbackTitle'));
-  const description = getPostExcerpt(page, t('postFallbackDescription'));
-  const coverSrc = getCoverSource(page.cover, getImagekitPath(page));
+  const title = post.title || t('postFallbackTitle');
+  const description = post.excerpt || t('postFallbackDescription');
+  const coverSrc = post.coverImage || CoverFallback.Image;
   const absoluteImageUrl = coverSrc.startsWith('http')
     ? coverSrc
     : `${siteConfig.url}${coverSrc}`;
@@ -79,20 +63,26 @@ export default async function PostPage({
 }) {
   const { slug } = await params;
   const t = await getTranslations('Metadata');
-  const page = await findBlogPageBySlug(slug);
+  const post = await getPostBySlug(slug);
 
-  if (!page) {
+  if (!post) {
     notFound();
   }
 
-  const blocks = await getPostBlocks(page.id);
-  const postTitle = getPostTitle(page, t('untitledPost'));
-  const coverSrc = getCoverSource(page.cover, getImagekitPath(page));
+  const postTitle = post.title || t('untitledPost');
+  const coverSrc = post.coverImage || CoverFallback.Image;
 
   return (
     <AppPageShell size={AppPageShellSize.Article}>
-      <PostHero page={page} coverSrc={coverSrc} postTitle={postTitle} />
-      <PostArticle blocks={blocks} />
+      <PostHero
+        title={postTitle}
+        excerpt={post.excerpt}
+        authorName={post.authorName}
+        publishedDate={post.publishedDate}
+        coverSrc={coverSrc}
+        tags={post.tags}
+      />
+      <PostArticle content={post.content} />
     </AppPageShell>
   );
 }

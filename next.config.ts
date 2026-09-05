@@ -1,5 +1,6 @@
 import { xrayPlugin } from '@stinsky/xray/plugin';
 import type { NextConfig } from 'next';
+import type { RemotePattern } from 'next/dist/shared/lib/image-config';
 import createNextIntlPlugin from 'next-intl/plugin';
 import { ensureCodeInspectorServer } from './src/lib/dev/ensure-code-inspector-server';
 import { xrayDevOptions } from './src/lib/dev/xray-dev-options';
@@ -7,6 +8,31 @@ import { xrayDevOptions } from './src/lib/dev/xray-dev-options';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const xrayRules = xrayPlugin(xrayDevOptions);
+
+function getR2RemotePattern(): RemotePattern | null {
+  const baseUrl = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL?.trim();
+  if (!baseUrl) {
+    return null;
+  }
+
+  try {
+    const url = new URL(baseUrl);
+    const protocol = url.protocol.replace(':', '');
+    if (protocol !== 'http' && protocol !== 'https') {
+      return null;
+    }
+
+    return {
+      protocol,
+      hostname: url.hostname,
+      pathname: '/**',
+    };
+  } catch {
+    return null;
+  }
+}
+
+const r2RemotePattern = getR2RemotePattern();
 
 const nextConfig: NextConfig = {
   turbopack: {
@@ -16,33 +42,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ik.imagekit.io',
-        pathname: '/8qy7obkhf/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
-        hostname: 'www.notion.so',
+        hostname: '**.r2.dev',
       },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 's3.us-west-2.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'socialistmodernism.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
-      },
+      ...(r2RemotePattern ? [r2RemotePattern] : []),
     ],
   },
 };

@@ -1,21 +1,14 @@
-import {
-  ExternalCoverType,
-  FileCoverType,
-  PropertiesType,
-} from '@app-types/notion';
-
 export interface PostCardProps {
-  id: string;
-  cover: ExternalCoverType | FileCoverType | null;
-  properties: PropertiesType;
-  slug?: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedDate: string | null;
+  authorName: string;
+  coverImage: string;
+  tags: string[];
 }
 
-export interface AvatarImageProps {
-  avatarUrl?: string;
-}
-
-export enum CoverType {
-  FILE = 'file',
-  EXTERNAL = 'external',
+export enum CoverFallback {
+  Image = '/assets/images/blogPageBgOptimized.jpg',
+  Avatar = '/assets/images/heroProfileImg.png',
 }

@@ -1,7 +1,5 @@
 'use client';
 
-import type { NotionBlock } from '@app-types/notion';
-import { NotionBlocks } from '@features/blog';
 import { cn } from '@lib/utils';
 import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
@@ -11,7 +9,7 @@ import { AboutTab } from '../types';
 import { AboutCvPanel } from './AboutCvPanel';
 
 export interface AboutTabsProps {
-  storyBlocks: NotionBlock[];
+  storyContent: ReactNode;
 }
 
 interface AboutTabButtonProps {
@@ -46,7 +44,7 @@ function AboutTabButton({
   );
 }
 
-export function AboutTabs({ storyBlocks }: AboutTabsProps) {
+export function AboutTabs({ storyContent }: AboutTabsProps) {
   const t = useTranslations('About');
   const [activeTab, setActiveTab] = useState(AboutTab.Story);
   const isStory = activeTab === AboutTab.Story;
@@ -72,9 +70,7 @@ export function AboutTabs({ storyBlocks }: AboutTabsProps) {
       <div className={cn('relative', ABOUT_CONTENT_MIN_HEIGHT_CLASS)}>
         {isStory ? (
           <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <article className="prose prose-invert prose-lg mx-auto max-w-3xl leading-relaxed text-white/70">
-              <NotionBlocks blocks={storyBlocks} />
-            </article>
+            <article>{storyContent}</article>
           </div>
         ) : (
           <AboutCvPanel />

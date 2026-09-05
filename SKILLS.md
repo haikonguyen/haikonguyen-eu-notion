@@ -21,7 +21,7 @@ This file extends `AGENTS.md` and is the convention checklist for every change.
 - Prefer inference for locals, helpers, and private return types.
 - Use explicit types for exported APIs, shared `types.ts`, and `[ComponentName]Props`.
 - Prefer `satisfies`, `as const`, discriminated unions, `import type`, and type predicates over `as` assertions.
-- Never use `any`. Narrow `unknown` at boundaries (Notion payloads, `fetch` JSON, URL params).
+- Never use `any`. Narrow `unknown` at boundaries (CMS payloads, `fetch` JSON, URL params).
 
 ## 4. Refactoring
 
