@@ -11,7 +11,7 @@
 
 The goal of this transformation is to evolve the current web portfolio into a high-performance, mobile-first **Progressive Web App (PWA)** featuring a **Liquid Glass** aesthetic. The app delivers a dual-context experience:
 
-1. **Public View**: High-impact marketing & portfolio hub presenting personal brand narrative, latest articles (Notion-backed blog), interactive CV, service offerings (Web Development, Photography, Video), cart, and quick-action launchers.
+1. **Public View**: High-impact marketing & portfolio hub presenting personal brand narrative, latest articles (Keystatic + Cloudflare R2 CMS — see Epic 6), interactive CV, service offerings (Web Development, Photography, Video), cart, and quick-action launchers.
 2. **Authenticated User View**: Native dashboard containing client profile status, upcoming service bookings with reschedule/cancellation, visit/inquiry history, saved favorites, and preferences.
 
 ### Key Design Pillars
@@ -139,13 +139,13 @@ _Redesign the landing page into a native-like mobile personal brand hub._
     - 📷 **Gear List / Work**: Direct shortcut to equipment & setup breakdown.
 - **Acceptance Criteria**: Matches mobile native design mockup with glassmorphic tactile buttons.
 
-#### `TICKET-HOME-02`: "What's New" Notion Blog Showcase
+#### `TICKET-HOME-02`: "What's New" Blog Showcase (Keystatic)
 
-- **Description**: Dynamic blog preview card/carousel on the home view connected to the Notion API.
+- **Description**: Dynamic blog preview card/carousel on the home view fed by the Keystatic reader (depends on Epic 6 / `TICKET-CMS-03`).
 - **Tasks**:
-  - Article preview card with cover image, category badge, publication date, title, and excerpt.
-  - "Read Article →" link with page transition to `/blog/[slug]`.
-- **Acceptance Criteria**: Renders real-time latest blog posts from Notion with skeleton loading states.
+  - Article preview card with cover image (R2 URL via `next/image`), category/tag badge, publication date, title, and excerpt.
+  - "Read Article →" link with page transition to `/post/[slug]` (current route; not `/blog/[slug]`).
+- **Acceptance Criteria**: Renders latest posts from Keystatic with skeleton loading states; zero Notion API calls.
 
 #### `TICKET-HOME-03`: "Featured Work" Visual Showcase Hub
 
@@ -282,7 +282,122 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Audit and replace hardcoded dark utility classes (`bg-black/85`, `bg-black/45`, `text-white`) with responsive theme-aware variables (`bg-card`, `bg-glass-surface`, `text-foreground`).
   - Create light-mode frosted glass variants with soft drop shadows and high-contrast typography.
   - Implement dynamic theme provider with system preference listener and instant toggle.
+  - Adapt blog/Markdoc renderers (post-Keystatic) — not Notion block chrome.
 - **Acceptance Criteria**: Seamless switching between Dark, Light, and System modes with full WCAG contrast and liquid glass styling across all 54 pages.
+
+---
+
+### 🔷 Epic 6: Keystatic CMS + Cloudflare R2 (Notion / ImageKit Replacement) — POC
+
+_Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based CMS). Store all CMS media on Cloudflare R2 from day one (not `public/`). Keep near-zero subscription cost. Optimize for clean Next.js App Router data loading instead of Notion block trees._
+
+#### Context (read before implementing)
+
+- **Notion surface today is narrow**: blog database (`DATABASE_ID`) + About Story page (`ABOUT_PAGE_ID`) only. Portfolio, services, home, contact, cart, and About CV are already local constants + `messages/*`.
+- **ImageKit is lightly used**: optional `imagekit_path` on posts + unused transform helpers; no in-app upload. R2 replaces it as the **single media store** for CMS images (blog covers now; portfolio gallery later).
+- **Routes**: blog list `/blog`, post detail `/post/[slug]`, About Story via About tabs — do **not** invent `/blog/[slug]`.
+- **i18n**: UI stays `next-intl` (`en`/`cs`/`vi`). CMS body stays **monolingual** for POC (same as Notion today).
+- **Images**: CMS binaries → **R2 + custom domain** + `next/image`. App chrome (logo, favicon) may stay in `public/`. Do **not** put gallery/cover uploads in `public/` (deploy/Git bloat; Vercel CLI static upload caps: Hobby 100 MB / Pro 1 GB).
+- **Transforms**: rely on Next.js Image Optimization for POC; revisit Cloudflare Image Resizing only if quotas become real.
+- Follow root `AGENTS.md` / `SKILLS.md`: no `any`, no hardcoded UI strings, ≤150 LOC/file, Biome + `tsc`.
+
+#### `TICKET-CMS-01`: Keystatic Install, Config & Admin Shell
+
+- **Description**: Add Keystatic to the Next.js App Router app with local storage for the POC and an isolated admin UI.
+- **Tasks**:
+  - Install `@keystatic/core` and `@keystatic/next` (check Next 16.3+ / React 19 compatibility first).
+  - Create root `keystatic.config.ts`:
+    - Storage: `kind: 'local'` for POC (GitHub storage = follow-up, not required to merge POC).
+    - Collection `posts` at `content/posts/*`: `title` (slug), `publishedDate`, `excerpt`, `tags`, `authorName`, `coverImage` (R2 URL/path string field for POC — not Git-hosted image blobs), Markdoc/document `content` (bold, italic, links, headings, blockquotes, code; optional Callout later).
+    - Singleton `about` (or `about-story`) for the About Story body.
+  - API: `src/app/api/keystatic/[...params]/route.ts` via `makeRouteHandler`.
+  - Admin: `src/app/keystatic/[[...params]]/page.tsx` via `makePage`; isolated `src/app/keystatic/layout.tsx` (no public nav/footer).
+  - Document required env stubs in `.env.example` (no secrets committed).
+- **Acceptance Criteria**: `http://localhost:3000/keystatic` loads; creating a post writes under `content/posts/` without Notion.
+
+#### `TICKET-CMS-02`: Cloudflare R2 Bucket, Public URL & Upload Helper
+
+- **Description**: Provision R2 as the only CMS media backend for the POC (covers now; gallery-ready prefixes later).
+- **Tasks**:
+  - Create R2 bucket + public access via custom domain or r2.dev public URL.
+  - Env: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `NEXT_PUBLIC_R2_PUBLIC_BASE_URL` (names may match existing CF conventions — keep consistent).
+  - Server-only helper to build public object URLs; optional presigned PUT for admin/manual upload smoke test.
+  - Keystatic `coverImage` stores the **public R2 URL or object key** (string). Upload path for POC: presigned PUT from a small server action/route **or** documented manual upload + paste URL — must not commit binaries to Git/`public/`.
+  - Allow R2 host in `next.config.ts` `images.remotePatterns`.
+  - Prefix convention: `blog/covers/…` now; reserve `portfolio/…` for later gallery (no need to build gallery UI in POC).
+- **Acceptance Criteria**: A cover on R2 renders via `next/image` on a post card/hero; no ImageKit URL required.
+
+#### `TICKET-CMS-03`: Type-Safe Reader & Rewire Blog / Post / About
+
+- **Description**: Replace Notion fetch + block rendering on blog list, post detail, and About Story with Keystatic + Markdoc.
+- **Tasks**:
+  - `src/lib/keystatic.ts` (kebab-case modules OK under `src/lib/keystatic/`): `createReader`, `getAllPosts()`, `getPostBySlug(slug)`, `getAboutStory()`.
+  - Rewire `src/app/blog/page.tsx`, `src/app/post/[slug]/page.tsx` (`generateStaticParams`, `generateMetadata`, OG from R2 cover), About Story data path.
+  - Keep PostCard / PostHero / PostList / TagList UI; adapt props off flat frontmatter (drop Notion property nesting).
+  - Render Markdoc with Tailwind typography; delete Notion block renderer usage from these routes.
+  - Prefer build-time / static reads; remove `revalidate = 1` Notion chatter on migrated routes.
+  - Migrate ≥1 real post + About Story sample into `content/` (Markdoc) so the site is demoable without Notion env.
+- **Acceptance Criteria**: `/blog`, `/post/[slug]`, About Story work with Notion env vars unset; `generateStaticParams` lists Keystatic slugs.
+
+#### `TICKET-CMS-04`: Remove Notion + ImageKit Dead Path (Feature Flag Flip)
+
+- **Description**: After routes are green on Keystatic + R2, remove the old CMS/image adapter surface.
+- **Tasks**:
+  - Remove `@notionhq/client` usage and Notion env (`DATABASE_ID`, `NOTION_API_KEY`, `ABOUT_PAGE_ID`) from `.env.example` / docs once cut over.
+  - Remove or quarantine `src/lib/notion/**`, Notion-specific blog loaders, `imagekit_path` plumbing, unused `@imagekit/nodejs` / provider if nothing remains.
+  - Strip Notion/ImageKit hosts from `next.config.ts` when unused; keep Unsplash/local as needed.
+  - Update any backlog/vision copy still saying “Notion API” (e.g. home showcase depends on Keystatic).
+- **Acceptance Criteria**: App builds and serves blog/about with zero Notion/ImageKit runtime dependency for those features.
+
+#### `TICKET-CMS-05`: Verification
+
+- **Description**: Quality gate before merge to `dev`.
+- **Tasks**:
+  - `npx tsc --noEmit` and `npx biome check --write .` clean on touched tree.
+  - `npm run build` succeeds; post routes pre-render from Keystatic.
+  - Manual: edit via `/keystatic`, confirm content files update; confirm R2 cover displays.
+  - Smoke mobile + desktop blog list/detail.
+- **Acceptance Criteria**: Typecheck/lint/build green; POC demoable without Notion or ImageKit credentials.
+
+#### Out of scope (explicit)
+
+- Portfolio gallery UI / lightbox CMS (later epic; same R2 bucket/prefix).
+- Multi-locale CMS bodies.
+- Keystatic `kind: 'github'` production storage (follow-up ticket).
+- Cloudflare Image Resizing / Images product.
+- Bot/Grokbot upload automation (design R2 prefixes + presigned PUT so this is easy later; do not build the bot).
+- Moving portfolio/services/home copy into Keystatic.
+
+#### Agent prompt (copy for implementation agent)
+
+```markdown
+You are an expert full-stack TypeScript engineer on this repo (`haikonguyen-eu-notion`).
+Read `AGENTS.md`, `SKILLS.md`, and Epic 6 in `BACKLOG.md` before coding.
+
+### Objective
+POC: replace Notion CMS (blog + About Story) with Keystatic; store all CMS images on Cloudflare R2 from day one. Near-zero subscription. Cleaner Next.js data layer (no Notion block trees).
+
+### Must follow
+- Next.js 16.3+ App Router, React 19, TypeScript strict, Biome, next-intl, Tailwind 4 only.
+- No `any`, no hardcoded UI strings, ≤150 LOC/file, `"use client"` only when required.
+- Routes: `/blog`, `/post/[slug]`, About Story tab — keep existing URLs.
+- CMS media → R2 only (not `public/` except logo/favicon). Use `next/image` + `remotePatterns`.
+- Storage: Keystatic `local` for POC. Content monolingual.
+- Preserve PostCard/PostHero/list UI; swap data shape to flat Keystatic fields + R2 cover URL/key.
+- After structural edits: `npx tsc --noEmit` and `npx biome check --write .`.
+- Commit on branch `cursor/<descriptive-name>-af7e`, push, open/update PR into `dev`.
+
+### Implement tickets in order
+`TICKET-CMS-01` → `TICKET-CMS-02` → `TICKET-CMS-03` → `TICKET-CMS-04` → `TICKET-CMS-05`.
+
+### Collections (keystatic.config.ts)
+- `posts`: title/slug, publishedDate, excerpt, tags, authorName, coverImage (R2 URL or key string), Markdoc content.
+- `about` singleton: Markdoc body for About Story.
+- Do not Git-commit image binaries; R2 holds blobs.
+
+### Done when
+Blog + About Story work without `NOTION_*` / ImageKit; `/keystatic` edits local content files; covers load from R2 via `next/image`; tsc/biome/build pass.
+```
 
 ---
 
@@ -291,8 +406,10 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
 | Milestone                                          | Scope                        | Target Focus                                                                                                           |
 | :------------------------------------------------- | :--------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
 | **Milestone 1 (Current Branch: `feature/new-ui`)** | **Core Foundation & Shell**  | PWA Manifest, Service Worker, Liquid Glass Design Tokens, `AppPageShell`, Floating Top Header & Bottom Navigation Bar. |
-| **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Notion "What's New" Blog, Featured Work, Interactive CV.                     |
+| **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
+| **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | Keystatic admin + reader, R2 covers, rewire `/blog` + `/post/[slug]` + About Story, remove Notion/ImageKit path.       |
 | **Milestone 3**                                    | **Services & Commerce**      | Web Dev / Photo / Video Services Catalog, Booking Drawer, Cart Store, Checkout Flow.                                   |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
+| **Later**                                          | **Portfolio gallery media**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
 
 ---
