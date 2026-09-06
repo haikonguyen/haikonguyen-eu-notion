@@ -1,18 +1,17 @@
 'use client';
 
-import { BlogPostType } from '@app-types/notion';
 import { PostList } from '@features/blog';
+import type { BlogPostSummary } from '@lib/keystatic';
 import { Search } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type ChangeEvent, useState } from 'react';
 
 interface BlogSearchProps {
-  blogPostList: BlogPostType[];
+  blogPostList: BlogPostSummary[];
 }
 
-function matchesSearchQuery(post: BlogPostType, query: string): boolean {
-  const title = post.properties.post_name?.title?.[0]?.plain_text?.trim() ?? '';
-  return title.toLowerCase().includes(query.toLowerCase());
+function matchesSearchQuery(post: BlogPostSummary, query: string): boolean {
+  return post.title.toLowerCase().includes(query.toLowerCase());
 }
 
 export function BlogSearch({ blogPostList }: BlogSearchProps) {

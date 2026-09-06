@@ -1,23 +1,25 @@
 'use client';
 
-import { BlogPostListType, PropertiesType } from '@app-types/notion';
+import type { BlogPostSummary } from '@lib/keystatic';
 import { PostCard } from '../PostCard';
 
-const getPostSlug = (id: string, properties: PropertiesType): string => {
-  const slugValue = properties?.slug?.rich_text?.[0]?.plain_text?.trim();
-  return slugValue && slugValue.length > 0 ? slugValue : id;
-};
+interface PostListProps {
+  blogPostList: BlogPostSummary[];
+}
 
-const PostList = ({ blogPostList }: BlogPostListType) => {
+const PostList = ({ blogPostList }: PostListProps) => {
   return (
-    <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-12">
-      {blogPostList?.map(({ id, cover, properties }) => (
+    <div className="grid grid-cols-1 gap-8 pb-12 md:grid-cols-2 lg:grid-cols-3">
+      {blogPostList.map((post) => (
         <PostCard
-          id={id}
-          key={id}
-          cover={cover}
-          properties={properties}
-          slug={getPostSlug(id, properties)}
+          key={post.slug}
+          slug={post.slug}
+          title={post.title}
+          excerpt={post.excerpt}
+          publishedDate={post.publishedDate}
+          authorName={post.authorName}
+          coverImage={post.coverImage}
+          tags={post.tags}
         />
       ))}
     </div>

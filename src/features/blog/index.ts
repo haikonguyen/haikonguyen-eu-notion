@@ -1,6 +1,6 @@
-export * from './components/notion-blocks';
-export * from './components/notion-text';
+export * from './components/MarkdocRenderer';
+export * from './components/PostArticle';
 export * from './components/PostCard';
-export { getCoverSource } from './components/PostCard/utils';
+export * from './components/PostHero';
 export * from './components/post-list';
 export * from './components/tag-list';

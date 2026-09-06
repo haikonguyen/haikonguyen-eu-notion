@@ -45,4 +45,5 @@ yarn-error.log*
 /jules-scratch
 
 
-# ImageKit: set keys in .env / .env.local (never commit real values).
+# R2 / CMS: set keys in .env / .env.local (never commit real values).
+# Do not commit CMS image binaries — store covers under R2 (blog/covers/…).

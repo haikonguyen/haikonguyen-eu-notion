@@ -17,16 +17,17 @@ This is the root instruction file for `haikonguyen-eu-notion`. It contains globa
 - **Biome 2.5+** (lint + format; do not reintroduce ESLint)
 - **next-intl** (i18n — never hardcode UI strings)
 - **Zustand** for client session state (cart, nav, toast)
-- **Notion** as the CMS; **ImageKit** for optimized images
+- **Keystatic** (local Git CMS) for blog + About Story; **Cloudflare R2** for CMS media
 - **Tailwind CSS only.** Do not add MUI, Emotion, or CSS-in-JS.
 
 ## Layout
 
-- `src/app/`: routes, layouts, metadata, Route Handlers
+- `src/app/`: routes, layouts, metadata, Route Handlers (`/keystatic` admin is chrome-free)
 - `src/features/`: cohesive feature modules (blog, portfolio, contact, cart, home, about, account, services)
 - `src/components/`: shared UI (`ui/`, `layout/`, `common/`)
-- `src/lib/`: Notion, ImageKit, store, hooks, i18n loaders
-- `src/actions/`: Server Actions only (create this folder when adding mutations)
+- `src/lib/`: Keystatic reader, R2 helpers, store, hooks, i18n loaders
+- `src/actions/`: Server Actions only (e.g. R2 presigned upload URL)
+- `content/`: Keystatic Markdoc posts + About Story singleton (no image binaries)
 - `messages/`: translation files (`en`, `cs`, `vi`)
 - `i18n/`: next-intl routing + request config
 - `proxy.ts`: request gateway when locale routing or session work is added (`middleware.ts` is deprecated in Next.js 16)

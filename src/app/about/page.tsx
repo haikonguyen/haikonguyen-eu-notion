@@ -5,39 +5,22 @@ import {
   PageHeaderAlign,
 } from '@components/layout';
 import { AboutTabs } from '@features/about';
-import {
-  createBlockWithChildren,
-  getBlocks,
-  getNestedChildBlock,
-} from '@lib/notion';
+import { MarkdocRenderer } from '@features/blog/components/MarkdocRenderer';
+import { getAboutStory } from '@lib/keystatic';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-
-export const revalidate = 1;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Metadata');
   return { title: t('aboutTitle') };
 }
 
-const getAboutContent = async () => {
-  const pageId = process.env.ABOUT_PAGE_ID?.trim();
-  if (!pageId) {
-    throw new Error('Missing ABOUT_PAGE_ID env var');
-  }
-
-  const { results } = await getBlocks(pageId);
-  const fullBlocks = results.filter((block) => 'type' in block);
-  const nestedChildBlock = await getNestedChildBlock(fullBlocks);
-
-  return fullBlocks.map((block) =>
-    createBlockWithChildren(block, nestedChildBlock),
-  );
-};
+const STORY_PROSE_CLASS =
+  'prose prose-invert prose-lg mx-auto max-w-3xl leading-relaxed text-white/70 prose-headings:text-white prose-a:text-primary prose-strong:text-white';
 
 export default async function AboutPage() {
   const t = await getTranslations('About');
-  const blocks = await getAboutContent();
+  const story = await getAboutStory();
 
   return (
     <AppPageShell
@@ -50,7 +33,16 @@ export default async function AboutPage() {
         subtitle={t('subtitle')}
         align={PageHeaderAlign.Center}
       />
-      <AboutTabs storyBlocks={blocks} />
+      <AboutTabs
+        storyContent={
+          story ? (
+            <MarkdocRenderer
+              node={story.content}
+              className={STORY_PROSE_CLASS}
+            />
+          ) : null
+        }
+      />
     </AppPageShell>
   );
 }
