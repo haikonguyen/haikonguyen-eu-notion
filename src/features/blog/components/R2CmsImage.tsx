@@ -14,18 +14,17 @@ export function R2CmsImage({ src, alt, caption }: R2CmsImageProps) {
   }
 
   return (
-    <figure className="my-8 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40">
-      <div className="relative aspect-[16/10] w-full">
-        <Image
-          src={imageSrc}
-          alt={alt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 768px"
-          className="object-cover"
-        />
-      </div>
+    <figure className="my-10 not-prose">
+      <Image
+        src={imageSrc}
+        alt={alt}
+        width={1200}
+        height={800}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 768px"
+        className="h-auto w-full rounded-xl border border-white/10"
+      />
       {caption ? (
-        <figcaption className="px-4 py-3 text-center text-sm text-white/55">
+        <figcaption className="mx-auto mt-3 max-w-prose text-center text-sm leading-relaxed text-zinc-400 italic">
           {caption}
         </figcaption>
       ) : null}
