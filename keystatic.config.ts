@@ -28,6 +28,7 @@ export default config({
       label: 'Posts',
       slugField: 'title',
       path: 'content/posts/*',
+      columns: ['publishedDate'],
       format: { contentField: 'content' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),

@@ -301,7 +301,8 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
   - Migrated so far: About Story + `content/posts/welcome-to-my-new-website.mdoc` (ImageKit URLs kept on purpose).
-- **Next session**: CMS-06 → CMS-08 (new branch after merge). CMS-09 later.
+- **Next session**: CMS-06 → CMS-08 (migrate + polish). CMS-10 (admin auth gate) after public Admin risk is prioritized. CMS-09 later.
+- **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
 
 #### Context (read before implementing)
 
@@ -319,9 +320,11 @@ Shipped in PR #21: Keystatic admin/API, R2 helpers + env stubs, reader rewire fo
 
 ### 🔷 Epic 6.1: Full Content Migration & CMS Polish (next session)
 
-_Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-posts-f710`. Content-first; minimize code churn._
+_Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-posts-ff86`. Content-first; minimize code churn._
 
-#### `TICKET-CMS-06`: Migrate All Remaining Blog Posts (ImageKit URLs)
+#### `TICKET-CMS-06`: Migrate All Remaining Blog Posts (ImageKit URLs) — **IN PROGRESS** on `cursor/keystatic-migrate-all-posts-ff86`
+
+- **Status**: All **36** inventory posts present under `content/posts/YYYY/YYYY-MM-DD-<slug>.mdoc` (year folders + date-prefixed names). Public URLs stay `/post/<slug>` via reader mapping. `columns: ['publishedDate']` in Keystatic Admin. Typecheck + build green.
 
 - **Description**: Bring the full production blog catalog into `content/posts/*.mdoc` using the welcome-post template. Keep ImageKit URLs for covers + inline images.
 - **Gold template**: `content/posts/welcome-to-my-new-website.mdoc` (+ `content/about-story.mdoc` for singleton reference).
@@ -381,11 +384,34 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
   - Remove ImageKit host allowlist when unused.
 - **Acceptance Criteria**: Blog/About have zero ImageKit runtime dependency; binaries still not in Git.
 
+#### `TICKET-CMS-10`: Protect Keystatic Admin (`/keystatic`) — Supabase gate (Haianbeauty-style)
+
+- **Description**: Keystatic does **not** ship username/password auth for local storage. Once `/keystatic` is publicly reachable, gate the Admin UI **and** `/api/keystatic/*` behind custom auth we control (same pattern as Haianbeauty: credentials/session in Supabase).
+- **Why not Keystatic Cloud / GitHub-only auth first**: We want full control of who can open Admin without forcing editors through Keystatic Cloud; aligns with Epic 5 client auth stack later.
+- **Important split** (do not conflate):
+  1. **Access control** — who can open `/keystatic` + Admin API.
+  2. **Persistence** — `local` storage on Vercel does **not** commit content to git. Production editing that sticks still needs `storage.kind: 'github'` (or edit-only on private/dev). Auth alone does not fix writes.
+- **Recommended phased approach**:
+  1. **Immediate hardening** (can ship before full Supabase): `showAdminUI` / `notFound()` (or redirect) for `/keystatic` + 404 the Keystatic route handler in production unless an explicit allow flag is set — matches [Keystatic’s local-mode recipe](https://keystatic.com/docs/recipes/nextjs-disable-admin-ui-in-production).
+  2. **Supabase admin gate** (Haianbeauty pattern): login page or modal; session cookie; allowlist via `app_metadata` role (e.g. `is_admin` / `cms_editor`) — **never** authorize from editable `user_metadata`.
+  3. **Protect both surfaces**: Admin layout (`src/app/keystatic/layout.tsx`) **and** `src/app/api/keystatic/[...params]/route.ts`. UI-only checks are insufficient.
+  4. **Later (optional)**: switch Keystatic to `github` storage so authenticated production edits commit to the repo; keep Supabase as the gate (or combine with GitHub permissions).
+- **Tasks**:
+  - Add `TICKET`-level env stubs (`NEXT_PUBLIC_SUPABASE_URL`, anon/publishable key, server secrets as needed) — do not invent until implementing.
+  - Server-side session check for `/keystatic` + Keystatic API; unauthenticated → login or 404.
+  - Admin allowlist (single-owner email / `app_metadata` flag); CMS editors ≠ every signed-in client from Epic 5.
+  - Document: local-dev Admin stays open or uses the same gate behind a toggle.
+- **Acceptance Criteria**:
+  - Anonymous requests to `/keystatic` and `/api/keystatic/*` cannot use the Admin in production.
+  - Allowlisted Supabase admin can sign in and open Admin when the gate is enabled.
+  - No secrets in client bundles beyond publishable keys; RLS/session rules follow Supabase security checklist.
+- **Out of scope for this ticket**: full Epic 5 client dashboard; Keystatic Cloud billing; R2 media cutover (CMS-09).
+
 #### Out of scope (still explicit)
 
 - Portfolio gallery UI / lightbox CMS (later epic; same R2 bucket/prefix).
 - Multi-locale CMS bodies.
-- Keystatic `kind: 'github'` production storage (separate follow-up).
+- Keystatic `kind: 'github'` production storage (tracked under CMS-10 phase 4 / separate follow-up).
 - Cloudflare Image Resizing / Images product.
 - Bot upload automation (prefixes + presigned PUT already scaffolded).
 - Moving portfolio/services/home copy into Keystatic.
@@ -438,6 +464,7 @@ All 36 inventory slugs exist under `content/posts/`; `/blog` + sample `/post/[sl
 | **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
 | **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | Migrate remaining ~35 posts (ImageKit URLs), `R2Image` ContentView preview, optional Todo/Toggle; R2 cutover later.   |
+| **Milestone 2.7**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 3**                                    | **Services & Commerce**      | Web Dev / Photo / Video Services Catalog, Booking Drawer, Cart Store, Checkout Flow.                                   |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
 | **Later**                                          | **Portfolio gallery media**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |

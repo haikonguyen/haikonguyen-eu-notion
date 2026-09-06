@@ -1,5 +1,6 @@
 import { getR2PublicUrl } from '@lib/r2';
 import { cache } from 'react';
+import { getPublicSlugFromEntryKey } from './post-slug';
 import { reader } from './reader';
 import type { BlogPostSummary } from './types';
 
@@ -7,8 +8,8 @@ export const getAllPosts = cache(async (): Promise<BlogPostSummary[]> => {
   const entries = await reader.collections.posts.all();
 
   return entries
-    .map(({ slug, entry }) => ({
-      slug,
+    .map(({ slug: entryKey, entry }) => ({
+      slug: getPublicSlugFromEntryKey(entryKey),
       title: entry.title,
       publishedDate: entry.publishedDate,
       excerpt: entry.excerpt,
