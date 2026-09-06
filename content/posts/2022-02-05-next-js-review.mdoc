@@ -1,0 +1,91 @@
+---
+title: "Next.js review: well “it just works”"
+publishedDate: 2022-02-05
+excerpt: >-
+  So why NextJS you may ask? Why not Gatsby or Create React App (aka CRA) from Facebook? Well, I am going to borrow Steve Jobs words here, because “it just works” ... at least for me 😁 !
+tags:
+  - code
+  - review
+  - react
+authorName: Haiko Nguyen
+coverImage: https://ik.imagekit.io/8qy7obkhf/haikonguyen-eu/blog/2022/next-js-review/cover.jpg
+---
+
+It’s been over a year already, since I’ve posted. It’s not something that I am proud of, and I am so sorry for that, but I promise if you follow this blog, I will be posting more often from now on 🙈🙏. There were so many reasons, why that actually happened. To name a few:
+
+- My son Peter was born, yay 👨‍🍼🎉 ⇒ so I had to and I am still learning to be a good father ⇒ it’s very tough, I am so proud of my father and now that I know what “real” responsibility feels like ... 😅🥱 !!!
+- Within last year I’ve managed to work on for 3 new projects. It’s not super unusual for a freelance developer, but still it was very challenging and also very rewarding for me 🧑‍🎓 !!!
+- Even though my last blog post was about rebuilding my website, and I was so glad about the upgrades I’ve managed to make. There were still things here and there that I was not so happy, especially with new knowledge that I’ve gathered 😁.
+
+So, now that I’ve cleared that out, back to the main topic that I would really love to share with you, and that is NextJS. I want let you know about what it is, what it can do, and after quite some time playing with it, my personal opinion about the Framework.
+
+So why NextJS you may ask? Why not Gatsby or Create React App (aka CRA) from Facebook? Well, I am going to borrow Steve Jobs words here, because “it just works” ... at least for me 😁 !
+
+{% R2Image
+   src="https://ik.imagekit.io/8qy7obkhf/haikonguyen-eu/blog/2022/next-js-review/image-01.jpg"
+   alt="Blog image" /%}
+
+OK, jokes away, I think CRA ( ... not 😅 ) and Gatsby are still great. In fact, this blog was built on top of [GatsbyJS](https://www.haikonguyen.eu/post/bac2029e-4fe2-4af2-b7d5-dc1632dc167c), so you can imagine how big fan of Gatsby I am. The main reason why I wanted to learn more about NextJS is that it is very popular option for building company grade React apps. Almost every company I’ve worked with here in Czechia use NextJS for it’s fascinating Server Side Rendering and SEO features. I’ve personally worked with Next SSR features before, but recently my friends and colleagues told me that Next can do SSG (Static Site Generating) as well. So, I was really curious how it would stack up against Gatsby, which was until now my go to solution for SSG. I wanted know and learn more about Next from SSG side of view, and build a small SSG app from the ground up and really get the feel of NextJS. So, I did and here is my honest review.
+
+## What is Next.js?
+
+I really like how the creators of Next really nailed the slogan “The React Framework for Production”, because that what really NextJS is in short. Now, for the longer introduction.
+
+“Next.js gives you the best developer experience with all the features you need for production: hybrid static & server rendering, TypeScript support, smart bundling, route pre-fetching, and more. No config needed”. Well, as you can guess by now, this description I also took from the NextJS official website 🙈. I think it perfectly summarises what Next is and what it can do. I especially like the end part “No config needed”, because with the latest version that I used for this review ⇒ 12.0 really delivers.
+
+## What can you build with Next.js?
+
+NextJS is a Full Stack React Framework, we can use Next to build a full fledged Web application ready for production. Again it’s best feature for me is that it just magically works and as a FE developer and can fully focused on the thing that I like the most, which is development.
+
+## Examples of Apps you can build
+
+- e-commerce site
+- a blog, like this one
+- entertainment app like Netflix
+- heavy content news app
+- dynamic travel app like trip.com
+- any content heavy app, you can find more here ⇒ [https://nextjs.org/showcase](https://nextjs.org/showcase)
+
+## Things I really like:
+
+- minimal configuration ⇒ “it just works”
+- made for production ⇒ best in class optimalization
+- TypeScript support out of the box
+- File based routing system (similar to Gatsby’s version)
+- SEO
+- full stack framework ⇒ thanks to serverless functions and other features
+- amazing Ecosystem ⇒ Vercel + NextJS ⇒ Fast, Easy and Safe Deployment to production
+- incredible SSG features ⇒ Incremental Static Generation is sick!
+
+## Things I don’t like:
+
+- I am going to nit pick, but you still need to do a little a bit of tweaking to get Next.js work with Prettier , TypeScript and ESLint
+- local development performance can be sometimes a bit sluggish, especially when you click on some page
+
+## Alternatives
+
+## Gatsby.js
+
+Gatsby is the closest competitor to Next, but it lacks SSR and SEO features by default, especially with the last version that I’ve personally used. This blog was built on version 2.19.18. This was almost 2 years ago, and I’ve not manage to upgrade my blog to the latest version yet. You may ask why, right? Well, it would be an obvious decision to upgrade to the greatest and latest. To be honest I was planning to do that, because until recently I was a huge fan of Gatsby.
+
+When I started planning to build this site, it was honestly the best and only solution to build SSG based sites, but like everything else in life, competition is tough and NextJS is not an exception. Especially during last two years, Vercel has managed to make so many great improvements to the platform. For me the only thing that I was excited the most is the SSG support. It is also the main reason that lead me write this review, well at least initially 🙈, because (spoiler alert) NextJS rocks, trust me!
+
+The latest Gatsby version during this time of writing is 4.0, and from what I can see from the official site, Gatsby manage to upgrade so many things. Even though their approach is different comparing to NextJS, but based on features alone they are quite on par with Next.
+
+### Here are the few features that got my attention:
+
+- Gatsby Cloud ⇒ basically the Gatsby version of Vercel deployment, I had to use Netlify for this blog before, so this is great news!
+- Gatsby Functions ⇒ I would assume this is an alternative to the Next’s Serverless functions
+- Deferred Static Generation (DSG) ⇒ “allows you to defer non-critical page generation to user request, speeding up build times”, basically lets you create conditions for your build, let’s say you only want to build only latest 100 post. This is really cool feature!
+
+## Create React App
+
+CRA is the classic, and most of us started learning React with this official package from FB. You can still build anything with it. Unfortunately for CRA, Next and Gatsby has surpassed it and I cannot recommend CRA for anything else then for learning.
+
+## Practical example
+
+- in progress
+
+## Conclusion
+
+I had really great time playing with both Next.js and Gatsby.js. As you can see both frameworks has matured really well, and de facto create a new standard for Web Development. Based on spec sheet only, both tools are quite on par. I can build this blog using either Next.js or Gatbsy, and the result would be the same. The only thing that is different is the approach that each framework tries to solve the problem. For now, I like the Next.js way better, it saves me time and I can focus more on building apps.
