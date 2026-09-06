@@ -1,12 +1,25 @@
 'use server';
 
-import { createPresignedPutUrl, R2_BLOG_COVERS_PREFIX } from '@lib/r2';
+import {
+  createPresignedPutUrl,
+  R2_ABOUT_PREFIX,
+  R2_BLOG_COVERS_PREFIX,
+  R2_BLOG_INLINE_PREFIX,
+  R2_PORTFOLIO_PREFIX,
+} from '@lib/r2';
 import { z } from 'zod';
 
 const createR2UploadUrlSchema = z.object({
   fileName: z.string().min(1).max(200),
   contentType: z.string().min(1).max(100),
-  prefix: z.enum([R2_BLOG_COVERS_PREFIX]).default(R2_BLOG_COVERS_PREFIX),
+  prefix: z
+    .enum([
+      R2_BLOG_COVERS_PREFIX,
+      R2_BLOG_INLINE_PREFIX,
+      R2_ABOUT_PREFIX,
+      R2_PORTFOLIO_PREFIX,
+    ])
+    .default(R2_BLOG_INLINE_PREFIX),
 });
 
 export type CreateR2UploadUrlState =
@@ -37,7 +50,7 @@ export async function createR2UploadUrl(
 
   try {
     const result = await createPresignedPutUrl({
-      objectKey: `${parsed.data.prefix}/${safeName}`,
+      objectKey: `${parsed.data.prefix}/${Date.now()}-${safeName}`,
       contentType: parsed.data.contentType,
     });
 

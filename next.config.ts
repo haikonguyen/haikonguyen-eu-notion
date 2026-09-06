@@ -48,6 +48,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.r2.dev',
       },
+      {
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+        pathname: '/8qy7obkhf/**',
+      },
       ...(r2RemotePattern ? [r2RemotePattern] : []),
     ],
   },
