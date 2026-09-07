@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
 import { FaPlay } from 'react-icons/fa';
 import type { PortfolioVlog } from '../types';
 
@@ -11,10 +10,6 @@ interface VlogCardProps {
 }
 
 export function VlogCard({ vlog, onSelect }: VlogCardProps) {
-  const t = useTranslations('Portfolio');
-  const title = t(`vlogs.${vlog.id}.title`);
-  const description = t(`vlogs.${vlog.id}.description`);
-
   return (
     <button
       type="button"
@@ -24,7 +19,7 @@ export function VlogCard({ vlog, onSelect }: VlogCardProps) {
       <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
         <Image
           src={vlog.thumbnail}
-          alt={title}
+          alt={vlog.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
@@ -35,16 +30,18 @@ export function VlogCard({ vlog, onSelect }: VlogCardProps) {
             <FaPlay className="ml-1 text-lg text-primary sm:text-xl" />
           </div>
         </div>
-        <span className="absolute right-3 bottom-3 rounded-lg border border-white/15 bg-black/70 px-2.5 py-1 font-mono text-[10px] font-bold text-white backdrop-blur-md">
-          {vlog.duration}
-        </span>
+        {vlog.duration && (
+          <span className="absolute right-3 bottom-3 rounded-lg border border-white/15 bg-black/70 px-2.5 py-1 font-mono text-[10px] font-bold text-white backdrop-blur-md">
+            {vlog.duration}
+          </span>
+        )}
       </div>
       <div className="p-5 sm:p-6">
         <h3 className="mb-1 text-lg font-bold tracking-tight text-white transition-colors group-hover:text-primary sm:text-xl">
-          {title}
+          {vlog.title}
         </h3>
         <p className="line-clamp-2 text-xs text-white/60 sm:text-sm">
-          {description}
+          {vlog.description}
         </p>
       </div>
     </button>

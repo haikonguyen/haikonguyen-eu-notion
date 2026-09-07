@@ -135,34 +135,9 @@
     "motionEyebrow": "/ Motion",
     "vlogsHeading": "Vlogy a příběhy",
     "exploreDetails": "Zobrazit detail",
-    "photoMistyPeaks": "Mlžné vrcholy",
-    "photoUrbanSolitude": "Městská samota",
-    "photoSilentForest": "Tichý les",
-    "photoNeonNights": "Neonové noci",
-    "photoSummitLight": "Světlo na vrcholu",
-    "photoForestPath": "Lesní cesta",
-    "projects": {
-      "quantumCrm": {
-        "title": "Quantum CRM",
-        "description": "Výkonná CRM architektura postavená na Next.js 15 a distribuovaném PostgreSQL.",
-        "longDescription": "Quantum CRM zvládá vysokofrekvenční datové toky pro globální obchodní týmy, s real-time cache a edge synchronizací."
-      },
-      "novaUi": {
-        "title": "Nova UI",
-        "description": "Ultralehká glassmorphic knihovna komponent pro moderní web.",
-        "longDescription": "Nova UI je design-first knihovna zaměřená na přístupnost, mikroanimace a liquid glass estetiku."
-      }
-    },
-    "vlogs": {
-      "v1": {
-        "title": "Tvorba V2: Behind the Scenes | AC Vlog",
-        "description": "Kompletní proces vzniku AC Portfolio V2."
-      },
-      "v2": {
-        "title": "Praha v zimě — filmový vlog",
-        "description": "Procházka magickými zimními ulicemi Prahy."
-      }
-    },
+    "emptySoftware": "Zatím žádné softwarové projekty. Přidejte je v Keystatic Admin.",
+    "emptyPhotography": "Zatím žádné fotografie. Přidejte je v Keystatic Admin.",
+    "emptyVlogs": "Zatím žádné vlogy. Přidejte je v Keystatic Admin.",
     "modal": {
       "challenge": "Výzva",
       "techStack": "Tech stack",

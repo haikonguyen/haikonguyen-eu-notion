@@ -5,18 +5,11 @@ export enum PortfolioCategory {
   Vlogs = 'Vlogs',
 }
 
-export enum SoftwareProjectId {
-  QuantumCrm = 'quantumCrm',
-  NovaUi = 'novaUi',
-}
-
-export enum PortfolioVlogId {
-  BehindTheScenes = 'v1',
-  PragueWinter = 'v2',
-}
-
 export interface SoftwareProject {
-  id: SoftwareProjectId;
+  slug: string;
+  title: string;
+  summary: string;
+  longDescription: string;
   image: string;
   tags: string[];
   tech: string[];
@@ -25,7 +18,7 @@ export interface SoftwareProject {
 }
 
 export interface PortfolioProject {
-  id: string;
+  slug: string;
   title: string;
   description: string;
   longDescription?: string;
@@ -37,8 +30,19 @@ export interface PortfolioProject {
 }
 
 export interface PortfolioVlog {
-  id: PortfolioVlogId;
-  duration: string;
+  slug: string;
+  title: string;
+  description: string;
+  duration?: string;
   thumbnail: string;
   youtubeId: string;
+}
+
+export interface PhotographyGalleryItem {
+  slug: string;
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  title: string;
 }

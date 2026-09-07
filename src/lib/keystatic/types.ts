@@ -17,3 +17,40 @@ export interface BlogPost extends BlogPostSummary {
 export interface AboutStory {
   content: MarkdocNode;
 }
+
+export interface SoftwareProjectEntry {
+  slug: string;
+  title: string;
+  summary: string;
+  longDescription: string;
+  coverImage: string;
+  tags: string[];
+  tech: string[];
+  githubUrl?: string;
+  demoUrl?: string;
+  sortOrder: number;
+  featured: boolean;
+}
+
+export interface PhotographyItemEntry {
+  slug: string;
+  title: string;
+  alt: string;
+  image: string;
+  width: number;
+  height: number;
+  sortOrder: number;
+  featured: boolean;
+}
+
+export interface PortfolioVlogEntry {
+  slug: string;
+  title: string;
+  description: string;
+  youtubeUrl: string;
+  youtubeId: string;
+  duration?: string;
+  thumbnail: string;
+  sortOrder: number;
+  featured: boolean;
+}

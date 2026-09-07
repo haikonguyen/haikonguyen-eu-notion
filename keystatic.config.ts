@@ -1,4 +1,9 @@
 import { collection, config, fields, singleton } from '@keystatic/core';
+import {
+  photographyItemsCollection,
+  portfolioVlogsCollection,
+  softwareProjectsCollection,
+} from './src/lib/keystatic/portfolio-collections';
 import { r2ImageMarkdocComponent } from './src/lib/keystatic/r2-image-component';
 import { youtubeEmbedMarkdocComponent } from './src/lib/keystatic/youtube-embed-component';
 
@@ -59,6 +64,9 @@ export default config({
         }),
       },
     }),
+    softwareProjects: softwareProjectsCollection,
+    photographyItems: photographyItemsCollection,
+    portfolioVlogs: portfolioVlogsCollection,
   },
   singletons: {
     aboutStory: singleton({
