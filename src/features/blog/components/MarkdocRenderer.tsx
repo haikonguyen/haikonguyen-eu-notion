@@ -4,6 +4,7 @@ import Markdoc, {
 } from '@markdoc/markdoc';
 import { createElement, Fragment, type ReactNode } from 'react';
 import { R2CmsImage } from './R2CmsImage';
+import { YouTubeEmbed } from './YouTubeEmbed';
 
 interface MarkdocRendererProps {
   node: MarkdocNode;
@@ -18,6 +19,15 @@ const markdocConfig: Config = {
       attributes: {
         src: { type: String, required: true },
         alt: { type: String, required: true },
+        caption: { type: String },
+      },
+    },
+    YouTubeEmbed: {
+      render: 'YouTubeEmbed',
+      selfClosing: true,
+      attributes: {
+        url: { type: String, required: true },
+        title: { type: String },
         caption: { type: String },
       },
     },
@@ -41,6 +51,7 @@ export function MarkdocRenderer({ node, className }: MarkdocRendererProps) {
     {
       components: {
         R2Image: R2CmsImage,
+        YouTubeEmbed,
       },
     },
   ) as ReactNode;
