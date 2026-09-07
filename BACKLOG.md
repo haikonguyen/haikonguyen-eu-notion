@@ -292,7 +292,9 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
 _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based CMS). Store CMS media on Cloudflare R2 (not `public/`). Near-zero subscription cost. Clean Next.js App Router data loading instead of Notion block trees._
 
 **Status**
-- **POC (CMS-01 → CMS-05): DONE** on branch `cursor/keystatic-r2-cms-poc-f710` / [PR #21](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/21) — merge this before starting follow-ups.
+- **POC (CMS-01 → CMS-05): DONE** — merged via [PR #21](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/21).
+- **CMS-06 (all blog posts): DONE** — **36** inventory slugs under `content/posts/*.mdoc` on `dev` (ImageKit URLs kept on purpose).
+- **CMS-11 (YouTube embeds): DONE** — merged to `dev` ([PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23)).
 - **Shipped shape (do not re-invent)**:
   - Config: root `keystatic.config.ts` (`storage.kind: 'local'`).
   - Collection `posts` → `content/posts/*.mdoc`; singleton `aboutStory` → `content/about-story.mdoc`.
@@ -301,8 +303,7 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - YouTube embeds: Markdoc **`YouTubeEmbed`** (`url`, `title`, `caption`) in `src/lib/keystatic/youtube-embed-component.ts`; public render `src/features/blog/components/YouTubeEmbed.tsx`; URL helpers in `src/lib/youtube/*`.
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
-  - Migrated so far: About Story + all inventory posts under `content/posts/` (ImageKit URLs kept on purpose).
-- **Next session**: CMS-07 → CMS-08 polish. CMS-11 YouTube embeds in [PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23). CMS-10 (admin auth gate) after public Admin risk is prioritized. CMS-09 later.
+- **Next session**: **Epic 6.2** — Portfolio items via Keystatic (`TICKET-PF-01` → `TICKET-PF-04`). Parallel polish: CMS-07 / CMS-08. CMS-10 (admin auth gate) when public Admin risk is prioritized. CMS-09 later.
 - **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
 
 #### Context (read before implementing)
@@ -377,7 +378,7 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
   - ≤150 LOC/file; no speculative unused components.
 - **Acceptance Criteria**: No silent content loss vs production; unused components are not shipped.
 
-#### `TICKET-CMS-11`: YouTube Embed Markdoc Component — **IN REVIEW** on `cursor/youtube-embed-markdoc-4c76` / [PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23)
+#### `TICKET-CMS-11`: YouTube Embed Markdoc Component — **DONE** (merged to `dev` via [PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23))
 
 - **Description**: Let admins insert YouTube links as a Keystatic Markdoc block (Haianbeauty `NotionMediaBlocks` parity) and render responsive embeds on blog posts.
 - **Why**: Migrated vlog posts still dump YouTube as plain links / raw embed URLs; no admin insert path for embeds after Notion removal.
@@ -428,52 +429,198 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
   - No secrets in client bundles beyond publishable keys; RLS/session rules follow Supabase security checklist.
 - **Out of scope for this ticket**: full Epic 5 client dashboard; Keystatic Cloud billing; R2 media cutover (CMS-09).
 
-#### Out of scope (still explicit)
+#### Out of scope (still explicit for Epic 6.1)
 
-- Portfolio gallery UI / lightbox CMS (later epic; same R2 bucket/prefix).
 - Multi-locale CMS bodies.
 - Keystatic `kind: 'github'` production storage (tracked under CMS-10 phase 4 / separate follow-up).
 - Cloudflare Image Resizing / Images product.
 - Bot upload automation (prefixes + presigned PUT already scaffolded).
-- Moving portfolio/services/home copy into Keystatic.
+- Moving **services** / home marketing chrome into Keystatic (Home showcase optional under Epic 6.2 PF-04).
 - Fully custom CMS admin UI (not supported; use `ContentView` / built-in fields only).
 
-#### Agent prompt (copy for next-session implementation agent)
+#### Agent prompt (Epic 6.1 polish — CMS-07 / CMS-08 only)
 
 ```markdown
 You are an expert full-stack TypeScript engineer on `haikonguyen/haikonguyen-eu-notion`.
 Read `AGENTS.md` and **Epic 6.1** in `BACKLOG.md` before coding.
 
 ### Prerequisites
-- Epic 6 POC merged from PR #21 into `dev`.
-- Branch from latest `dev`: `cursor/keystatic-migrate-all-posts-f710`.
+- Epic 6 POC + CMS-06 + CMS-11 already on `dev`.
+- Branch from latest `dev`: `cursor/keystatic-cms-polish-<suffix>`.
 
 ### Objective
 1) `TICKET-CMS-07` — add `ContentView` thumbnail preview for `R2Image` in Keystatic admin.
-2) `TICKET-CMS-11` — YouTube embed Markdoc component (if not already merged).
-3) `TICKET-CMS-08` — only if migrated content needs Todo/Toggle (or similar).
-Do **not** start `TICKET-CMS-09` unless explicitly asked.
+2) `TICKET-CMS-08` — only if migrated content needs Todo/Toggle (or similar).
+Do **not** start `TICKET-CMS-09` or Epic 6.2 unless explicitly asked.
 
 ### Must match shipped schema
-- Template: `content/posts/welcome-to-my-new-website.mdoc`
-- Frontmatter: title, publishedDate, excerpt, tags, authorName, coverImage
-- Inline images: `{% R2Image src="…" alt="…" caption="…" /%}`
-- YouTube embeds: `{% YouTubeEmbed url="…" title="…" caption="…" /%}`
 - Packages: `@keystatic/core`, `@keystatic/next`, `next-intl`, Biome, Tailwind 4
 - Admin: `npm run dev:keystatic` (Webpack)
 - Config: `keystatic.config.ts`
-- Components: `src/lib/keystatic/r2-image-component.ts`, `src/lib/keystatic/youtube-embed-component.ts`
-- Public renderers: `src/features/blog/components/R2CmsImage.tsx`, `src/features/blog/components/YouTubeEmbed.tsx`
-
-### Efficiency rules
-- Content-first; minimize code churn in CMS-06.
-- Migrate + commit by year batch; `npm run typecheck` + `npm run build` after each batch.
-- Do not commit image binaries; do not re-upload to R2 yet.
-- Use the exact slug inventory in BACKLOG Epic 6.1 (do not invent slugs).
-- No `any`; ≤150 LOC/file; no hardcoded UI strings.
+- Components: `src/lib/keystatic/r2-image-component.ts`
+- Public renderer: `src/features/blog/components/R2CmsImage.tsx`
 
 ### Done when
-All 36 inventory slugs exist under `content/posts/`; `/blog` + sample `/post/[slug]` work; R2Image admin shows previews; tsc/biome/build green; PR opened into `dev`.
+R2Image admin shows previews; tsc/biome/build green; PR opened into `dev`.
+```
+
+---
+
+### 🔷 Epic 6.2: Portfolio CMS (Keystatic) — Software / Photography / Vlogs
+
+_Make `/portfolio` fully CMS-driven so admins can add Software Architecture projects, Photography gallery items, and Vlogs from Keystatic — same local Git CMS + R2 URL pattern as blog._
+
+**Status**: Planned (backlog only). Start after confirming open questions in this epic.
+
+**Current architecture (as of `dev`)**
+
+| Layer | Today | Problem |
+| --- | --- | --- |
+| Data | Hardcoded in `src/features/portfolio/constants.ts` (Unsplash placeholders) | Cannot add real work without a code change |
+| Copy | Titles / descriptions / photo alts in `messages/{en,cs,vi}.json` under `Portfolio.projects.*` / `Portfolio.vlogs.*` | New items require translation key edits |
+| UI | Client-only `PortfolioContent` → `PortfolioSections` filters Dev / Photo / Vlogs | No reader; no server data load |
+| CMS | Keystatic only has `posts` + `aboutStory` | No portfolio collections |
+| Home | Showcase carousel uses Home i18n + static image constants — **not** portfolio data | Optional later wiring |
+
+**Recommended approach (default unless overridden)**
+
+1. **Three Keystatic collections** (not one polymorphic collection) — mirrors the three `/portfolio` sections and keeps Admin labels clear:
+   - `softwareProjects` → `content/portfolio/software/*`
+   - `photographyItems` → `content/portfolio/photography/*`
+   - `portfolioVlogs` → `content/portfolio/vlogs/*`
+2. **Monolingual CMS fields** for item titles/descriptions/alts (same rule as blog bodies). Keep **section chrome** in `next-intl` (`Portfolio.title`, filter labels, modal chrome, empty states).
+3. **Images / thumbnails as text URL fields** (ImageKit / R2 / absolute URL) — no binaries in Git; reuse `getR2PublicUrl` when values look like object keys.
+4. **Vlogs store a YouTube URL** (not a raw id) and parse via existing `src/lib/youtube/*` helpers; optional duration + thumbnail override (fallback: YouTube thumbnail helper).
+5. **Sort order** integer on every item; optional `featured` boolean for later Home showcase (PF-04).
+6. **Seed** Keystatic content from current placeholder inventory so `/portfolio` stays populated during cutover, then replace with real work in Admin.
+7. **Phase 1** wires `/portfolio` only. Home showcase stays static unless PF-04 is in scope.
+
+#### Schema sketch (do not invent fields beyond this without backlog update)
+
+**`softwareProjects`**
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `title` | slug | Public id / Keystatic slug |
+| `summary` | text | Card short description |
+| `longDescription` | multiline text | Modal “challenge” body |
+| `coverImage` | text | Absolute URL or R2 key |
+| `tags` | string array | e.g. `Software`, `Next.js 15` |
+| `tech` | string array | Tech stack chips |
+| `githubUrl` | text (optional) | |
+| `demoUrl` | text (optional) | |
+| `sortOrder` | integer | Ascending |
+| `featured` | checkbox | Home / featured later |
+
+**`photographyItems`**
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `title` | slug | Also used as lightbox title/alt fallback |
+| `alt` | text | Accessibility alt |
+| `image` | text | Absolute URL or R2 key |
+| `width` | integer | Required by `react-photo-album` |
+| `height` | integer | Required by `react-photo-album` |
+| `sortOrder` | integer | Ascending |
+| `featured` | checkbox | Optional Home hero photo later |
+
+**`portfolioVlogs`**
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `title` | slug | Card / modal title |
+| `description` | multiline text | Card body |
+| `youtubeUrl` | text | Full watch / youtu.be / embed / shorts URL |
+| `duration` | text (optional) | Display badge e.g. `14:32` |
+| `thumbnail` | text (optional) | Override; else derive from YouTube id |
+| `sortOrder` | integer | Ascending |
+| `featured` | checkbox | Optional Home vlog slide later |
+
+#### Open questions (answer before implementation)
+
+1. **Copy locale**: Confirm monolingual EN in CMS (recommended), or do we need `titleCs` / `titleVi` fields from day one?
+2. **Seed vs empty**: Seed with current Quantum CRM / Nova UI / Unsplash gallery / placeholder vlogs, or start empty and only add real items?
+3. **Home showcase (PF-04)**: In scope for the first PR, or `/portfolio` only?
+4. **Real inventory**: Do you already have a list of real software projects / photos / YouTube links to migrate in the first PR, or Admin-create-as-you-go after the schema ships?
+5. **Detail routes**: Keep current modal/lightbox UX only, or also want `/portfolio/[slug]` pages later?
+
+#### `TICKET-PF-01`: Keystatic Portfolio Collections + Seed Content
+
+- **Description**: Extend `keystatic.config.ts` with the three collections above; add seed `.mdoc`/yaml entries matching current placeholders; document Admin paths.
+- **Tasks**:
+  - Add collections + `content/portfolio/{software,photography,vlogs}/` tree.
+  - Prefer Keystatic document format consistent with existing posts (path + schema); keep files under LOC limits by splitting config helpers if needed (`src/lib/keystatic/portfolio-collections.ts` or similar).
+  - Seed 2 software, ~6 photos, 2 vlogs from today’s constants (unless open Q2 says empty).
+  - Do **not** commit image binaries.
+- **Acceptance Criteria**: `/keystatic` lists all three collections; creating an entry writes under `content/portfolio/…`; `tsc` green.
+
+#### `TICKET-PF-02`: Portfolio Reader Helpers
+
+- **Description**: Mirror blog reader pattern — typed getters in `src/lib/keystatic/` that map CMS entries → portfolio view models.
+- **Tasks**:
+  - Types in `src/lib/keystatic/types.ts` (or `portfolio-types.ts` if file size bites): `SoftwareProjectEntry`, `PhotographyItemEntry`, `PortfolioVlogEntry`.
+  - `getSoftwareProjects`, `getPhotographyItems`, `getPortfolioVlogs` (React `cache`); sort by `sortOrder` then title.
+  - Resolve image URLs via `getR2PublicUrl`; parse YouTube URLs; derive thumbnail when missing.
+  - Update feature `types.ts` so UI models are slug-based (drop hardcoded `SoftwareProjectId` / `PortfolioVlogId` enums once CMS-backed).
+  - Export from `src/lib/keystatic/index.ts`.
+- **Acceptance Criteria**: Unit-smoke via page load; empty collections return `[]` (no throw); no `any`.
+
+#### `TICKET-PF-03`: Rewire `/portfolio` UI to CMS Data
+
+- **Description**: Load portfolio data on the server; pass into client sections; remove hardcoded `constants.ts` inventory (keep only category parse helpers / enums that remain useful).
+- **Tasks**:
+  - `src/app/portfolio/page.tsx` (Server Component) fetches the three lists and passes props into `PortfolioContent` / sections.
+  - Update `SoftwareProjectCard`, `VlogCard`, `PortfolioSections`, `ProjectModal` to consume CMS fields (title/description from data, not `t(\`projects.${id}.…\`)`).
+  - Remove per-item keys from `messages/*.json` (`Portfolio.projects.*`, `Portfolio.vlogs.*`, static photo alt keys) once unused; keep chrome keys.
+  - Preserve category filter query `?category=Dev|Photo|Vlogs|All` and existing modal/lightbox UX.
+  - Empty-state copy via `next-intl` when a section has zero items.
+- **Acceptance Criteria**: `/portfolio` renders CMS seed (or real) items; Admin add → refresh shows new item (local storage); Biome + `tsc` + build green; no Unsplash hardcodes left in portfolio feature constants.
+
+#### `TICKET-PF-04` (optional / follow-up): Home Featured Work from CMS
+
+- **Description**: Drive Home showcase slides (or a “latest featured” card) from `featured: true` portfolio entries.
+- **Tasks**:
+  - Reader helpers for featured software / photo / vlog (limit 1 each or carousel items).
+  - Rewire `HomePhotographySlide` / `HomeVlogSlide` / `HomeEngineeringSlide` (or a shared data parent) to accept CMS props from the Home page server component.
+  - Keep Home marketing chrome strings in `next-intl` unless explicitly moved.
+- **Acceptance Criteria**: Toggling `featured` in Keystatic changes Home showcase media/titles after refresh.
+- **Out of scope unless requested**: Full Home copy CMS, services catalog CMS.
+
+#### Architecture notes (implementation constraints)
+
+- Follow root `AGENTS.md`: no `any`, ≤150 LOC/file, Biome + `tsc`, no hardcoded UI chrome strings.
+- Admin still `npm run dev:keystatic` (Webpack).
+- Reuse YouTube helpers; do not duplicate embed URL builders inside portfolio.
+- R2 media cutover for portfolio images stays under **CMS-09** / later milestone (same bucket, `portfolio/` prefix).
+- Production persistence of Admin edits still needs CMS-10 phase 4 (`github` storage) — local mode writes files only in the running environment.
+- Do **not** block PF-01…03 on CMS-10; local Admin is enough for content authoring in dev.
+
+#### Agent prompt (copy for Epic 6.2 implementation)
+
+```markdown
+You are an expert full-stack TypeScript engineer on `haikonguyen/haikonguyen-eu-notion`.
+Read `AGENTS.md`, `src/features/AGENTS.md`, `src/lib/AGENTS.md`, and **Epic 6.2** in `BACKLOG.md` before coding.
+
+### Prerequisites
+- Branch from latest `dev`: `cursor/portfolio-keystatic-cms-<suffix>`.
+- Confirm open questions in Epic 6.2 (locale, seed, Home scope, inventory, detail routes).
+
+### Objective
+1) `TICKET-PF-01` — Keystatic collections + seed content under `content/portfolio/…`
+2) `TICKET-PF-02` — Reader helpers (`getSoftwareProjects`, `getPhotographyItems`, `getPortfolioVlogs`)
+3) `TICKET-PF-03` — Rewire `/portfolio` to CMS; remove hardcoded inventory + per-item i18n keys
+4) `TICKET-PF-04` — only if explicitly in scope
+
+### Must match
+- Three collections (software / photography / vlogs) as specified in BACKLOG Epic 6.2
+- Image fields = URL/key text (no binaries in Git)
+- Vlogs: YouTube URL + `src/lib/youtube/*`
+- Section chrome stays in next-intl; item copy lives in CMS
+- Admin: `npm run dev:keystatic` (Webpack)
+- No `any`; ≤150 LOC/file; Biome + tsc + build green
+
+### Done when
+Admin can add all three item types; `/portfolio` renders them with existing filters/modals/lightbox; PR opened into `dev`.
 ```
 
 ---
@@ -485,10 +632,11 @@ All 36 inventory slugs exist under `content/posts/`; `/blog` + sample `/post/[sl
 | **Milestone 1 (Current Branch: `feature/new-ui`)** | **Core Foundation & Shell**  | PWA Manifest, Service Worker, Liquid Glass Design Tokens, `AppPageShell`, Floating Top Header & Bottom Navigation Bar. |
 | **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
-| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | Posts migrated (CMS-06); `R2Image` ContentView (CMS-07); YouTube embeds (CMS-11); optional Todo/Toggle (CMS-08); R2 cutover later. |
-| **Milestone 2.7**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
+| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); remaining: `R2Image` ContentView (CMS-07); optional Todo/Toggle (CMS-08); R2 cutover later (CMS-09). |
+| **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | Keystatic collections for software / photography / vlogs; reader; rewire `/portfolio`; optional Home featured (PF-04). |
+| **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 3**                                    | **Services & Commerce**      | Web Dev / Photo / Video Services Catalog, Booking Drawer, Cart Store, Checkout Flow.                                   |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
-| **Later**                                          | **Portfolio gallery media**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
+| **Later**                                          | **Portfolio gallery media cutover**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
 
 ---
