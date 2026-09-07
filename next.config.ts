@@ -53,6 +53,10 @@ const nextConfig: NextConfig = {
         hostname: 'ik.imagekit.io',
         pathname: '/8qy7obkhf/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
       ...(r2RemotePattern ? [r2RemotePattern] : []),
     ],
   },

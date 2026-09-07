@@ -135,34 +135,9 @@
     "motionEyebrow": "/ Motion",
     "vlogsHeading": "Vlog & câu chuyện",
     "exploreDetails": "Xem chi tiết",
-    "photoMistyPeaks": "Đỉnh núi sương mù",
-    "photoUrbanSolitude": "Cô tịch đô thị",
-    "photoSilentForest": "Rừng im lặng",
-    "photoNeonNights": "Đêm neon",
-    "photoSummitLight": "Ánh sáng đỉnh núi",
-    "photoForestPath": "Đường rừng",
-    "projects": {
-      "quantumCrm": {
-        "title": "Quantum CRM",
-        "description": "Kiến trúc CRM hiệu năng cao với Next.js 15 và PostgreSQL phân tán.",
-        "longDescription": "Quantum CRM xử lý luồng dữ liệu tần suất cao cho đội sales toàn cầu, cache realtime và đồng bộ edge."
-      },
-      "novaUi": {
-        "title": "Nova UI",
-        "description": "Thư viện component glassmorphic siêu nhẹ cho web hiện đại.",
-        "longDescription": "Nova UI ưu tiên thiết kế, tập trung accessibility, micro-animation và thẩm mỹ liquid glass."
-      }
-    },
-    "vlogs": {
-      "v1": {
-        "title": "Làm V2: Behind the Scenes | AC Vlog",
-        "description": "Toàn bộ quá trình xây AC Portfolio V2."
-      },
-      "v2": {
-        "title": "Praha mùa đông — vlog điện ảnh",
-        "description": "Khám phá phố đông Praha mùa đông."
-      }
-    },
+    "emptySoftware": "Chưa có dự án phần mềm. Thêm trong Keystatic Admin.",
+    "emptyPhotography": "Chưa có ảnh. Thêm trong Keystatic Admin.",
+    "emptyVlogs": "Chưa có vlog. Thêm trong Keystatic Admin.",
     "modal": {
       "challenge": "Thách thức",
       "techStack": "Tech stack",

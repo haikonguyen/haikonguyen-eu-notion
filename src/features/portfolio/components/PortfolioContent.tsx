@@ -6,12 +6,28 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { parsePortfolioCategory } from '../constants';
-import { PortfolioCategory, type PortfolioProject } from '../types';
+import {
+  type PhotographyGalleryItem,
+  PortfolioCategory,
+  type PortfolioProject,
+  type PortfolioVlog,
+  type SoftwareProject,
+} from '../types';
 import { PortfolioCategoryFilter } from './PortfolioCategoryFilter';
 import { PortfolioSections } from './PortfolioSections';
 import { ProjectModal } from './project-modal';
 
-export function PortfolioContent() {
+export interface PortfolioContentProps {
+  softwareProjects: SoftwareProject[];
+  photographyItems: PhotographyGalleryItem[];
+  portfolioVlogs: PortfolioVlog[];
+}
+
+export function PortfolioContent({
+  softwareProjects,
+  photographyItems,
+  portfolioVlogs,
+}: PortfolioContentProps) {
   const t = useTranslations('Portfolio');
   const searchParams = useSearchParams();
   const urlCategory = parsePortfolioCategory(searchParams.get('category'));
@@ -37,8 +53,11 @@ export function PortfolioContent() {
       />
       <PortfolioSections
         activeCategory={activeCategory}
+        softwareProjects={softwareProjects}
+        photographyItems={photographyItems}
+        portfolioVlogs={portfolioVlogs}
         onSelectProject={setSelectedProject}
-        onSelectVlog={(vlog) => setSelectedVlog(vlog)}
+        onSelectVlog={setSelectedVlog}
       />
       <ProjectModal
         isOpen={Boolean(selectedProject)}

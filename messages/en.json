@@ -135,34 +135,9 @@
     "motionEyebrow": "/ Motion",
     "vlogsHeading": "Vlogs & Stories",
     "exploreDetails": "Explore Details",
-    "photoMistyPeaks": "Misty Peaks",
-    "photoUrbanSolitude": "Urban Solitude",
-    "photoSilentForest": "Silent Forest",
-    "photoNeonNights": "Neon Nights",
-    "photoSummitLight": "Summit Light",
-    "photoForestPath": "Forest Path",
-    "projects": {
-      "quantumCrm": {
-        "title": "Quantum CRM",
-        "description": "A high-performance CRM architecture built with Next.js 15 and distributed PostgreSQL.",
-        "longDescription": "Quantum CRM was designed to handle high-frequency data streams for global sales teams, featuring real-time caching and edge sync."
-      },
-      "novaUi": {
-        "title": "Nova UI",
-        "description": "Ultra-lightweight, glassmorphic component library for modern web applications.",
-        "longDescription": "Nova UI is a design-first component library focusing on accessibility, micro-animations, and liquid glass aesthetic."
-      }
-    },
-    "vlogs": {
-      "v1": {
-        "title": "Creating the V2: Behind the Scenes | AC Vlog",
-        "description": "The full making-of process of building AC Portfolio V2."
-      },
-      "v2": {
-        "title": "Prague in Winter — A Cinematic Vlog",
-        "description": "Exploring the magical winter streets of Prague."
-      }
-    },
+    "emptySoftware": "No software projects yet. Add some in Keystatic Admin.",
+    "emptyPhotography": "No photography items yet. Add some in Keystatic Admin.",
+    "emptyVlogs": "No vlogs yet. Add some in Keystatic Admin.",
     "modal": {
       "challenge": "The Challenge",
       "techStack": "Tech Stack",

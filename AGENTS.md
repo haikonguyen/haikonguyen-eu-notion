@@ -27,7 +27,7 @@ This is the root instruction file for `haikonguyen-eu-notion`. It contains globa
 - `src/components/`: shared UI (`ui/`, `layout/`, `common/`)
 - `src/lib/`: Keystatic reader, R2 helpers, store, hooks, i18n loaders
 - `src/actions/`: Server Actions only (e.g. R2 presigned upload URL)
-- `content/`: Keystatic Markdoc posts + About Story singleton (no image binaries)
+- `content/`: Keystatic Markdoc posts + About Story + portfolio YAML collections (no image binaries)
 - `messages/`: translation files (`en`, `cs`, `vi`)
 - `i18n/`: next-intl routing + request config
 - `proxy.ts`: request gateway when locale routing or session work is added (`middleware.ts` is deprecated in Next.js 16)

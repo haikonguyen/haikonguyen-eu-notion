@@ -14,19 +14,21 @@ export function SoftwareProjectCard({
   onSelect,
 }: SoftwareProjectCardProps) {
   const t = useTranslations('Portfolio');
-  const title = t(`projects.${project.id}.title`);
-  const description = t(`projects.${project.id}.description`);
-  const longDescription = t(`projects.${project.id}.longDescription`);
 
   return (
     <button
       type="button"
       onClick={() =>
         onSelect({
-          ...project,
-          title,
-          description,
-          longDescription,
+          slug: project.slug,
+          title: project.title,
+          description: project.summary,
+          longDescription: project.longDescription,
+          image: project.image,
+          tags: project.tags,
+          tech: project.tech,
+          github: project.github,
+          demo: project.demo,
         })
       }
       className="group relative flex cursor-pointer flex-col rounded-3xl border border-white/10 bg-black/45 p-4 text-left backdrop-blur-2xl transition-all duration-500 hover:border-primary/50 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_-10px_rgba(6,182,212,0.2)] sm:p-6"
@@ -34,7 +36,7 @@ export function SoftwareProjectCard({
       <div className="relative mb-4 aspect-[16/9] w-full shrink-0 overflow-hidden rounded-2xl border border-white/5 bg-zinc-900 sm:aspect-[16/10]">
         <Image
           src={project.image}
-          alt={title}
+          alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -58,10 +60,10 @@ export function SoftwareProjectCard({
           )}
         </div>
         <h3 className="mb-2 text-xl font-bold tracking-tight text-white transition-colors group-hover:text-primary sm:text-2xl">
-          {title}
+          {project.title}
         </h3>
         <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-white/70">
-          {description}
+          {project.summary}
         </p>
         <div className="mt-auto flex flex-wrap gap-1.5 border-t border-white/10 pt-4">
           {project.tech.slice(0, 4).map((tech) => (

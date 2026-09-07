@@ -1,0 +1,20 @@
+title: Nova UI
+summary: >-
+  Ultra-lightweight, glassmorphic component library for modern web applications.
+longDescription: >-
+  Nova UI is a design-first component library focusing on accessibility,
+  micro-animations, and liquid glass aesthetic.
+coverImage: >-
+  https://images.unsplash.com/photo-1551033406-611cf9a28f67?auto=format&fit=crop&q=80&w=2070
+tags:
+  - Design System
+  - UI/UX
+tech:
+  - React
+  - Framer Motion
+  - Tailwind CSS
+  - Storybook
+githubUrl: https://github.com/haikonguyeneu/nova-ui
+demoUrl: ''
+sortOrder: 2
+featured: false

@@ -470,7 +470,18 @@ R2Image admin shows previews; tsc/biome/build green; PR opened into `dev`.
 
 _Make `/portfolio` fully CMS-driven so admins can add Software Architecture projects, Photography gallery items, and Vlogs from Keystatic — same local Git CMS + R2 URL pattern as blog._
 
-**Status**: Planned (backlog only). Start after confirming open questions in this epic.
+**Status**: Implementation in progress on `cursor/portfolio-cms-backlog-ffdb` — PF-01…PF-03. PF-04 deferred. PF-05/PF-06 later.
+
+**Decisions (locked)**
+
+| Topic | Decision |
+| --- | --- |
+| Locale | **EN only** in CMS for now. Multilingual tracked as **`TICKET-PF-05`** (later). |
+| Seed | Seed current placeholders; delete/replace anytime in Keystatic Admin (files under `content/portfolio/`). |
+| Home (PF-04) | **Out of first PR** — keep Home showcase static; most efficient. `featured` field still on schema for later. |
+| Vlogs inventory | Channel: [youtube.com/@haikonguyen](https://www.youtube.com/@haikonguyen). Seed with placeholders / known video URLs; replace with real uploads in Admin. |
+| Photography media | **No new R2 account required for PF-01…03** — paste ImageKit / Unsplash / absolute URLs (same as blog). R2 portfolio prefix cutover stays under CMS-09 / later media milestone. |
+| Detail slugs / SEO | **No `/portfolio/[slug]` in first PR** — keep modal + lightbox. SEO slug pages tracked under **`TICKET-PF-06`** (later). |
 
 **Current architecture (as of `dev`)**
 
@@ -538,43 +549,39 @@ _Make `/portfolio` fully CMS-driven so admins can add Software Architecture proj
 
 #### Open questions (answer before implementation)
 
-1. **Copy locale**: Confirm monolingual EN in CMS (recommended), or do we need `titleCs` / `titleVi` fields from day one?
-2. **Seed vs empty**: Seed with current Quantum CRM / Nova UI / Unsplash gallery / placeholder vlogs, or start empty and only add real items?
-3. **Home showcase (PF-04)**: In scope for the first PR, or `/portfolio` only?
-4. **Real inventory**: Do you already have a list of real software projects / photos / YouTube links to migrate in the first PR, or Admin-create-as-you-go after the schema ships?
-5. **Detail routes**: Keep current modal/lightbox UX only, or also want `/portfolio/[slug]` pages later?
+~~Resolved — see Decisions table above.~~
 
-#### `TICKET-PF-01`: Keystatic Portfolio Collections + Seed Content
+#### Later (deferred; do not implement in PF-01…03)
 
-- **Description**: Extend `keystatic.config.ts` with the three collections above; add seed `.mdoc`/yaml entries matching current placeholders; document Admin paths.
-- **Tasks**:
-  - Add collections + `content/portfolio/{software,photography,vlogs}/` tree.
-  - Prefer Keystatic document format consistent with existing posts (path + schema); keep files under LOC limits by splitting config helpers if needed (`src/lib/keystatic/portfolio-collections.ts` or similar).
-  - Seed 2 software, ~6 photos, 2 vlogs from today’s constants (unless open Q2 says empty).
-  - Do **not** commit image binaries.
-- **Acceptance Criteria**: `/keystatic` lists all three collections; creating an entry writes under `content/portfolio/…`; `tsc` green.
+##### `TICKET-PF-05`: Multilingual Portfolio CMS Fields (later)
 
-#### `TICKET-PF-02`: Portfolio Reader Helpers
+- **Description**: Add CS/VI (and any future locales) for portfolio item copy without forking collections.
+- **Best-practice options** (pick when implementing — not now):
+  1. **Nested locale object fields** on each entry (`title.en` / `title.cs` / `title.vi`, same for summary/alt/description) — one Admin entry, verbose forms.
+  2. **Locale-suffixed parallel entries** (`quantum-crm`, `quantum-crm-cs`) linked by a shared `entryGroupId` — lighter forms, harder to keep in sync.
+  3. **Keep CMS EN-only + translate via next-intl** — only works for a fixed inventory; **rejected** for Admin-addable items.
+- **Recommended later**: option **1** for a small field set (title, summary, longDescription, alt, vlog description). Do **not** duplicate every technical field (URLs, tech tags, dimensions).
+- **Why defer**: Triples Admin surface area and content authoring cost; blog is already monolingual EN; token/complexity cost is high vs value while EN is enough.
+- **Acceptance Criteria (when opened)**: Admin can fill EN + at least one other locale; public UI picks locale from next-intl; missing locale falls back to EN.
 
-- **Description**: Mirror blog reader pattern — typed getters in `src/lib/keystatic/` that map CMS entries → portfolio view models.
-- **Tasks**:
-  - Types in `src/lib/keystatic/types.ts` (or `portfolio-types.ts` if file size bites): `SoftwareProjectEntry`, `PhotographyItemEntry`, `PortfolioVlogEntry`.
-  - `getSoftwareProjects`, `getPhotographyItems`, `getPortfolioVlogs` (React `cache`); sort by `sortOrder` then title.
-  - Resolve image URLs via `getR2PublicUrl`; parse YouTube URLs; derive thumbnail when missing.
-  - Update feature `types.ts` so UI models are slug-based (drop hardcoded `SoftwareProjectId` / `PortfolioVlogId` enums once CMS-backed).
-  - Export from `src/lib/keystatic/index.ts`.
-- **Acceptance Criteria**: Unit-smoke via page load; empty collections return `[]` (no throw); no `any`.
+##### `TICKET-PF-06`: Portfolio Detail Slug Routes for SEO (later)
 
-#### `TICKET-PF-03`: Rewire `/portfolio` UI to CMS Data
+- **Description**: Optional public routes like `/portfolio/software/[slug]` (and/or vlog slug pages) with metadata / Open Graph.
+- **Why it can help SEO**: Indexable URLs, shareable links, rich previews — modals are not crawlable as distinct pages.
+- **Why not now**: Current UI is modal + lightbox only; dedicated pages need layout, metadata, and back-navigation work that does not exist yet. Photography grids rarely need per-photo routes.
+- **Acceptance Criteria (when opened)**: Opening a project from `/portfolio` can deep-link to a slug URL; direct load works; modal UX either wraps the page or is replaced intentionally.
 
-- **Description**: Load portfolio data on the server; pass into client sections; remove hardcoded `constants.ts` inventory (keep only category parse helpers / enums that remain useful).
-- **Tasks**:
-  - `src/app/portfolio/page.tsx` (Server Component) fetches the three lists and passes props into `PortfolioContent` / sections.
-  - Update `SoftwareProjectCard`, `VlogCard`, `PortfolioSections`, `ProjectModal` to consume CMS fields (title/description from data, not `t(\`projects.${id}.…\`)`).
-  - Remove per-item keys from `messages/*.json` (`Portfolio.projects.*`, `Portfolio.vlogs.*`, static photo alt keys) once unused; keep chrome keys.
-  - Preserve category filter query `?category=Dev|Photo|Vlogs|All` and existing modal/lightbox UX.
-  - Empty-state copy via `next-intl` when a section has zero items.
-- **Acceptance Criteria**: `/portfolio` renders CMS seed (or real) items; Admin add → refresh shows new item (local storage); Biome + `tsc` + build green; no Unsplash hardcodes left in portfolio feature constants.
+#### `TICKET-PF-01`: Keystatic Portfolio Collections + Seed Content — **DONE**
+
+Shipped: three collections in `keystatic.config.ts` via `portfolio-collections.ts`; seed YAML under `content/portfolio/{software,photography,vlogs}/` (placeholders + real blog YouTube URLs for vlogs).
+
+#### `TICKET-PF-02`: Portfolio Reader Helpers — **DONE**
+
+Shipped: `getSoftwareProjects`, `getPhotographyItems`, `getPortfolioVlogs` + portfolio types in `src/lib/keystatic/`.
+
+#### `TICKET-PF-03`: Rewire `/portfolio` UI to CMS Data — **DONE**
+
+Shipped: server-loaded `/portfolio`; CMS-driven cards/lightbox/modals; per-item i18n keys removed; empty states added.
 
 #### `TICKET-PF-04` (optional / follow-up): Home Featured Work from CMS
 

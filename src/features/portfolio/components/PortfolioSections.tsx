@@ -4,24 +4,30 @@ import { PhotoLightbox } from '@components/ui/PhotoLightbox';
 import type { VlogItem } from '@components/ui/VideoModal';
 import { useTranslations } from 'next-intl';
 import {
-  PHOTO_ALT_KEYS,
-  photographyGallery,
-  portfolioVlogs,
-  softwareProjects,
-} from '../constants';
-import { PortfolioCategory, type PortfolioProject } from '../types';
+  type PhotographyGalleryItem,
+  PortfolioCategory,
+  type PortfolioProject,
+  type PortfolioVlog,
+  type SoftwareProject,
+} from '../types';
 import { PortfolioSectionHeading } from './PortfolioSectionHeading';
 import { SoftwareProjectCard } from './SoftwareProjectCard';
 import { VlogCard } from './VlogCard';
 
 interface PortfolioSectionsProps {
   activeCategory: PortfolioCategory;
+  softwareProjects: SoftwareProject[];
+  photographyItems: PhotographyGalleryItem[];
+  portfolioVlogs: PortfolioVlog[];
   onSelectProject: (project: PortfolioProject) => void;
   onSelectVlog: (vlog: VlogItem) => void;
 }
 
 export function PortfolioSections({
   activeCategory,
+  softwareProjects,
+  photographyItems,
+  portfolioVlogs,
   onSelectProject,
   onSelectVlog,
 }: PortfolioSectionsProps) {
@@ -36,11 +42,6 @@ export function PortfolioSections({
     activeCategory === PortfolioCategory.All ||
     activeCategory === PortfolioCategory.Vlogs;
 
-  const photos = photographyGallery.map((photo, index) => ({
-    ...photo,
-    alt: t(PHOTO_ALT_KEYS[index]),
-  }));
-
   return (
     <div className="space-y-24 sm:space-y-32">
       {showDev && (
@@ -49,15 +50,19 @@ export function PortfolioSections({
             eyebrow={t('expertiseEyebrow')}
             title={t('softwareHeading')}
           />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 sm:gap-8">
-            {softwareProjects.map((project) => (
-              <SoftwareProjectCard
-                key={project.id}
-                project={project}
-                onSelect={onSelectProject}
-              />
-            ))}
-          </div>
+          {softwareProjects.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 sm:gap-8">
+              {softwareProjects.map((project) => (
+                <SoftwareProjectCard
+                  key={project.slug}
+                  project={project}
+                  onSelect={onSelectProject}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-white/60">{t('emptySoftware')}</p>
+          )}
         </section>
       )}
 
@@ -67,7 +72,11 @@ export function PortfolioSections({
             eyebrow={t('visualsEyebrow')}
             title={t('photographyHeading')}
           />
-          <PhotoLightbox photos={photos} />
+          {photographyItems.length > 0 ? (
+            <PhotoLightbox photos={photographyItems} />
+          ) : (
+            <p className="text-sm text-white/60">{t('emptyPhotography')}</p>
+          )}
         </section>
       )}
 
@@ -77,24 +86,28 @@ export function PortfolioSections({
             eyebrow={t('motionEyebrow')}
             title={t('vlogsHeading')}
           />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {portfolioVlogs.map((vlog) => (
-              <VlogCard
-                key={vlog.id}
-                vlog={vlog}
-                onSelect={() =>
-                  onSelectVlog({
-                    id: vlog.id,
-                    duration: vlog.duration,
-                    thumbnail: vlog.thumbnail,
-                    youtubeId: vlog.youtubeId,
-                    title: t(`vlogs.${vlog.id}.title`),
-                    description: t(`vlogs.${vlog.id}.description`),
-                  })
-                }
-              />
-            ))}
-          </div>
+          {portfolioVlogs.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {portfolioVlogs.map((vlog) => (
+                <VlogCard
+                  key={vlog.slug}
+                  vlog={vlog}
+                  onSelect={() =>
+                    onSelectVlog({
+                      id: vlog.slug,
+                      duration: vlog.duration,
+                      thumbnail: vlog.thumbnail,
+                      youtubeId: vlog.youtubeId,
+                      title: vlog.title,
+                      description: vlog.description,
+                    })
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-white/60">{t('emptyVlogs')}</p>
+          )}
         </section>
       )}
     </div>
