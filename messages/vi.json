@@ -343,6 +343,9 @@
     "close": "Đóng video",
     "nowPlaying": "Đang phát"
   },
+  "YouTubeEmbed": {
+    "defaultTitle": "Video YouTube"
+  },
   "Cta": {
     "readStory": "Đọc câu chuyện của tôi",
     "contactMe": "Liên hệ"

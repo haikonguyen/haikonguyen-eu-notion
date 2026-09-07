@@ -343,6 +343,9 @@
     "close": "Zavřít video",
     "nowPlaying": "Právě hraje"
   },
+  "YouTubeEmbed": {
+    "defaultTitle": "YouTube video"
+  },
   "Cta": {
     "readStory": "Přečíst můj příběh",
     "contactMe": "Kontaktujte mě"

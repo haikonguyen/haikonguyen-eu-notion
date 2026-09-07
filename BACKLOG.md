@@ -298,10 +298,11 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - Collection `posts` → `content/posts/*.mdoc`; singleton `aboutStory` → `content/about-story.mdoc`.
   - Frontmatter: `title`, `publishedDate`, `excerpt`, `tags`, `authorName`, `coverImage` + Markdoc `content`.
   - Inline images: Markdoc **`R2Image`** (`src`, `alt`, `caption`) in `src/lib/keystatic/r2-image-component.ts`; public render `src/features/blog/components/R2CmsImage.tsx`.
+  - YouTube embeds: Markdoc **`YouTubeEmbed`** (`url`, `title`, `caption`) in `src/lib/keystatic/youtube-embed-component.ts`; public render `src/features/blog/components/YouTubeEmbed.tsx`; URL helpers in `src/lib/youtube/*`.
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
-  - Migrated so far: About Story + `content/posts/welcome-to-my-new-website.mdoc` (ImageKit URLs kept on purpose).
-- **Next session**: CMS-06 → CMS-08 (migrate + polish). CMS-10 (admin auth gate) after public Admin risk is prioritized. CMS-09 later.
+  - Migrated so far: About Story + all inventory posts under `content/posts/` (ImageKit URLs kept on purpose).
+- **Next session**: CMS-07 → CMS-08 polish. CMS-11 YouTube embeds in [PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23). CMS-10 (admin auth gate) after public Admin risk is prioritized. CMS-09 later.
 - **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
 
 #### Context (read before implementing)
@@ -322,9 +323,9 @@ Shipped in PR #21: Keystatic admin/API, R2 helpers + env stubs, reader rewire fo
 
 _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-posts-ff86`. Content-first; minimize code churn._
 
-#### `TICKET-CMS-06`: Migrate All Remaining Blog Posts (ImageKit URLs) — **IN PROGRESS** on `cursor/keystatic-migrate-all-posts-ff86`
+#### `TICKET-CMS-06`: Migrate All Remaining Blog Posts (ImageKit URLs) — **DONE** (merged to `dev`)
 
-- **Status**: All **36** inventory posts present under `content/posts/YYYY/YYYY-MM-DD-<slug>.mdoc` (year folders + date-prefixed names). Public URLs stay `/post/<slug>` via reader mapping. `columns: ['publishedDate']` in Keystatic Admin. Typecheck + build green.
+- **Status**: All **36** inventory posts present under `content/posts/YYYY-MM-DD-<slug>.mdoc`. Public URLs stay `/post/<slug>` via reader mapping. Typecheck + build green.
 
 - **Description**: Bring the full production blog catalog into `content/posts/*.mdoc` using the welcome-post template. Keep ImageKit URLs for covers + inline images.
 - **Gold template**: `content/posts/welcome-to-my-new-website.mdoc` (+ `content/about-story.mdoc` for singleton reference).
@@ -369,11 +370,31 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
 
 - **Description**: Add Markdoc components **only for block types that appear in migrated bodies** and lack a Markdoc equivalent.
 - **Likely candidates** (old Notion renderer): `Todo`, `Toggle` / disclosure. Skip if CMS-06 can flatten without loss.
+- **Note**: YouTube / video embeds are tracked separately as **`TICKET-CMS-11`** (proven need in vlog posts).
 - **Tasks**:
   - During/after CMS-06, grep migrated `.mdoc` for gaps; implement only proven needs.
   - Each: Keystatic `block()` schema + public renderer in `MarkdocRenderer` map.
   - ≤150 LOC/file; no speculative unused components.
 - **Acceptance Criteria**: No silent content loss vs production; unused components are not shipped.
+
+#### `TICKET-CMS-11`: YouTube Embed Markdoc Component — **IN REVIEW** on `cursor/youtube-embed-markdoc-4c76` / [PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23)
+
+- **Description**: Let admins insert YouTube links as a Keystatic Markdoc block (Haianbeauty `NotionMediaBlocks` parity) and render responsive embeds on blog posts.
+- **Why**: Migrated vlog posts still dump YouTube as plain links / raw embed URLs; no admin insert path for embeds after Notion removal.
+- **Tasks**:
+  - Shared URL helpers in `src/lib/youtube/` (`parseYoutubeUrl`, `buildYoutubeEmbedUrl`, thumbnail URL) — support `watch`, `youtu.be`, `/embed/`, `/shorts/`, optional `&t=` / `start`.
+  - Keystatic `YouTubeEmbed` block (`url`, optional `title` / `caption`) + admin `ContentView` thumbnail preview (`src/lib/keystatic/youtube-embed-component.ts`).
+  - Public renderer `src/features/blog/components/YouTubeEmbed.tsx` registered in `MarkdocRenderer` + `keystatic.config.ts`.
+  - Reuse helpers from portfolio `VideoModal` (remove local embed URL builder).
+  - Convert dedicated vlog posts: `vietnam-vlog-part-i-part-ii`, `vlog-8-singapore`, `vlog-9-singapore-part-ii`, `vlog-10-budapest`.
+  - i18n fallback iframe title (`YouTubeEmbed.defaultTitle` in `en` / `cs` / `vi`).
+  - Out of scope: R2 native `<video>` uploads, Vimeo / arbitrary iframes, auto-detecting every prose YouTube link.
+- **Acceptance Criteria**:
+  - Admin can insert **YouTube Embed** from Keystatic Markdoc toolbar.
+  - `/post/<vlog-slug>` shows a playable responsive iframe (not a bare URL).
+  - Invalid / non-YouTube URLs render nothing (no broken iframe).
+  - `tsc` + Biome + build green.
+- **Markdoc shape**: `{% YouTubeEmbed url="https://www.youtube.com/watch?v=…" title="…" caption="…" /%}`
 
 #### `TICKET-CMS-09`: ImageKit → R2 Media Cutover (later; after CMS-06)
 
@@ -428,8 +449,8 @@ Read `AGENTS.md` and **Epic 6.1** in `BACKLOG.md` before coding.
 - Branch from latest `dev`: `cursor/keystatic-migrate-all-posts-f710`.
 
 ### Objective
-1) `TICKET-CMS-06` — migrate all remaining posts into `content/posts/*.mdoc` (ImageKit URLs OK).
-2) `TICKET-CMS-07` — add `ContentView` thumbnail preview for `R2Image` in Keystatic admin.
+1) `TICKET-CMS-07` — add `ContentView` thumbnail preview for `R2Image` in Keystatic admin.
+2) `TICKET-CMS-11` — YouTube embed Markdoc component (if not already merged).
 3) `TICKET-CMS-08` — only if migrated content needs Todo/Toggle (or similar).
 Do **not** start `TICKET-CMS-09` unless explicitly asked.
 
@@ -437,11 +458,12 @@ Do **not** start `TICKET-CMS-09` unless explicitly asked.
 - Template: `content/posts/welcome-to-my-new-website.mdoc`
 - Frontmatter: title, publishedDate, excerpt, tags, authorName, coverImage
 - Inline images: `{% R2Image src="…" alt="…" caption="…" /%}`
+- YouTube embeds: `{% YouTubeEmbed url="…" title="…" caption="…" /%}`
 - Packages: `@keystatic/core`, `@keystatic/next`, `next-intl`, Biome, Tailwind 4
 - Admin: `npm run dev:keystatic` (Webpack)
 - Config: `keystatic.config.ts`
-- Component: `src/lib/keystatic/r2-image-component.ts`
-- Public renderer: `src/features/blog/components/R2CmsImage.tsx`
+- Components: `src/lib/keystatic/r2-image-component.ts`, `src/lib/keystatic/youtube-embed-component.ts`
+- Public renderers: `src/features/blog/components/R2CmsImage.tsx`, `src/features/blog/components/YouTubeEmbed.tsx`
 
 ### Efficiency rules
 - Content-first; minimize code churn in CMS-06.
@@ -463,7 +485,7 @@ All 36 inventory slugs exist under `content/posts/`; `/blog` + sample `/post/[sl
 | **Milestone 1 (Current Branch: `feature/new-ui`)** | **Core Foundation & Shell**  | PWA Manifest, Service Worker, Liquid Glass Design Tokens, `AppPageShell`, Floating Top Header & Bottom Navigation Bar. |
 | **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
-| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | Migrate remaining ~35 posts (ImageKit URLs), `R2Image` ContentView preview, optional Todo/Toggle; R2 cutover later.   |
+| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | Posts migrated (CMS-06); `R2Image` ContentView (CMS-07); YouTube embeds (CMS-11); optional Todo/Toggle (CMS-08); R2 cutover later. |
 | **Milestone 2.7**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 3**                                    | **Services & Commerce**      | Web Dev / Photo / Video Services Catalog, Booking Drawer, Cart Store, Checkout Flow.                                   |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |

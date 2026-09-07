@@ -1,5 +1,6 @@
 'use client';
 
+import { buildYoutubeEmbedUrl } from '@lib/youtube';
 import { Play, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
@@ -21,10 +22,6 @@ export interface VideoModalProps {
 
 const BODY_OVERFLOW_HIDDEN = 'hidden';
 const BODY_OVERFLOW_VISIBLE = 'unset';
-
-function buildYoutubeEmbedUrl(youtubeId: string): string {
-  return `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
-}
 
 export function VideoModal({ isOpen, onClose, vlog }: VideoModalProps) {
   const t = useTranslations('VideoModal');
@@ -49,7 +46,12 @@ export function VideoModal({ isOpen, onClose, vlog }: VideoModalProps) {
 
   if (!isOpen || !vlog) return null;
 
-  const embedUrl = vlog.youtubeId ? buildYoutubeEmbedUrl(vlog.youtubeId) : null;
+  const embedUrl = vlog.youtubeId
+    ? buildYoutubeEmbedUrl(
+        { id: vlog.youtubeId, startSeconds: null },
+        { autoplay: true },
+      )
+    : null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10">

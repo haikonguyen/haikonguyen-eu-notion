@@ -1,5 +1,6 @@
 import { collection, config, fields, singleton } from '@keystatic/core';
 import { r2ImageMarkdocComponent } from './src/lib/keystatic/r2-image-component';
+import { youtubeEmbedMarkdocComponent } from './src/lib/keystatic/youtube-embed-component';
 
 const markdocOptions = {
   bold: true,
@@ -17,6 +18,7 @@ const markdocOptions = {
 
 const markdocComponents = {
   R2Image: r2ImageMarkdocComponent,
+  YouTubeEmbed: youtubeEmbedMarkdocComponent,
 };
 
 export default config({

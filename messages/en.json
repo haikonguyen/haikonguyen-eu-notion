@@ -343,6 +343,9 @@
     "close": "Close Video",
     "nowPlaying": "Now Playing"
   },
+  "YouTubeEmbed": {
+    "defaultTitle": "YouTube video"
+  },
   "Cta": {
     "readStory": "Read my story",
     "contactMe": "Contact Me"
