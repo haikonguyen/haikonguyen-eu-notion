@@ -357,6 +357,12 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
   - `/blog` lists every post; `/post/<slug>` works for a sample from each year.
   - No Notion client reintroduced; ImageKit remains in `next.config.ts` `images.remotePatterns` until CMS-09.
 
+#### `TICKET-CMS-12`: Soft Fade-In for Blog / CMS `next/image` — **DONE**
+
+- **Status**: Shipped on `cursor/cms-image-fade-in-ac96`. Shared `FadeInImage` client wrapper fades opacity `0 → 100` on `onLoad` (500ms ease-out). Wired into `R2CmsImage` (inline Markdoc), `PostHero` cover, and `PostCard` covers. Avatar / chrome images unchanged.
+- **Why**: CMS/post images already used `next/image` but painted abruptly as bytes arrived; no custom load transition existed.
+- **Acceptance Criteria**: Post covers and inline R2 images fade in smoothly once decoded; hover scale on cards still works; `tsc` + Biome green.
+
 #### `TICKET-CMS-07`: Keystatic Admin Preview for `R2Image` (`ContentView`)
 
 - **Description**: Replace the bare “R2 IMAGE” chrome-only block in `/keystatic` with a thumbnail via Keystatic `ContentView` (fields stay built-in — no custom form framework).
@@ -639,7 +645,7 @@ Admin can add all three item types; `/portfolio` renders them with existing filt
 | **Milestone 1 (Current Branch: `feature/new-ui`)** | **Core Foundation & Shell**  | PWA Manifest, Service Worker, Liquid Glass Design Tokens, `AppPageShell`, Floating Top Header & Bottom Navigation Bar. |
 | **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
-| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); remaining: `R2Image` ContentView (CMS-07); optional Todo/Toggle (CMS-08); R2 cutover later (CMS-09). |
+| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); ✅ soft image fade-in (CMS-12); remaining: `R2Image` ContentView (CMS-07); optional Todo/Toggle (CMS-08); R2 cutover later (CMS-09). |
 | **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | Keystatic collections for software / photography / vlogs; reader; rewire `/portfolio`; optional Home featured (PF-04). |
 | **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 3**                                    | **Services & Commerce**      | Web Dev / Photo / Video Services Catalog, Booking Drawer, Cart Store, Checkout Flow.                                   |

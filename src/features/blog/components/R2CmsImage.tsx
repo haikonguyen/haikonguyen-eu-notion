@@ -1,5 +1,5 @@
+import { FadeInImage } from '@components/ui/FadeInImage';
 import { getR2PublicUrl } from '@lib/r2';
-import Image from 'next/image';
 
 export interface R2CmsImageProps {
   src: string;
@@ -15,7 +15,7 @@ export function R2CmsImage({ src, alt, caption }: R2CmsImageProps) {
 
   return (
     <figure className="my-10 not-prose">
-      <Image
+      <FadeInImage
         src={imageSrc}
         alt={alt}
         width={1200}
