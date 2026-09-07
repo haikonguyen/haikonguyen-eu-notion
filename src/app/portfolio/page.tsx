@@ -4,8 +4,17 @@ import {
   getPortfolioVlogs,
   getSoftwareProjects,
 } from '@lib/keystatic';
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('Metadata');
+  return {
+    title: t('portfolioTitle'),
+    description: t('portfolioDescription'),
+  };
+}
 
 async function PortfolioPageContent() {
   const [softwareEntries, photographyEntries, vlogEntries] = await Promise.all([
