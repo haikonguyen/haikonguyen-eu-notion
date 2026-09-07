@@ -1,5 +1,6 @@
 'use client';
 
+import { FadeInImage } from '@components/ui/FadeInImage';
 import { euDateFormat, truncateText } from '@lib/format';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
@@ -29,12 +30,12 @@ export function PostCard({
       className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-3xl border border-white/10 bg-black/45 backdrop-blur-2xl transition-all duration-500 hover:border-primary/50 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_-10px_rgba(6,182,212,0.2)]"
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-900">
-        <Image
+        <FadeInImage
           src={coverImage || CoverFallback.Image}
           alt={title}
           fill
           sizes={COVER_IMAGE_SIZES}
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
       </div>

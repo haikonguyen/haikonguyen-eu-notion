@@ -1,4 +1,5 @@
 import { ARTICLE_HEADER_GAP_CLASS } from '@components/layout/global-styles';
+import { FadeInImage } from '@components/ui/FadeInImage';
 import { euDateFormat } from '@lib/format';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
@@ -70,7 +71,7 @@ export async function PostHero({
 
       {coverSrc ? (
         <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 shadow-2xl sm:rounded-3xl">
-          <Image
+          <FadeInImage
             src={coverSrc}
             alt={title}
             fill
