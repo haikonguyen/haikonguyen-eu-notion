@@ -96,7 +96,17 @@
     "slotMorning": "9:00",
     "slotMidMorning": "11:30",
     "slotAfternoon": "14:00",
-    "slotLateAfternoon": "16:30"
+    "slotLateAfternoon": "16:30",
+    "previousWeek": "Předchozí týden",
+    "nextWeek": "Další týden",
+    "bookingNamePlaceholder": "Vaše jméno",
+    "bookingEmailPlaceholder": "E-mailová adresa",
+    "bookingSelectSlotError": "Vyberte prosím dostupný čas.",
+    "bookingContactError": "Zadejte prosím jméno a e-mail.",
+    "bookingSubmitting": "Rezervuji…",
+    "bookingFailed": "Rezervace se nezdařila. Zkuste to znovu.",
+    "bookingSuccessGoogle": "Rezervováno — zkontrolujte e-mail s pozvánkou.",
+    "bookingSuccessLocal": "Požadavek přijat. Kalendář běží v demo režimu, dokud nejsou nastaveny Google údaje."
   },
   "Blog": {
     "title": "Blog",
@@ -176,43 +186,7 @@
   "Services": {
     "eyebrow": "Kreativní a engineering služby",
     "title": "Proměňuji nápady v digitální realitu",
-    "subtitle": "Specializuji se na webové aplikace nové generace, filmovou fotografii a video.",
-    "webDev": {
-      "title": "Vývoj webových aplikací",
-      "category": "Engineering",
-      "description": "Výkonné Next.js a React aplikace, vlastní UI/UX systémy, PWA architektury a optimalizace výkonu.",
-      "highlights": {
-        "next": "Next.js 16 / React 19",
-        "pwa": "PWA a mobile-first",
-        "tailwind": "Tailwind CSS a liquid glass",
-        "api": "API a headless integrace"
-      },
-      "cta": "Poptat web"
-    },
-    "photography": {
-      "title": "Vizuální fotografie",
-      "category": "Vizuální umění",
-      "description": "Komerční, portrétní, brand a street fotografie s filmovým gradingem a storytellingem.",
-      "highlights": {
-        "brand": "Brand a editorial",
-        "portrait": "Portrétní sezení",
-        "deliverables": "Výstupy ve vysokém rozlišení",
-        "grading": "Color grading"
-      },
-      "cta": "Rezervovat focení"
-    },
-    "video": {
-      "title": "Video a motion",
-      "category": "Média a pohyb",
-      "description": "Filmová YouTube produkce, produktové reely, behind-the-scenes vlogy a storytelling.",
-      "highlights": {
-        "cinematic": "4K filmová produkce",
-        "post": "Postprodukce a zvuk",
-        "social": "Teasery pro sociální sítě",
-        "vlog": "Vlog storytelling"
-      },
-      "cta": "Poptat video"
-    }
+    "subtitle": "Specializuji se na webové aplikace nové generace, filmovou fotografii a video."
   },
   "About": {
     "title": "O mně",
@@ -222,38 +196,7 @@
     "downloadPdf": "Stáhnout PDF",
     "technicalArsenal": "Technický arzenál",
     "education": "Vzdělání",
-    "degree": "Ing. informatika",
-    "university": "České vysoké učení technické",
-    "educationFocus": "Zaměření na softwarové inženýrství a HCI.",
-    "professionalJourney": "Profesní cesta",
-    "skills": {
-      "react": "React / Next.js",
-      "typescript": "TypeScript",
-      "tailwind": "Tailwind CSS",
-      "node": "Node.js",
-      "postgres": "PostgreSQL",
-      "photo": "Fotografie / video"
-    },
-    "experience": {
-      "senior": {
-        "role": "Senior frontend engineer",
-        "company": "Tech Innovators Inc.",
-        "period": "2024 – současnost",
-        "description": "Vedl jsem vývoj škálovatelných Next.js architektur. Přechod na React 19 zlepšil globální výkonnostní metriky o 40 %."
-      },
-      "uiux": {
-        "role": "UI/UX vývojář",
-        "company": "Creative Studio EU",
-        "period": "2021 – 2024",
-        "description": "Navrhoval a implementoval interaktivní weby. Specializace na Framer Motion a design systémy."
-      },
-      "freelance": {
-        "role": "Freelance vývojář a fotograf",
-        "company": "OSVČ",
-        "period": "2018 – 2021",
-        "description": "Prémiové vizuální kampaně spojující custom web s profesionální fotografií pro butikové značky."
-      }
-    }
+    "professionalJourney": "Profesní cesta"
   },
   "Contact": {
     "title": "Napište mi",
@@ -326,5 +269,11 @@
   "Cta": {
     "readStory": "Přečíst můj příběh",
     "contactMe": "Kontaktujte mě"
+  },
+  "Locale": {
+    "switcherLabel": "Jazyk",
+    "english": "Angličtina",
+    "czech": "Čeština",
+    "vietnamese": "Vietnamština"
   }
 }

@@ -1,18 +1,26 @@
 'use client';
 
 import { BentoGridItem } from '@components/ui/BentoGrid';
+import type { SoftwareProjectEntry } from '@lib/keystatic/types';
 import { ArrowRight, Code2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-const TECH_TAGS = [
+const FALLBACK_TECH = [
   'Next.js 16',
   'React 19',
   'TypeScript',
   'Tailwind 4',
 ] as const;
 
-export function HomeLatestProjectCard() {
+export interface HomeLatestProjectCardProps {
+  software?: SoftwareProjectEntry;
+}
+
+export function HomeLatestProjectCard({
+  software,
+}: HomeLatestProjectCardProps) {
   const t = useTranslations('Home');
+  const tech = software?.tech?.length ? software.tech : FALLBACK_TECH;
 
   return (
     <BentoGridItem
@@ -69,15 +77,15 @@ export function HomeLatestProjectCard() {
           <div className="space-y-3">
             <div>
               <h3 className="text-base font-bold leading-snug tracking-tight text-white sm:text-lg">
-                {t('latestProjectDescription')}
+                {software?.title || t('latestProjectDescription')}
               </h3>
               <p className="mt-1 text-xs text-zinc-400">
-                {t('latestProjectSubtext')}
+                {software?.summary || t('latestProjectSubtext')}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
-              {TECH_TAGS.map((tag) => (
+              {tech.slice(0, 4).map((tag) => (
                 <span
                   key={tag}
                   className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-semibold text-zinc-300 backdrop-blur-sm"

@@ -4,7 +4,8 @@ import {
   PageHeader,
   PageHeaderAlign,
 } from '@components/layout';
-import { ServiceCard, serviceDefinitions } from '@features/services';
+import { ServiceCard } from '@features/services';
+import { getServices } from '@lib/keystatic';
 import { Sparkles } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
@@ -19,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ServicesPage() {
   const t = await getTranslations('Services');
+  const services = await getServices();
 
   return (
     <AppPageShell size={AppPageShellSize.Default}>
@@ -35,13 +37,8 @@ export default async function ServicesPage() {
           }
         />
         <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-          {serviceDefinitions.map((service) => (
-            <ServiceCard
-              key={service.id}
-              id={service.id}
-              copyKey={service.copyKey}
-              highlightKeys={service.highlightKeys}
-            />
+          {services.map((service) => (
+            <ServiceCard key={service.slug} service={service} />
           ))}
         </div>
       </div>

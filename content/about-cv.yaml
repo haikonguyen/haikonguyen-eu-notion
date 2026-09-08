@@ -1,0 +1,59 @@
+pdfUrl: ''
+skills:
+  - label: React / Next.js
+    level: 95
+    icon: react
+  - label: TypeScript
+    level: 90
+    icon: typescript
+  - label: Tailwind CSS
+    level: 95
+    icon: tailwind
+  - label: Node.js
+    level: 80
+    icon: node
+  - label: PostgreSQL
+    level: 75
+    icon: postgres
+  - label: Photography / Video
+    level: 90
+    icon: photo
+educationDegree: MSc in Computer Science
+educationUniversity: Czech Technical University
+educationFocus: >-
+  Focus on Software Engineering and Human-Computer Interaction.
+experiences:
+  - role: Senior Frontend Engineer
+    company: Tech Innovators Inc.
+    period: 2024 - Present
+    description: >-
+      Leading the development of highly scalable Next.js architectures.
+      Spearheaded the transition to React 19, improving global performance
+      metrics by 40%.
+    tech:
+      - Next.js
+      - React
+      - TypeScript
+      - Tailwind CSS
+  - role: UI/UX Developer
+    company: Creative Studio EU
+    period: 2021 - 2024
+    description: >-
+      Designed and implemented interactive web experiences. Specialized in
+      framer-motion animations and building robust design systems.
+    tech:
+      - React
+      - Framer Motion
+      - Styled Components
+      - Figma
+  - role: Freelance Developer & Photographer
+    company: Self-Employed
+    period: 2018 - 2021
+    description: >-
+      Delivered premium visual storytelling campaigns merging custom web
+      solutions with professional photography for boutique brands.
+    tech:
+      - JavaScript
+      - WordPress
+      - Adobe Creative Suite
+      - Photography

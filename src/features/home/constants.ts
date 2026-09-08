@@ -8,9 +8,6 @@ export const HOME_VLOG_PLACEHOLDER =
 
 export const HOME_BENTO_GRID_CLASS = `mx-auto max-w-6xl auto-rows-auto md:auto-rows-[30rem] ${BENTO_GRID_GAP_CLASS}`;
 
-export const HOME_CALENDAR_DAYS = [13, 14, 15, 16, 17] as const;
-export const HOME_SELECTED_DAY = 15;
-
 export const HOME_WEEKDAY_HEADER_KEYS = [
   'weekdaySu',
   'weekdayMo',
@@ -27,11 +24,4 @@ export const HOME_WEEKDAY_KEYS = [
   'weekdayWed',
   'weekdayThu',
   'weekdayFri',
-] as const;
-
-export const HOME_TIME_SLOT_KEYS = [
-  'slotMorning',
-  'slotMidMorning',
-  'slotAfternoon',
-  'slotLateAfternoon',
 ] as const;

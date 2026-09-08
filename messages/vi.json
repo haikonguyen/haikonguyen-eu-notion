@@ -96,7 +96,17 @@
     "slotMorning": "9:00",
     "slotMidMorning": "11:30",
     "slotAfternoon": "14:00",
-    "slotLateAfternoon": "16:30"
+    "slotLateAfternoon": "16:30",
+    "previousWeek": "Tuần trước",
+    "nextWeek": "Tuần sau",
+    "bookingNamePlaceholder": "Tên của bạn",
+    "bookingEmailPlaceholder": "Địa chỉ email",
+    "bookingSelectSlotError": "Vui lòng chọn khung giờ còn trống.",
+    "bookingContactError": "Vui lòng nhập tên và email.",
+    "bookingSubmitting": "Đang đặt…",
+    "bookingFailed": "Đặt lịch thất bại. Vui lòng thử lại.",
+    "bookingSuccessGoogle": "Đã đặt — kiểm tra email để nhận lời mời lịch.",
+    "bookingSuccessLocal": "Đã nhận yêu cầu. Đồng bộ lịch đang ở chế độ demo cho đến khi cấu hình Google."
   },
   "Blog": {
     "title": "Blog",
@@ -176,43 +186,7 @@
   "Services": {
     "eyebrow": "Dịch vụ sáng tạo & kỹ thuật",
     "title": "Biến ý tưởng thành hiện thực số",
-    "subtitle": "Chuyên ứng dụng web thế hệ mới, nhiếp ảnh điện ảnh và video.",
-    "webDev": {
-      "title": "Phát triển ứng dụng web",
-      "category": "Engineering",
-      "description": "Ứng dụng Next.js & React hiệu năng cao, design system UI/UX, kiến trúc PWA và tối ưu hiệu suất.",
-      "highlights": {
-        "next": "Next.js 16 / React 19",
-        "pwa": "PWA & mobile-first",
-        "tailwind": "Tailwind CSS & liquid glass",
-        "api": "API & headless"
-      },
-      "cta": "Tư vấn web"
-    },
-    "photography": {
-      "title": "Nhiếp ảnh",
-      "category": "Nghệ thuật thị giác",
-      "description": "Ảnh thương mại, chân dung, brand và đường phố với grading điện ảnh.",
-      "highlights": {
-        "brand": "Brand & editorial",
-        "portrait": "Buổi chân dung",
-        "deliverables": "File độ phân giải cao",
-        "grading": "Color grading"
-      },
-      "cta": "Đặt buổi chụp"
-    },
-    "video": {
-      "title": "Video & motion",
-      "category": "Media & chuyển động",
-      "description": "Sản xuất YouTube điện ảnh, reel sản phẩm, vlog hậu trường và storytelling.",
-      "highlights": {
-        "cinematic": "Sản xuất 4K điện ảnh",
-        "post": "Hậu kỳ & âm thanh",
-        "social": "Teaser mạng xã hội",
-        "vlog": "Vlog storytelling"
-      },
-      "cta": "Tư vấn video"
-    }
+    "subtitle": "Chuyên ứng dụng web thế hệ mới, nhiếp ảnh điện ảnh và video."
   },
   "About": {
     "title": "Giới thiệu",
@@ -222,38 +196,7 @@
     "downloadPdf": "Tải PDF",
     "technicalArsenal": "Kỹ năng kỹ thuật",
     "education": "Học vấn",
-    "degree": "Thạc sĩ Khoa học máy tính",
-    "university": "Đại học Bách khoa Séc",
-    "educationFocus": "Tập trung Software Engineering và HCI.",
-    "professionalJourney": "Hành trình nghề nghiệp",
-    "skills": {
-      "react": "React / Next.js",
-      "typescript": "TypeScript",
-      "tailwind": "Tailwind CSS",
-      "node": "Node.js",
-      "postgres": "PostgreSQL",
-      "photo": "Nhiếp ảnh / video"
-    },
-    "experience": {
-      "senior": {
-        "role": "Senior Frontend Engineer",
-        "company": "Tech Innovators Inc.",
-        "period": "2024 - nay",
-        "description": "Dẫn dắt kiến trúc Next.js quy mô lớn. Chuyển sang React 19, cải thiện metric hiệu năng toàn cục 40%."
-      },
-      "uiux": {
-        "role": "UI/UX Developer",
-        "company": "Creative Studio EU",
-        "period": "2021 - 2024",
-        "description": "Thiết kế và triển khai trải nghiệm web tương tác. Chuyên Framer Motion và design system."
-      },
-      "freelance": {
-        "role": "Freelance developer & nhiếp ảnh",
-        "company": "Tự doanh",
-        "period": "2018 - 2021",
-        "description": "Chiến dịch kể chuyện thị giác kết hợp web custom và nhiếp ảnh chuyên nghiệp cho thương hiệu boutique."
-      }
-    }
+    "professionalJourney": "Hành trình nghề nghiệp"
   },
   "Contact": {
     "title": "Liên hệ",
@@ -326,5 +269,11 @@
   "Cta": {
     "readStory": "Đọc câu chuyện của tôi",
     "contactMe": "Liên hệ"
+  },
+  "Locale": {
+    "switcherLabel": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "czech": "Tiếng Séc",
+    "vietnamese": "Tiếng Việt"
   }
 }
