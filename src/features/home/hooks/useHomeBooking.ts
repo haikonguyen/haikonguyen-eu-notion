@@ -4,6 +4,7 @@ import type { BookingSlot } from '@lib/booking/constants';
 import type { BookingAvailabilityState } from '@lib/booking/get-availability-state';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import type { HomeBookingFormValues } from '../create-home-booking-schema';
 
 export function useHomeBooking(initial: BookingAvailabilityState) {
   const t = useTranslations('Home');
@@ -50,17 +51,16 @@ export function useHomeBooking(initial: BookingAvailabilityState) {
     setStatusMessage(null);
   };
 
-  const confirmBooking = async (name: string, email: string) => {
+  const confirmBooking = async ({
+    name,
+    email,
+  }: HomeBookingFormValues): Promise<boolean> => {
     const slot = state.slots.find(
       (item: BookingSlot) => item.startIso === selectedSlotIso,
     );
     if (!slot) {
       setStatusMessage(t('bookingSelectSlotError'));
-      return;
-    }
-    if (!name.trim() || !email.trim()) {
-      setStatusMessage(t('bookingContactError'));
-      return;
+      return false;
     }
 
     setIsSubmitting(true);
@@ -78,7 +78,7 @@ export function useHomeBooking(initial: BookingAvailabilityState) {
       });
       if (!response.ok) {
         setStatusMessage(t('bookingFailed'));
-        return;
+        return false;
       }
       const payload = (await response.json()) as { mode?: string };
       setStatusMessage(
@@ -88,8 +88,10 @@ export function useHomeBooking(initial: BookingAvailabilityState) {
       );
       setSelectedSlotIso(null);
       void loadAvailability(state.weekStartIso, state.selectedDateIso);
+      return true;
     } catch {
       setStatusMessage(t('bookingFailed'));
+      return false;
     } finally {
       setIsSubmitting(false);
     }
