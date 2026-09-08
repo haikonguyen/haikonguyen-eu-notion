@@ -1,6 +1,17 @@
-import { createCalendarEvent } from '@lib/booking';
+import {
+  buildDaySlots,
+  createCalendarEvent,
+  fetchBusyRanges,
+} from '@lib/booking';
+import { BOOKING_TIMEZONE } from '@lib/booking/constants';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const bookingSchema = z.object({
   startIso: z.string().datetime(),
@@ -30,6 +41,32 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid time range' }, { status: 400 });
   }
 
+  const start = dayjs(startIso).tz(BOOKING_TIMEZONE);
+  const dateIso = start.format('YYYY-MM-DD');
+  const weekday = start.day();
+  if (weekday === 0 || weekday === 6) {
+    return NextResponse.json(
+      { error: 'Bookings are only available Monday to Friday' },
+      { status: 400 },
+    );
+  }
+
+  const dayStart = start.startOf('day').toISOString();
+  const dayEnd = start.endOf('day').toISOString();
+  const busy = await fetchBusyRanges(dayStart, dayEnd);
+  const slots = buildDaySlots(dateIso, busy);
+  const matchingSlot = slots.find(
+    (slot) =>
+      slot.startIso === startIso && slot.endIso === endIso && slot.isAvailable,
+  );
+
+  if (!matchingSlot) {
+    return NextResponse.json(
+      { error: 'Selected slot is unavailable' },
+      { status: 409 },
+    );
+  }
+
   const result = await createCalendarEvent({
     startIso,
     endIso,
@@ -37,6 +74,13 @@ export async function POST(request: Request) {
     attendeeName: name,
     summary: `Call with ${name}`,
   });
+
+  if (!result.ok) {
+    return NextResponse.json(
+      { error: result.error || 'Booking failed' },
+      { status: 502 },
+    );
+  }
 
   return NextResponse.json({
     ok: true,

@@ -14,6 +14,10 @@ interface CreateEventInput {
   summary: string;
 }
 
+export type CreateCalendarEventResult =
+  | { ok: true; eventId: string | null; mode: 'google' | 'local' }
+  | { ok: false; error: string };
+
 function hasGoogleCalendarConfig(): boolean {
   return Boolean(
     process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
@@ -78,15 +82,25 @@ export async function fetchBusyRanges(
 
 export async function createCalendarEvent(
   input: CreateEventInput,
-): Promise<{ eventId: string | null; mode: 'google' | 'local' }> {
+): Promise<CreateCalendarEventResult> {
+  // Demo/local mode when Google Calendar is not configured.
+  if (!hasGoogleCalendarConfig()) {
+    return { ok: true, eventId: null, mode: 'local' };
+  }
+
   const token = await getAccessToken();
   if (!token) {
-    return { eventId: null, mode: 'local' };
+    return {
+      ok: false,
+      error: 'Unable to authenticate with Google Calendar',
+    };
   }
 
   const calendarId = getCalendarId();
+  // Service accounts cannot invite attendees without domain-wide delegation.
+  // Keep guest details in the description instead of sending `attendees`.
   const response = await fetch(
-    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?sendUpdates=all`,
+    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`,
     {
       method: 'POST',
       headers: {
@@ -98,17 +112,17 @@ export async function createCalendarEvent(
         description: `Booked via haikonguyen.eu by ${input.attendeeName} <${input.attendeeEmail}>`,
         start: { dateTime: input.startIso, timeZone: BOOKING_TIMEZONE },
         end: { dateTime: input.endIso, timeZone: BOOKING_TIMEZONE },
-        attendees: [
-          { email: input.attendeeEmail, displayName: input.attendeeName },
-        ],
       }),
     },
   );
 
   if (!response.ok) {
-    return { eventId: null, mode: 'local' };
+    return {
+      ok: false,
+      error: 'Google Calendar rejected the booking request',
+    };
   }
 
   const payload = (await response.json()) as { id?: string };
-  return { eventId: payload.id ?? null, mode: 'google' };
+  return { ok: true, eventId: payload.id ?? null, mode: 'google' };
 }

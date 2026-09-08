@@ -15,6 +15,7 @@ export {
   getBookingAvailabilityState,
 } from './get-availability-state';
 export {
+  type CreateCalendarEventResult,
   createCalendarEvent,
   fetchBusyRanges,
   isGoogleCalendarConfigured,

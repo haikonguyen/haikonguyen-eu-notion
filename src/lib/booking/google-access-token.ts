@@ -47,22 +47,33 @@ export async function getGoogleAccessToken(): Promise<string | null> {
     return null;
   }
 
-  const assertion = createServiceAccountJwt(email, privateKey);
+  let assertion: string;
+  try {
+    assertion = createServiceAccountJwt(email, privateKey);
+  } catch {
+    // Malformed private key must not crash availability/homepage rendering.
+    return null;
+  }
+
   const body = new URLSearchParams({
     grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
     assertion,
   });
 
-  const response = await fetch(GOOGLE_TOKEN_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body,
-  });
+  try {
+    const response = await fetch(GOOGLE_TOKEN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return null;
+    }
+
+    const payload = (await response.json()) as { access_token?: string };
+    return payload.access_token ?? null;
+  } catch {
     return null;
   }
-
-  const payload = (await response.json()) as { access_token?: string };
-  return payload.access_token ?? null;
 }
