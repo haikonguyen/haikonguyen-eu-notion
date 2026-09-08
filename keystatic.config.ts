@@ -1,5 +1,10 @@
 import { collection, config, fields, singleton } from '@keystatic/core';
 import {
+  aboutCvSingleton,
+  homeAboutSingleton,
+  servicesCollection,
+} from './src/lib/keystatic/marketing-collections';
+import {
   photographyItemsCollection,
   portfolioVlogsCollection,
   softwareProjectsCollection,
@@ -67,6 +72,7 @@ export default config({
     softwareProjects: softwareProjectsCollection,
     photographyItems: photographyItemsCollection,
     portfolioVlogs: portfolioVlogsCollection,
+    services: servicesCollection,
   },
   singletons: {
     aboutStory: singleton({
@@ -81,5 +87,7 @@ export default config({
         }),
       },
     }),
+    homeAbout: homeAboutSingleton,
+    aboutCv: aboutCvSingleton,
   },
 });

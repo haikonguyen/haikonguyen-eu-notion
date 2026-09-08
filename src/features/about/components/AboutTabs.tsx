@@ -1,5 +1,6 @@
 'use client';
 
+import type { AboutCvEntry } from '@lib/keystatic/types';
 import { cn } from '@lib/utils';
 import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
@@ -10,6 +11,7 @@ import { AboutCvPanel } from './AboutCvPanel';
 
 export interface AboutTabsProps {
   storyContent: ReactNode;
+  cv: AboutCvEntry | null;
 }
 
 interface AboutTabButtonProps {
@@ -44,7 +46,7 @@ function AboutTabButton({
   );
 }
 
-export function AboutTabs({ storyContent }: AboutTabsProps) {
+export function AboutTabs({ storyContent, cv }: AboutTabsProps) {
   const t = useTranslations('About');
   const [activeTab, setActiveTab] = useState(AboutTab.Story);
   const isStory = activeTab === AboutTab.Story;
@@ -72,9 +74,9 @@ export function AboutTabs({ storyContent }: AboutTabsProps) {
           <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
             <article>{storyContent}</article>
           </div>
-        ) : (
-          <AboutCvPanel />
-        )}
+        ) : cv ? (
+          <AboutCvPanel cv={cv} />
+        ) : null}
       </div>
     </div>
   );

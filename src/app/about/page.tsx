@@ -6,7 +6,7 @@ import {
 } from '@components/layout';
 import { AboutTabs } from '@features/about';
 import { MarkdocRenderer } from '@features/blog/components/MarkdocRenderer';
-import { getAboutStory } from '@lib/keystatic';
+import { getAboutCv, getAboutStory } from '@lib/keystatic';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
@@ -20,7 +20,7 @@ const STORY_PROSE_CLASS =
 
 export default async function AboutPage() {
   const t = await getTranslations('About');
-  const story = await getAboutStory();
+  const [story, cv] = await Promise.all([getAboutStory(), getAboutCv()]);
 
   return (
     <AppPageShell
@@ -34,6 +34,7 @@ export default async function AboutPage() {
         align={PageHeaderAlign.Center}
       />
       <AboutTabs
+        cv={cv}
         storyContent={
           story ? (
             <MarkdocRenderer

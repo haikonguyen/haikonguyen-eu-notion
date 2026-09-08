@@ -1,5 +1,7 @@
 'use client';
 
+import type { CvSkillEntry } from '@lib/keystatic/types';
+import { CvSkillIcon } from '@lib/keystatic/types';
 import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { FaCamera, FaLaptopCode, FaNodeJs } from 'react-icons/fa';
@@ -9,20 +11,22 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from 'react-icons/si';
-import { skillLevels } from '../constants';
-import { SkillId } from '../types';
 import { AboutSectionHeading } from './AboutSectionHeading';
 
-const skillIcons: Record<SkillId, ReactNode> = {
-  [SkillId.React]: <SiNextdotjs />,
-  [SkillId.Typescript]: <SiTypescript />,
-  [SkillId.Tailwind]: <SiTailwindcss />,
-  [SkillId.Node]: <FaNodeJs />,
-  [SkillId.Postgres]: <SiPostgresql />,
-  [SkillId.Photo]: <FaCamera />,
+const skillIcons: Record<CvSkillIcon, ReactNode> = {
+  [CvSkillIcon.React]: <SiNextdotjs />,
+  [CvSkillIcon.Typescript]: <SiTypescript />,
+  [CvSkillIcon.Tailwind]: <SiTailwindcss />,
+  [CvSkillIcon.Node]: <FaNodeJs />,
+  [CvSkillIcon.Postgres]: <SiPostgresql />,
+  [CvSkillIcon.Photo]: <FaCamera />,
 };
 
-export function AboutSkillsSection() {
+export interface AboutSkillsSectionProps {
+  skills: CvSkillEntry[];
+}
+
+export function AboutSkillsSection({ skills }: AboutSkillsSectionProps) {
   const t = useTranslations('About');
 
   return (
@@ -32,21 +36,21 @@ export function AboutSkillsSection() {
         title={t('technicalArsenal')}
       />
       <div className="space-y-6">
-        {Object.values(SkillId).map((skillId) => (
-          <div key={skillId}>
+        {skills.map((skill) => (
+          <div key={`${skill.icon}-${skill.label}`}>
             <div className="mb-2 flex items-center justify-between">
               <div className="flex items-center gap-2 font-medium text-white/80">
-                {skillIcons[skillId]}
-                <span>{t(`skills.${skillId}`)}</span>
+                {skillIcons[skill.icon]}
+                <span>{skill.label}</span>
               </div>
               <span className="text-[10px] font-bold text-primary">
-                {skillLevels[skillId]}%
+                {skill.level}%
               </span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-primary/50 to-primary"
-                style={{ width: `${skillLevels[skillId]}%` }}
+                style={{ width: `${skill.level}%` }}
               />
             </div>
           </div>

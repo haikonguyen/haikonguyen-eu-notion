@@ -6,14 +6,24 @@ import { useTranslations } from 'next-intl';
 import { FaPlay } from 'react-icons/fa';
 import { HOME_VLOG_PLACEHOLDER } from '../constants';
 
-export function HomeVlogSlide() {
+export interface HomeVlogSlideProps {
+  thumbnail?: string;
+  title?: string;
+  description?: string;
+}
+
+export function HomeVlogSlide({
+  thumbnail,
+  title,
+  description,
+}: HomeVlogSlideProps) {
   const t = useTranslations('Home');
 
   return (
     <div className="group/vlog relative h-full w-full">
       <Image
-        src={HOME_VLOG_PLACEHOLDER}
-        alt={t('recentVlogAlt')}
+        src={thumbnail || HOME_VLOG_PLACEHOLDER}
+        alt={title || t('recentVlogAlt')}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="object-cover opacity-75 transition-transform duration-1000 group-hover/vlog:scale-105"
@@ -34,10 +44,10 @@ export function HomeVlogSlide() {
       </Link>
       <div className="absolute right-5 bottom-8 left-5 z-10 max-w-lg sm:right-10 sm:left-10">
         <h3 className="mb-1 text-xl font-bold leading-tight tracking-tight text-white sm:text-2xl">
-          {t('recentVlogTitle')}
+          {title || t('recentVlogTitle')}
         </h3>
         <p className="text-xs text-white/60 sm:text-sm">
-          {t('recentVlogBody')}
+          {description || t('recentVlogBody')}
         </p>
       </div>
     </div>
