@@ -1,3 +1,4 @@
+import { Button, ButtonSize, ButtonVariant } from '@components/ui/Button';
 import { cn } from '@lib/utils';
 import { FORM_SUBMIT_CLASS } from './constants';
 import type { FormSubmitButtonProps } from './types';
@@ -9,8 +10,10 @@ export function FormSubmitButton({
   disabled,
 }: FormSubmitButtonProps) {
   return (
-    <button
+    <Button
       type="submit"
+      variant={ButtonVariant.Unstyled}
+      size={ButtonSize.Md}
       disabled={disabled || isSubmitting}
       className={cn(FORM_SUBMIT_CLASS, className)}
     >
@@ -19,6 +22,6 @@ export function FormSubmitButton({
       ) : (
         children
       )}
-    </button>
+    </Button>
   );
 }
