@@ -1,57 +1,134 @@
 pdfUrl: ''
 skills:
-  - label: React / Next.js
+  - label:
+      en: React / Next.js
+      cs: React / Next.js
+      vi: React / Next.js
     level: 95
     icon: react
-  - label: TypeScript
+  - label:
+      en: TypeScript
+      cs: TypeScript
+      vi: TypeScript
     level: 90
     icon: typescript
-  - label: Tailwind CSS
+  - label:
+      en: Tailwind CSS
+      cs: Tailwind CSS
+      vi: Tailwind CSS
     level: 95
     icon: tailwind
-  - label: Node.js
+  - label:
+      en: Node.js
+      cs: Node.js
+      vi: Node.js
     level: 80
     icon: node
-  - label: PostgreSQL
+  - label:
+      en: PostgreSQL
+      cs: PostgreSQL
+      vi: PostgreSQL
     level: 75
     icon: postgres
-  - label: Photography / Video
+  - label:
+      en: Photography / Video
+      cs: Fotografie / Video
+      vi: Nhiếp ảnh / Video
     level: 90
     icon: photo
-educationDegree: MSc in Computer Science
-educationUniversity: Czech Technical University
-educationFocus: >-
-  Focus on Software Engineering and Human-Computer Interaction.
+educationDegree:
+  en: MSc in Computer Science
+  cs: Mgr. Informatika
+  vi: Thạc sĩ Khoa học Máy tính
+educationUniversity:
+  en: Czech Technical University
+  cs: České vysoké učení technické
+  vi: Đại học Kỹ thuật Séc
+educationFocus:
+  en: >-
+    Focus on Software Engineering and Human-Computer Interaction.
+  cs: >-
+    Zaměření na softwarové inženýrství a interakci člověk–počítač.
+  vi: >-
+    Tập trung vào Kỹ thuật phần mềm và Tương tác người–máy.
 experiences:
-  - role: Senior Frontend Engineer
-    company: Tech Innovators Inc.
-    period: 2024 - Present
-    description: >-
-      Leading the development of highly scalable Next.js architectures.
-      Spearheaded the transition to React 19, improving global performance
-      metrics by 40%.
+  - role:
+      en: Senior Frontend Engineer
+      cs: Senior Frontend Engineer
+      vi: Kỹ sư Frontend Senior
+    company:
+      en: Tech Innovators Inc.
+      cs: Tech Innovators Inc.
+      vi: Tech Innovators Inc.
+    period:
+      en: 2024 - Present
+      cs: 2024 – současnost
+      vi: 2024 – Hiện tại
+    description:
+      en: >-
+        Leading the development of highly scalable Next.js architectures.
+        Spearheaded the transition to React 19, improving global performance
+        metrics by 40%.
+      cs: >-
+        Vedoucí vývoj vysoce škálovatelných Next.js architektur. Vedl přechod
+        na React 19 a zlepšil globální performance metriky o 40 %.
+      vi: >-
+        Dẫn dắt phát triển kiến trúc Next.js quy mô lớn. Dẫn đầu chuyển đổi
+        sang React 19, cải thiện chỉ số hiệu năng toàn cục 40%.
     tech:
       - Next.js
       - React
       - TypeScript
       - Tailwind CSS
-  - role: UI/UX Developer
-    company: Creative Studio EU
-    period: 2021 - 2024
-    description: >-
-      Designed and implemented interactive web experiences. Specialized in
-      framer-motion animations and building robust design systems.
+  - role:
+      en: UI/UX Developer
+      cs: UI/UX Developer
+      vi: Lập trình viên UI/UX
+    company:
+      en: Creative Studio EU
+      cs: Creative Studio EU
+      vi: Creative Studio EU
+    period:
+      en: 2021 - 2024
+      cs: 2021 – 2024
+      vi: 2021 – 2024
+    description:
+      en: >-
+        Designed and implemented interactive web experiences. Specialized in
+        framer-motion animations and building robust design systems.
+      cs: >-
+        Navrhoval a implementoval interaktivní webové zážitky. Specializace na
+        framer-motion animace a robustní design systémy.
+      vi: >-
+        Thiết kế và triển khai trải nghiệm web tương tác. Chuyên về animation
+        framer-motion và xây design system vững chắc.
     tech:
       - React
       - Framer Motion
       - Styled Components
       - Figma
-  - role: Freelance Developer & Photographer
-    company: Self-Employed
-    period: 2018 - 2021
-    description: >-
-      Delivered premium visual storytelling campaigns merging custom web
-      solutions with professional photography for boutique brands.
+  - role:
+      en: Freelance Developer & Photographer
+      cs: Freelance developer a fotograf
+      vi: Lập trình viên & nhiếp ảnh gia freelance
+    company:
+      en: Self-Employed
+      cs: OSVČ
+      vi: Tự kinh doanh
+    period:
+      en: 2018 - 2021
+      cs: 2018 – 2021
+      vi: 2018 – 2021
+    description:
+      en: >-
+        Delivered premium visual storytelling campaigns merging custom web
+        solutions with professional photography for boutique brands.
+      cs: >-
+        Dodával prémiové vizuální storytelling kampaně spojující vlastní webová
+        řešení s profesionální fotografií pro butikové značky.
+      vi: >-
+        Thực hiện chiến dịch kể chuyện thị giác cao cấp, kết hợp giải pháp web
+        tùy chỉnh với nhiếp ảnh chuyên nghiệp cho thương hiệu boutique.
     tech:
       - JavaScript
       - WordPress

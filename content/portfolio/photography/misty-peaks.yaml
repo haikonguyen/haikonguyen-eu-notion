@@ -1,5 +1,11 @@
 title: Misty Peaks
-alt: Misty Peaks
+titleI18n:
+  cs: Mlhavé vrcholy
+  vi: Đỉnh núi sương mù
+alt:
+  en: Misty Peaks
+  cs: Mlhavé vrcholy
+  vi: Đỉnh núi sương mù
 image: >-
   https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=2070
 width: 2070

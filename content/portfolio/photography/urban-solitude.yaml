@@ -1,5 +1,11 @@
 title: Urban Solitude
-alt: Urban Solitude
+titleI18n:
+  cs: Městská samota
+  vi: Cô đơn đô thị
+alt:
+  en: Urban Solitude
+  cs: Městská samota
+  vi: Cô đơn đô thị
 image: >-
   https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=2070
 width: 2070

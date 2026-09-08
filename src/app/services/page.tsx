@@ -8,7 +8,8 @@ import { ServiceCard } from '@features/services';
 import { getServices } from '@lib/keystatic';
 import { Sparkles } from 'lucide-react';
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import type { AppLocale } from '../../../i18n/locale';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Metadata');
@@ -20,7 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ServicesPage() {
   const t = await getTranslations('Services');
-  const services = await getServices();
+  const locale = (await getLocale()) as AppLocale;
+  const services = await getServices(locale);
 
   return (
     <AppPageShell size={AppPageShellSize.Default}>

@@ -1,5 +1,11 @@
 title: Silent Forest
-alt: Silent Forest
+titleI18n:
+  cs: Tichý les
+  vi: Rừng im lặng
+alt:
+  en: Silent Forest
+  cs: Tichý les
+  vi: Rừng im lặng
 image: >-
   https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=2076
 width: 2076

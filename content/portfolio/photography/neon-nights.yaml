@@ -1,5 +1,11 @@
 title: Neon Nights
-alt: Neon Nights
+titleI18n:
+  cs: Neonové noci
+  vi: Đêm neon
+alt:
+  en: Neon Nights
+  cs: Neonové noci
+  vi: Đêm neon
 image: >-
   https://images.unsplash.com/photo-1493238792040-67141f11ebd2?auto=format&fit=crop&q=80&w=2070
 width: 2070

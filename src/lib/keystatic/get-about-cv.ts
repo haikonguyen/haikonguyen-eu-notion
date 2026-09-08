@@ -1,4 +1,6 @@
 import { cache } from 'react';
+import type { AppLocale } from '../../../i18n/locale';
+import { pickLocalized } from './localized';
 import { optionalCmsUrl } from './portfolio-utils';
 import { reader } from './reader';
 import {
@@ -15,46 +17,56 @@ function toSkillIcon(value: string): CvSkillIcon {
     : CvSkillIcon.React;
 }
 
-function mapSkill(entry: {
-  label: string;
-  level: number | null;
-  icon: string;
-}): CvSkillEntry {
+function mapSkill(
+  entry: {
+    label: { en: string; cs: string; vi: string };
+    level: number | null;
+    icon: string;
+  },
+  locale: AppLocale,
+): CvSkillEntry {
   return {
-    label: entry.label,
+    label: pickLocalized(entry.label, locale),
     level: Math.min(100, Math.max(0, entry.level ?? 0)),
     icon: toSkillIcon(entry.icon),
   };
 }
 
-function mapExperience(entry: {
-  role: string;
-  company: string;
-  period: string;
-  description: string;
-  tech: readonly string[];
-}): CvExperienceEntry {
+function mapExperience(
+  entry: {
+    role: { en: string; cs: string; vi: string };
+    company: { en: string; cs: string; vi: string };
+    period: { en: string; cs: string; vi: string };
+    description: { en: string; cs: string; vi: string };
+    tech: readonly string[];
+  },
+  locale: AppLocale,
+): CvExperienceEntry {
   return {
-    role: entry.role,
-    company: entry.company,
-    period: entry.period,
-    description: entry.description,
+    role: pickLocalized(entry.role, locale),
+    company: pickLocalized(entry.company, locale),
+    period: pickLocalized(entry.period, locale),
+    description: pickLocalized(entry.description, locale),
     tech: [...entry.tech],
   };
 }
 
-export const getAboutCv = cache(async (): Promise<AboutCvEntry | null> => {
-  const entry = await reader.singletons.aboutCv.read();
-  if (!entry) {
-    return null;
-  }
+export const getAboutCv = cache(
+  async (locale: AppLocale): Promise<AboutCvEntry | null> => {
+    const entry = await reader.singletons.aboutCv.read();
+    if (!entry) {
+      return null;
+    }
 
-  return {
-    pdfUrl: optionalCmsUrl(entry.pdfUrl),
-    skills: entry.skills.map(mapSkill),
-    educationDegree: entry.educationDegree,
-    educationUniversity: entry.educationUniversity,
-    educationFocus: entry.educationFocus,
-    experiences: entry.experiences.map(mapExperience),
-  };
-});
+    return {
+      pdfUrl: optionalCmsUrl(entry.pdfUrl),
+      skills: entry.skills.map((skill) => mapSkill(skill, locale)),
+      educationDegree: pickLocalized(entry.educationDegree, locale),
+      educationUniversity: pickLocalized(entry.educationUniversity, locale),
+      educationFocus: pickLocalized(entry.educationFocus, locale),
+      experiences: entry.experiences.map((experience) =>
+        mapExperience(experience, locale),
+      ),
+    };
+  },
+);

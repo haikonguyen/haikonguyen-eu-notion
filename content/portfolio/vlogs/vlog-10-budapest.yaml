@@ -1,5 +1,11 @@
 title: 'Vlog 10 — Budapest'
-description: Exploring Budapest on camera — street light, architecture, and travel moments.
+titleI18n:
+  cs: 'Vlog 10 — Budapešť'
+  vi: 'Vlog 10 — Budapest'
+description:
+  en: Exploring Budapest on camera — street light, architecture, and travel moments.
+  cs: Budapešť objektivem — pouliční světlo, architektura a cestovatelské momenty.
+  vi: Khám phá Budapest qua ống kính — ánh sáng phố, kiến trúc và khoảnh khắc du lịch.
 youtubeUrl: https://www.youtube.com/watch?v=TzaycFjaRyM
 duration: '10:00'
 thumbnail: ''

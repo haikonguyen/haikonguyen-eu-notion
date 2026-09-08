@@ -559,16 +559,10 @@ _Make `/portfolio` fully CMS-driven so admins can add Software Architecture proj
 
 #### Later (deferred; do not implement in PF-01…03)
 
-##### `TICKET-PF-05`: Multilingual Portfolio CMS Fields (later)
+##### `TICKET-PF-05`: Multilingual Portfolio CMS Fields — **DONE** (phase 1)
 
-- **Description**: Add CS/VI (and any future locales) for portfolio item copy without forking collections.
-- **Best-practice options** (pick when implementing — not now):
-  1. **Nested locale object fields** on each entry (`title.en` / `title.cs` / `title.vi`, same for summary/alt/description) — one Admin entry, verbose forms.
-  2. **Locale-suffixed parallel entries** (`quantum-crm`, `quantum-crm-cs`) linked by a shared `entryGroupId` — lighter forms, harder to keep in sync.
-  3. **Keep CMS EN-only + translate via next-intl** — only works for a fixed inventory; **rejected** for Admin-addable items.
-- **Recommended later**: option **1** for a small field set (title, summary, longDescription, alt, vlog description). Do **not** duplicate every technical field (URLs, tech tags, dimensions).
-- **Why defer**: Triples Admin surface area and content authoring cost; blog is already monolingual EN; token/complexity cost is high vs value while EN is enough.
-- **Acceptance Criteria (when opened)**: Admin can fill EN + at least one other locale; public UI picks locale from next-intl; missing locale falls back to EN.
+- **Status**: Nested `titleI18n` + localized `summary` / `longDescription` / `tags` / `alt` / vlog `description` shipped; readers accept `AppLocale` with EN fallback (`pickLocalized`).
+- Remaining polish: Admin UX verbosity; blog Markdoc still monolingual (see `TICKET-I18N-02`).
 
 ##### `TICKET-PF-06`: Portfolio Detail Slug Routes for SEO (later)
 
@@ -645,7 +639,8 @@ _Branch: `cursor/home-cms-booking-i18n-ac96`. Continues after Portfolio CMS (Epi
 | Home showcase | **`TICKET-PF-04` DONE** — featured portfolio entries drive carousel / latest project / background. |
 | Services | Keystatic collection `services` (`content/services/*`) — full card copy in CMS; page chrome in `next-intl`. |
 | Interactive CV | Keystatic singleton `aboutCv` (`content/about-cv.yaml`) — skills, education, experience, optional PDF URL. **Not** Reactive Resume / rxresu.me (keep CV in GitHub). |
-| i18n switcher | Cookie `NEXT_LOCALE` + nav `LanguageSwitcher` (`en` / `cs` / `vi`). CMS bodies stay monolingual EN. |
+| i18n switcher | Cookie `NEXT_LOCALE` + nav `LanguageSwitcher` (`en` / `cs` / `vi`). |
+| CMS body i18n | Nested locale fields (`en`/`cs`/`vi`) on Services, Portfolio copy, About CV. Home About role/bio via `next-intl`. Readers take `AppLocale` and fall back to EN. |
 | Booking | Keep custom liquid-glass UI. Wire **Google Calendar FreeBusy + Events** via service account when env is set; otherwise local demo mode still accepts requests. **Not** Cal.com embed. |
 
 #### `TICKET-HOME-05`: Home About singleton — **DONE**
@@ -677,6 +672,8 @@ Shipped: interactive `HomeBookingCard` (week nav, day/slot select, name/email, c
 - Email confirmation via SendGrid when booking in local mode
 - Domain-wide delegation / invite UX polish for Google Calendar
 - CMS-07 / CMS-08 / CMS-09 / CMS-10 unchanged
+- **`TICKET-I18N-02`: Blog CMS locales (later)** — ~36 Markdoc posts; do **not** dump bodies into `messages/*.json`. Prefer Keystatic nested frontmatter for `title` / `excerpt` / `tags` only (`en`/`cs`/`vi` + EN fallback via `pickLocalized`). Keep Markdoc body EN unless/until parallel locale stories are justified. Same pattern as portfolio PF-05 / Services.
+- **`TICKET-I18N-03`: About Story Markdoc locales (later)** — locale-specific Markdoc singletons or nested story paths; Interactive CV already localized.
 
 ---
 
