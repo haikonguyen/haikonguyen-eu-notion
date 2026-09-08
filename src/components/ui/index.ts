@@ -5,6 +5,8 @@ export {
   BentoGridItem,
   BentoTitlePosition,
 } from './BentoGrid';
+export type { ButtonProps } from './Button';
+export { Button, ButtonSize, ButtonVariant } from './Button';
 export * from './Carousel';
 export type { FadeInImageProps } from './FadeInImage';
 export { FadeInImage } from './FadeInImage';
