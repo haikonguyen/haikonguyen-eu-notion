@@ -1,14 +1,38 @@
 title: Video & Motion Production
-category: Media & Motion
-description: >-
-  Cinematic YouTube production, product reels, behind-the-scenes vlogs, and
-  storytelling for modern digital creators.
+titleI18n:
+  cs: Video a motion produkce
+  vi: Sản xuất video & motion
+category:
+  en: Media & Motion
+  cs: Média a motion
+  vi: Media & chuyển động
+description:
+  en: >-
+    Cinematic YouTube production, product reels, behind-the-scenes vlogs, and
+    storytelling for modern digital creators.
+  cs: >-
+    Filmová YouTube produkce, product reels, behind-the-scenes vlogy a
+    storytelling pro moderní digitální tvůrce.
+  vi: >-
+    Sản xuất YouTube điện ảnh, product reels, vlog hậu trường và kể chuyện cho
+    nhà sáng tạo số hiện đại.
 highlights:
-  - 4K Cinematic Production
-  - Post-production & Sound Design
-  - Social Media Teasers
-  - Vlog Storytelling
-ctaLabel: Inquire Video
+  - en: 4K Cinematic Production
+    cs: 4K filmová produkce
+    vi: Sản xuất điện ảnh 4K
+  - en: Post-production & Sound Design
+    cs: Postprodukce a sound design
+    vi: Hậu kỳ & thiết kế âm thanh
+  - en: Social Media Teasers
+    cs: Teasery pro sociální sítě
+    vi: Teaser mạng xã hội
+  - en: Vlog Storytelling
+    cs: Vlog storytelling
+    vi: Kể chuyện qua vlog
+ctaLabel:
+  en: Inquire Video
+  cs: Poptat video
+  vi: Tư vấn video
 icon: video
 contactServiceId: video
 sortOrder: 3

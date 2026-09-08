@@ -8,7 +8,8 @@ import { AboutTabs } from '@features/about';
 import { MarkdocRenderer } from '@features/blog/components/MarkdocRenderer';
 import { getAboutCv, getAboutStory } from '@lib/keystatic';
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import type { AppLocale } from '../../../i18n/locale';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Metadata');
@@ -20,7 +21,8 @@ const STORY_PROSE_CLASS =
 
 export default async function AboutPage() {
   const t = await getTranslations('About');
-  const [story, cv] = await Promise.all([getAboutStory(), getAboutCv()]);
+  const locale = (await getLocale()) as AppLocale;
+  const [story, cv] = await Promise.all([getAboutStory(), getAboutCv(locale)]);
 
   return (
     <AppPageShell

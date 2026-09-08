@@ -1,5 +1,11 @@
 title: Forest Path
-alt: Forest Path
+titleI18n:
+  cs: Lesní cesta
+  vi: Đường rừng
+alt:
+  en: Forest Path
+  cs: Lesní cesta
+  vi: Đường rừng
 image: >-
   https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&q=80&w=2070
 width: 2070

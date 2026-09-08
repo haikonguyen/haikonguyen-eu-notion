@@ -5,8 +5,9 @@ import {
   getSoftwareProjects,
 } from '@lib/keystatic';
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
+import type { AppLocale } from '../../../i18n/locale';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Metadata');
@@ -17,10 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 async function PortfolioPageContent() {
+  const locale = (await getLocale()) as AppLocale;
   const [softwareEntries, photographyEntries, vlogEntries] = await Promise.all([
-    getSoftwareProjects(),
-    getPhotographyItems(),
-    getPortfolioVlogs(),
+    getSoftwareProjects(locale),
+    getPhotographyItems(locale),
+    getPortfolioVlogs(locale),
   ]);
 
   return (

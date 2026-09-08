@@ -1,12 +1,14 @@
 import { getR2PublicUrl } from '@lib/r2';
 import { getYoutubeId, getYoutubeThumbnailUrl } from '@lib/youtube';
 import { cache } from 'react';
+import type { AppLocale } from '../../../i18n/locale';
+import { pickLocalized, pickLocalizedTitle } from './localized';
 import { compareSortOrderThenTitle, optionalCmsUrl } from './portfolio-utils';
 import { reader } from './reader';
 import type { PortfolioVlogEntry } from './types';
 
 export const getPortfolioVlogs = cache(
-  async (): Promise<PortfolioVlogEntry[]> => {
+  async (locale: AppLocale): Promise<PortfolioVlogEntry[]> => {
     const entries = await reader.collections.portfolioVlogs.all();
 
     return entries
@@ -17,8 +19,8 @@ export const getPortfolioVlogs = cache(
 
         return {
           slug,
-          title: entry.title,
-          description: entry.description,
+          title: pickLocalizedTitle(entry.title, entry.titleI18n, locale),
+          description: pickLocalized(entry.description, locale),
           youtubeUrl,
           youtubeId,
           duration: optionalCmsUrl(entry.duration),

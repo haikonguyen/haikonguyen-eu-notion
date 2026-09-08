@@ -1,15 +1,35 @@
 title: Quantum CRM
-summary: >-
-  A high-performance CRM architecture built with Next.js 15 and distributed
-  PostgreSQL.
-longDescription: >-
-  Quantum CRM was designed to handle high-frequency data streams for global
-  sales teams, featuring real-time caching and edge sync.
+titleI18n:
+  cs: Quantum CRM
+  vi: Quantum CRM
+summary:
+  en: >-
+    A high-performance CRM architecture built with Next.js 15 and distributed
+    PostgreSQL.
+  cs: >-
+    Vysoce výkonná CRM architektura postavená na Next.js 15 a distribuovaném
+    PostgreSQL.
+  vi: >-
+    Kiến trúc CRM hiệu năng cao xây bằng Next.js 15 và PostgreSQL phân tán.
+longDescription:
+  en: >-
+    Quantum CRM was designed to handle high-frequency data streams for global
+    sales teams, featuring real-time caching and edge sync.
+  cs: >-
+    Quantum CRM je navržený pro vysokofrekvenční datové toky globálních
+    obchodních týmů s real-time cachingem a edge synchronizací.
+  vi: >-
+    Quantum CRM được thiết kế cho luồng dữ liệu tần suất cao của đội sales toàn
+    cầu, với caching thời gian thực và đồng bộ edge.
 coverImage: >-
   https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2072
 tags:
-  - Software
-  - Next.js 15
+  - en: Software
+    cs: Software
+    vi: Phần mềm
+  - en: Next.js 15
+    cs: Next.js 15
+    vi: Next.js 15
 tech:
   - Next.js 15
   - React 19

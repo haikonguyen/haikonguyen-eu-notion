@@ -1,5 +1,11 @@
 title: Summit Light
-alt: Summit Light
+titleI18n:
+  cs: Světlo na vrcholu
+  vi: Ánh sáng đỉnh núi
+alt:
+  en: Summit Light
+  cs: Světlo na vrcholu
+  vi: Ánh sáng đỉnh núi
 image: >-
   https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=2070
 width: 2070

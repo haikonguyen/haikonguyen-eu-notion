@@ -1,14 +1,38 @@
 title: Web Application Development
-category: Engineering
-description: >-
-  High-performance Next.js & React web applications, custom UI/UX design
-  systems, PWA architectures, and performance optimizations.
+titleI18n:
+  cs: Vývoj webových aplikací
+  vi: Phát triển ứng dụng web
+category:
+  en: Engineering
+  cs: Engineering
+  vi: Kỹ thuật
+description:
+  en: >-
+    High-performance Next.js & React web applications, custom UI/UX design
+    systems, PWA architectures, and performance optimizations.
+  cs: >-
+    Vysoce výkonné webové aplikace v Next.js a Reactu, vlastní UI/UX design
+    systémy, PWA architektury a optimalizace výkonu.
+  vi: >-
+    Ứng dụng web Next.js & React hiệu năng cao, hệ thống UI/UX tùy chỉnh,
+    kiến trúc PWA và tối ưu hiệu suất.
 highlights:
-  - Next.js 16 / React 19
-  - PWA & Mobile-first
-  - Tailwind CSS & Liquid Glass
-  - API & Headless Integration
-ctaLabel: Inquire Web Dev
+  - en: Next.js 16 / React 19
+    cs: Next.js 16 / React 19
+    vi: Next.js 16 / React 19
+  - en: PWA & Mobile-first
+    cs: PWA a mobile-first
+    vi: PWA & ưu tiên mobile
+  - en: Tailwind CSS & Liquid Glass
+    cs: Tailwind CSS a Liquid Glass
+    vi: Tailwind CSS & Liquid Glass
+  - en: API & Headless Integration
+    cs: API a headless integrace
+    vi: Tích hợp API & headless
+ctaLabel:
+  en: Inquire Web Dev
+  cs: Poptat webový vývoj
+  vi: Tư vấn phát triển web
 icon: code
 contactServiceId: web-dev
 sortOrder: 1

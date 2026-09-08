@@ -1,21 +1,23 @@
 import { getR2PublicUrl } from '@lib/r2';
 import { cache } from 'react';
+import type { AppLocale } from '../../../i18n/locale';
+import { pickLocalized, pickLocalizedTitle } from './localized';
 import { compareSortOrderThenTitle, optionalCmsUrl } from './portfolio-utils';
 import { reader } from './reader';
 import type { SoftwareProjectEntry } from './types';
 
 export const getSoftwareProjects = cache(
-  async (): Promise<SoftwareProjectEntry[]> => {
+  async (locale: AppLocale): Promise<SoftwareProjectEntry[]> => {
     const entries = await reader.collections.softwareProjects.all();
 
     return entries
       .map(({ slug, entry }) => ({
         slug,
-        title: entry.title,
-        summary: entry.summary,
-        longDescription: entry.longDescription,
+        title: pickLocalizedTitle(entry.title, entry.titleI18n, locale),
+        summary: pickLocalized(entry.summary, locale),
+        longDescription: pickLocalized(entry.longDescription, locale),
         coverImage: getR2PublicUrl(entry.coverImage),
-        tags: [...entry.tags],
+        tags: entry.tags.map((tag) => pickLocalized(tag, locale)),
         tech: [...entry.tech],
         githubUrl: optionalCmsUrl(entry.githubUrl),
         demoUrl: optionalCmsUrl(entry.demoUrl),

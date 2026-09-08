@@ -1,11 +1,14 @@
 import { HOME_PHOTOGRAPHY_BG, HomePageContent } from '@features/home';
 import { getBookingAvailabilityState } from '@lib/booking';
 import { getHomeAbout, getHomeFeaturedShowcase } from '@lib/keystatic';
+import { getLocale } from 'next-intl/server';
+import type { AppLocale } from '../../i18n/locale';
 
 export default async function HomePage() {
+  const locale = (await getLocale()) as AppLocale;
   const [about, featured, booking] = await Promise.all([
     getHomeAbout(),
-    getHomeFeaturedShowcase(),
+    getHomeFeaturedShowcase(locale),
     getBookingAvailabilityState(),
   ]);
 

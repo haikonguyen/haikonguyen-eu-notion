@@ -1,5 +1,11 @@
 title: 'Vlog 8 — Singapore'
-description: Singapore travel vlog from the @haikonguyen channel.
+titleI18n:
+  cs: 'Vlog 8 — Singapur'
+  vi: 'Vlog 8 — Singapore'
+description:
+  en: Singapore travel vlog from the @haikonguyen channel.
+  cs: Cestovatelský vlog ze Singapuru z kanálu @haikonguyen.
+  vi: Vlog du lịch Singapore từ kênh @haikonguyen.
 youtubeUrl: https://www.youtube.com/watch?v=K03-aauhuoE
 duration: '8:00'
 thumbnail: ''

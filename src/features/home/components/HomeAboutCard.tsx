@@ -36,11 +36,11 @@ export function HomeAboutCard({ about }: HomeAboutCardProps) {
                 {about.name}
               </h1>
               <p className="text-xs font-bold tracking-tight text-primary opacity-90 sm:text-sm md:text-base">
-                {about.role}
+                {t('role')}
               </p>
             </div>
             <p className="mx-auto max-w-md text-xs leading-relaxed text-white/70 sm:text-sm md:mx-0 md:text-base">
-              {about.bio}
+              {t('intro')}
             </p>
             <div className="pt-2">
               <Link href={about.ctaHref}>

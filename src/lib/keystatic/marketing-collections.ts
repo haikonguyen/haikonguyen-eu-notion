@@ -1,4 +1,5 @@
 import { collection, fields, singleton } from '@keystatic/core';
+import { localizedTextField } from './localized';
 
 const imageUrlDescription =
   'Paste a public ImageKit/R2/Unsplash URL, site path (e.g. /assets/images/…), or R2 object key. Do not commit image binaries.';
@@ -9,11 +10,15 @@ export const homeAboutSingleton = singleton({
   schema: {
     name: fields.text({ label: 'Name', defaultValue: 'Haiko Nguyen' }),
     role: fields.text({
-      label: 'Role',
+      label: 'Role (EN fallback / Admin)',
+      description:
+        'Public UI uses next-intl Home.role / Home.intro. Keep EN here as CMS fallback.',
       defaultValue: 'Senior Software Engineer & Visual Artist',
     }),
     bio: fields.text({
-      label: 'Bio',
+      label: 'Bio (EN fallback / Admin)',
+      description:
+        'Public UI uses next-intl Home.intro. Keep EN here as CMS fallback.',
       multiline: true,
     }),
     portraitImage: fields.text({
@@ -38,7 +43,7 @@ export const aboutCvSingleton = singleton({
     }),
     skills: fields.array(
       fields.object({
-        label: fields.text({ label: 'Skill label' }),
+        label: localizedTextField('Skill label'),
         level: fields.integer({
           label: 'Level (0–100)',
           defaultValue: 80,
@@ -59,24 +64,18 @@ export const aboutCvSingleton = singleton({
       }),
       {
         label: 'Skills',
-        itemLabel: (props) => props.fields.label.value || 'Skill',
+        itemLabel: (props) => props.fields.label.fields.en.value || 'Skill',
       },
     ),
-    educationDegree: fields.text({ label: 'Degree' }),
-    educationUniversity: fields.text({ label: 'University' }),
-    educationFocus: fields.text({
-      label: 'Education focus',
-      multiline: true,
-    }),
+    educationDegree: localizedTextField('Degree'),
+    educationUniversity: localizedTextField('University'),
+    educationFocus: localizedTextField('Education focus', { multiline: true }),
     experiences: fields.array(
       fields.object({
-        role: fields.text({ label: 'Role' }),
-        company: fields.text({ label: 'Company' }),
-        period: fields.text({ label: 'Period' }),
-        description: fields.text({
-          label: 'Description',
-          multiline: true,
-        }),
+        role: localizedTextField('Role'),
+        company: localizedTextField('Company'),
+        period: localizedTextField('Period'),
+        description: localizedTextField('Description', { multiline: true }),
         tech: fields.array(fields.text({ label: 'Tech' }), {
           label: 'Tech tags',
           itemLabel: (props) => props.value || 'Tech',
@@ -84,7 +83,7 @@ export const aboutCvSingleton = singleton({
       }),
       {
         label: 'Experience',
-        itemLabel: (props) => props.fields.role.value || 'Role',
+        itemLabel: (props) => props.fields.role.fields.en.value || 'Role',
       },
     ),
   },
@@ -94,19 +93,23 @@ export const servicesCollection = collection({
   label: 'Services',
   slugField: 'title',
   path: 'content/services/*',
-  columns: ['sortOrder', 'category'],
+  columns: ['sortOrder'],
   schema: {
-    title: fields.slug({ name: { label: 'Title' } }),
-    category: fields.text({ label: 'Category' }),
-    description: fields.text({
-      label: 'Description',
-      multiline: true,
-    }),
-    highlights: fields.array(fields.text({ label: 'Highlight' }), {
+    title: fields.slug({ name: { label: 'Title (EN / slug)' } }),
+    titleI18n: fields.object(
+      {
+        cs: fields.text({ label: 'Title CS' }),
+        vi: fields.text({ label: 'Title VI' }),
+      },
+      { label: 'Title translations' },
+    ),
+    category: localizedTextField('Category'),
+    description: localizedTextField('Description', { multiline: true }),
+    highlights: fields.array(localizedTextField('Highlight'), {
       label: 'Highlights',
-      itemLabel: (props) => props.value || 'Highlight',
+      itemLabel: (props) => props.fields.en.value || 'Highlight',
     }),
-    ctaLabel: fields.text({ label: 'CTA label' }),
+    ctaLabel: localizedTextField('CTA label'),
     icon: fields.select({
       label: 'Icon',
       options: [

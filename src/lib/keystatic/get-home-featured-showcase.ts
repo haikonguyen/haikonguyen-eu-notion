@@ -1,15 +1,16 @@
 import { cache } from 'react';
+import type { AppLocale } from '../../../i18n/locale';
 import { getPhotographyItems } from './get-photography-items';
 import { getPortfolioVlogs } from './get-portfolio-vlogs';
 import { getSoftwareProjects } from './get-software-projects';
 import type { HomeFeaturedShowcase } from './types';
 
 export const getHomeFeaturedShowcase = cache(
-  async (): Promise<HomeFeaturedShowcase> => {
+  async (locale: AppLocale): Promise<HomeFeaturedShowcase> => {
     const [photography, vlogs, software] = await Promise.all([
-      getPhotographyItems(),
-      getPortfolioVlogs(),
-      getSoftwareProjects(),
+      getPhotographyItems(locale),
+      getPortfolioVlogs(locale),
+      getSoftwareProjects(locale),
     ]);
 
     return {

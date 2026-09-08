@@ -1,4 +1,5 @@
 import { collection, fields } from '@keystatic/core';
+import { localizedTextField } from './localized';
 
 const imageUrlDescription =
   'Paste a public ImageKit/R2/Unsplash URL or R2 object key. Do not commit image binaries.';
@@ -9,22 +10,25 @@ export const softwareProjectsCollection = collection({
   path: 'content/portfolio/software/*',
   columns: ['sortOrder'],
   schema: {
-    title: fields.slug({ name: { label: 'Title' } }),
-    summary: fields.text({
-      label: 'Summary',
-      multiline: true,
-    }),
-    longDescription: fields.text({
-      label: 'Long description',
+    title: fields.slug({ name: { label: 'Title (EN / slug)' } }),
+    titleI18n: fields.object(
+      {
+        cs: fields.text({ label: 'Title CS' }),
+        vi: fields.text({ label: 'Title VI' }),
+      },
+      { label: 'Title translations' },
+    ),
+    summary: localizedTextField('Summary', { multiline: true }),
+    longDescription: localizedTextField('Long description', {
       multiline: true,
     }),
     coverImage: fields.text({
       label: 'Cover image URL or R2 key',
       description: imageUrlDescription,
     }),
-    tags: fields.array(fields.text({ label: 'Tag' }), {
+    tags: fields.array(localizedTextField('Tag'), {
       label: 'Tags',
-      itemLabel: (props) => props.value || 'Tag',
+      itemLabel: (props) => props.fields.en.value || 'Tag',
     }),
     tech: fields.array(fields.text({ label: 'Tech' }), {
       label: 'Tech stack',
@@ -55,8 +59,15 @@ export const photographyItemsCollection = collection({
   path: 'content/portfolio/photography/*',
   columns: ['sortOrder'],
   schema: {
-    title: fields.slug({ name: { label: 'Title' } }),
-    alt: fields.text({ label: 'Alt text' }),
+    title: fields.slug({ name: { label: 'Title (EN / slug)' } }),
+    titleI18n: fields.object(
+      {
+        cs: fields.text({ label: 'Title CS' }),
+        vi: fields.text({ label: 'Title VI' }),
+      },
+      { label: 'Title translations' },
+    ),
+    alt: localizedTextField('Alt text'),
     image: fields.text({
       label: 'Image URL or R2 key',
       description: imageUrlDescription,
@@ -86,11 +97,15 @@ export const portfolioVlogsCollection = collection({
   path: 'content/portfolio/vlogs/*',
   columns: ['sortOrder'],
   schema: {
-    title: fields.slug({ name: { label: 'Title' } }),
-    description: fields.text({
-      label: 'Description',
-      multiline: true,
-    }),
+    title: fields.slug({ name: { label: 'Title (EN / slug)' } }),
+    titleI18n: fields.object(
+      {
+        cs: fields.text({ label: 'Title CS' }),
+        vi: fields.text({ label: 'Title VI' }),
+      },
+      { label: 'Title translations' },
+    ),
+    description: localizedTextField('Description', { multiline: true }),
     youtubeUrl: fields.text({
       label: 'YouTube URL',
       description:
