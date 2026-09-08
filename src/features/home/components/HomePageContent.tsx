@@ -5,12 +5,20 @@ import { BentoGrid } from '@components/ui/BentoGrid';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { HOME_BENTO_GRID_CLASS, HOME_PHOTOGRAPHY_BG } from '../constants';
+import type { HomePageContentProps } from '../types';
 import { HomeAboutCard } from './HomeAboutCard';
 import { HomeBookingCard } from './HomeBookingCard';
 import { HomeLatestProjectCard } from './HomeLatestProjectCard';
 import { HomeShowcaseCarousel } from './HomeShowcaseCarousel';
 
-export function HomePageContent() {
+export function HomePageContent({
+  about,
+  backgroundImage,
+  photography,
+  vlog,
+  software,
+  booking,
+}: HomePageContentProps) {
   const t = useTranslations('Home');
 
   return (
@@ -20,7 +28,7 @@ export function HomePageContent() {
     >
       <div className="fixed inset-0 -z-20">
         <Image
-          src={HOME_PHOTOGRAPHY_BG}
+          src={backgroundImage || HOME_PHOTOGRAPHY_BG}
           alt={t('backgroundAlt')}
           fill
           sizes="100vw"
@@ -30,10 +38,14 @@ export function HomePageContent() {
         <div className="absolute inset-0 bg-black/85" />
       </div>
       <BentoGrid className={HOME_BENTO_GRID_CLASS}>
-        <HomeAboutCard />
-        <HomeLatestProjectCard />
-        <HomeShowcaseCarousel />
-        <HomeBookingCard />
+        <HomeAboutCard about={about} />
+        <HomeLatestProjectCard software={software} />
+        <HomeShowcaseCarousel
+          photography={photography}
+          vlog={vlog}
+          software={software}
+        />
+        <HomeBookingCard initial={booking} />
       </BentoGrid>
     </AppPageShell>
   );

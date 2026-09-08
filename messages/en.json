@@ -96,7 +96,17 @@
     "slotMorning": "9:00 AM",
     "slotMidMorning": "11:30 AM",
     "slotAfternoon": "2:00 PM",
-    "slotLateAfternoon": "4:30 PM"
+    "slotLateAfternoon": "4:30 PM",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "bookingNamePlaceholder": "Your name",
+    "bookingEmailPlaceholder": "Email address",
+    "bookingSelectSlotError": "Please select an available time slot.",
+    "bookingContactError": "Please enter your name and email.",
+    "bookingSubmitting": "Booking…",
+    "bookingFailed": "Booking failed. Please try again.",
+    "bookingSuccessGoogle": "Booked — check your email for the calendar invite.",
+    "bookingSuccessLocal": "Request received. Calendar sync is in demo mode until Google credentials are set."
   },
   "Blog": {
     "title": "Blog",
@@ -176,43 +186,7 @@
   "Services": {
     "eyebrow": "Creative & Engineering Services",
     "title": "Transforming Ideas Into Digital Reality",
-    "subtitle": "Specialized in building next-generation web applications, cinematic photography, and engaging video content.",
-    "webDev": {
-      "title": "Web Application Development",
-      "category": "Engineering",
-      "description": "High-performance Next.js & React web applications, custom UI/UX design systems, PWA architectures, and performance optimizations.",
-      "highlights": {
-        "next": "Next.js 16 / React 19",
-        "pwa": "PWA & Mobile-first",
-        "tailwind": "Tailwind CSS & Liquid Glass",
-        "api": "API & Headless Integration"
-      },
-      "cta": "Inquire Web Dev"
-    },
-    "photography": {
-      "title": "Visual Photography",
-      "category": "Visual Arts",
-      "description": "Commercial, portrait, brand identity, and street photography with cinematic grading and visual storytelling.",
-      "highlights": {
-        "brand": "Brand & Editorial",
-        "portrait": "Portrait Sessions",
-        "deliverables": "High-res Deliverables",
-        "grading": "Color Grading"
-      },
-      "cta": "Book Photoshoot"
-    },
-    "video": {
-      "title": "Video & Motion Production",
-      "category": "Media & Motion",
-      "description": "Cinematic YouTube production, product reels, behind-the-scenes vlogs, and storytelling for modern digital creators.",
-      "highlights": {
-        "cinematic": "4K Cinematic Production",
-        "post": "Post-production & Sound Design",
-        "social": "Social Media Teasers",
-        "vlog": "Vlog Storytelling"
-      },
-      "cta": "Inquire Video"
-    }
+    "subtitle": "Specialized in building next-generation web applications, cinematic photography, and engaging video content."
   },
   "About": {
     "title": "About",
@@ -222,38 +196,7 @@
     "downloadPdf": "Download PDF",
     "technicalArsenal": "Technical Arsenal",
     "education": "Education",
-    "degree": "MSc in Computer Science",
-    "university": "Czech Technical University",
-    "educationFocus": "Focus on Software Engineering and Human-Computer Interaction.",
-    "professionalJourney": "Professional Journey",
-    "skills": {
-      "react": "React / Next.js",
-      "typescript": "TypeScript",
-      "tailwind": "Tailwind CSS",
-      "node": "Node.js",
-      "postgres": "PostgreSQL",
-      "photo": "Photography / Video"
-    },
-    "experience": {
-      "senior": {
-        "role": "Senior Frontend Engineer",
-        "company": "Tech Innovators Inc.",
-        "period": "2024 - Present",
-        "description": "Leading the development of highly scalable Next.js architectures. Spearheaded the transition to React 19, improving global performance metrics by 40%."
-      },
-      "uiux": {
-        "role": "UI/UX Developer",
-        "company": "Creative Studio EU",
-        "period": "2021 - 2024",
-        "description": "Designed and implemented interactive web experiences. Specialized in framer-motion animations and building robust design systems."
-      },
-      "freelance": {
-        "role": "Freelance Developer & Photographer",
-        "company": "Self-Employed",
-        "period": "2018 - 2021",
-        "description": "Delivered premium visual storytelling campaigns merging custom web solutions with professional photography for boutique brands."
-      }
-    }
+    "professionalJourney": "Professional Journey"
   },
   "Contact": {
     "title": "Get in Touch",
@@ -326,5 +269,11 @@
   "Cta": {
     "readStory": "Read my story",
     "contactMe": "Contact Me"
+  },
+  "Locale": {
+    "switcherLabel": "Language",
+    "english": "English",
+    "czech": "Czech",
+    "vietnamese": "Vietnamese"
   }
 }

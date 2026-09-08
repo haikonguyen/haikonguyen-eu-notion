@@ -4,7 +4,15 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-export function HomeEngineeringSlide() {
+export interface HomeEngineeringSlideProps {
+  title?: string;
+  description?: string;
+}
+
+export function HomeEngineeringSlide({
+  title,
+  description,
+}: HomeEngineeringSlideProps) {
   const t = useTranslations('Home');
 
   return (
@@ -21,10 +29,10 @@ export function HomeEngineeringSlide() {
       </div>
       <div className="my-auto py-4">
         <h3 className="mb-2 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl">
-          {t('engineeringTitle')}
+          {title || t('engineeringTitle')}
         </h3>
         <p className="mb-4 max-w-lg text-xs leading-relaxed text-white/70 sm:text-sm">
-          {t('engineeringBody')}
+          {description || t('engineeringBody')}
         </p>
         <Link
           href="/portfolio?category=Dev"

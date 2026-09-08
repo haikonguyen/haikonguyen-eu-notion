@@ -54,3 +54,67 @@ export interface PortfolioVlogEntry {
   sortOrder: number;
   featured: boolean;
 }
+
+export enum ServiceIcon {
+  Code = 'code',
+  Camera = 'camera',
+  Video = 'video',
+}
+
+export interface ServiceEntry {
+  slug: string;
+  title: string;
+  category: string;
+  description: string;
+  highlights: string[];
+  ctaLabel: string;
+  icon: ServiceIcon;
+  contactServiceId: string;
+  sortOrder: number;
+}
+
+export interface HomeAboutEntry {
+  name: string;
+  role: string;
+  bio: string;
+  portraitImage: string;
+  ctaHref: string;
+}
+
+export enum CvSkillIcon {
+  React = 'react',
+  Typescript = 'typescript',
+  Tailwind = 'tailwind',
+  Node = 'node',
+  Postgres = 'postgres',
+  Photo = 'photo',
+}
+
+export interface CvSkillEntry {
+  label: string;
+  level: number;
+  icon: CvSkillIcon;
+}
+
+export interface CvExperienceEntry {
+  role: string;
+  company: string;
+  period: string;
+  description: string;
+  tech: string[];
+}
+
+export interface AboutCvEntry {
+  pdfUrl?: string;
+  skills: CvSkillEntry[];
+  educationDegree: string;
+  educationUniversity: string;
+  educationFocus: string;
+  experiences: CvExperienceEntry[];
+}
+
+export interface HomeFeaturedShowcase {
+  photography?: PhotographyItemEntry;
+  vlog?: PortfolioVlogEntry;
+  software?: SoftwareProjectEntry;
+}

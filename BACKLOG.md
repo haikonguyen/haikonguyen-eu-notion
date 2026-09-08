@@ -476,7 +476,7 @@ R2Image admin shows previews; tsc/biome/build green; PR opened into `dev`.
 
 _Make `/portfolio` fully CMS-driven so admins can add Software Architecture projects, Photography gallery items, and Vlogs from Keystatic — same local Git CMS + R2 URL pattern as blog._
 
-**Status**: Implementation in progress on `cursor/portfolio-cms-backlog-ffdb` — PF-01…PF-03. PF-04 deferred. PF-05/PF-06 later.
+**Status**: PF-01…PF-04 shipped on `cursor/home-cms-booking-i18n-ac96`. PF-05/PF-06 later.
 
 **Decisions (locked)**
 
@@ -484,7 +484,7 @@ _Make `/portfolio` fully CMS-driven so admins can add Software Architecture proj
 | --- | --- |
 | Locale | **EN only** in CMS for now. Multilingual tracked as **`TICKET-PF-05`** (later). |
 | Seed | Seed current placeholders; delete/replace anytime in Keystatic Admin (files under `content/portfolio/`). |
-| Home (PF-04) | **Out of first PR** — keep Home showcase static; most efficient. `featured` field still on schema for later. |
+| Home (PF-04) | **DONE** — Home showcase + latest project card read `featured` portfolio entries. |
 | Vlogs inventory | Channel: [youtube.com/@haikonguyen](https://www.youtube.com/@haikonguyen). Seed with placeholders / known video URLs; replace with real uploads in Admin. |
 | Photography media | **No new R2 account required for PF-01…03** — paste ImageKit / Unsplash / absolute URLs (same as blog). R2 portfolio prefix cutover stays under CMS-09 / later media milestone. |
 | Detail slugs / SEO | **No `/portfolio/[slug]` in first PR** — keep modal + lightbox. SEO slug pages tracked under **`TICKET-PF-06`** (later). |
@@ -589,15 +589,10 @@ Shipped: `getSoftwareProjects`, `getPhotographyItems`, `getPortfolioVlogs` + por
 
 Shipped: server-loaded `/portfolio`; CMS-driven cards/lightbox/modals; per-item i18n keys removed; empty states added.
 
-#### `TICKET-PF-04` (optional / follow-up): Home Featured Work from CMS
+#### `TICKET-PF-04`: Home Featured Work from CMS — **DONE**
 
-- **Description**: Drive Home showcase slides (or a “latest featured” card) from `featured: true` portfolio entries.
-- **Tasks**:
-  - Reader helpers for featured software / photo / vlog (limit 1 each or carousel items).
-  - Rewire `HomePhotographySlide` / `HomeVlogSlide` / `HomeEngineeringSlide` (or a shared data parent) to accept CMS props from the Home page server component.
-  - Keep Home marketing chrome strings in `next-intl` unless explicitly moved.
+- **Status**: Shipped on `cursor/home-cms-booking-i18n-ac96`. `getHomeFeaturedShowcase` picks featured photography / vlog / software (fallback first item). Home carousel + latest project card + background image consume CMS data; badge/CTA chrome stays in `next-intl`.
 - **Acceptance Criteria**: Toggling `featured` in Keystatic changes Home showcase media/titles after refresh.
-- **Out of scope unless requested**: Full Home copy CMS, services catalog CMS.
 
 #### Architecture notes (implementation constraints)
 
@@ -638,6 +633,53 @@ Admin can add all three item types; `/portfolio` renders them with existing filt
 
 ---
 
+### 🔷 Epic 7: Home CMS, Services CMS, CV CMS, i18n Switcher, Google Booking
+
+_Branch: `cursor/home-cms-booking-i18n-ac96`. Continues after Portfolio CMS (Epic 6.2)._
+
+#### Decisions (locked)
+
+| Topic | Decision |
+| --- | --- |
+| Home About | Keystatic singleton `homeAbout` (`content/home-about.yaml`) — name, role, bio, portrait, CTA href. Chrome labels stay in `next-intl`. |
+| Home showcase | **`TICKET-PF-04` DONE** — featured portfolio entries drive carousel / latest project / background. |
+| Services | Keystatic collection `services` (`content/services/*`) — full card copy in CMS; page chrome in `next-intl`. |
+| Interactive CV | Keystatic singleton `aboutCv` (`content/about-cv.yaml`) — skills, education, experience, optional PDF URL. **Not** Reactive Resume / rxresu.me (keep CV in GitHub). |
+| i18n switcher | Cookie `NEXT_LOCALE` + nav `LanguageSwitcher` (`en` / `cs` / `vi`). CMS bodies stay monolingual EN. |
+| Booking | Keep custom liquid-glass UI. Wire **Google Calendar FreeBusy + Events** via service account when env is set; otherwise local demo mode still accepts requests. **Not** Cal.com embed. |
+
+#### `TICKET-HOME-05`: Home About singleton — **DONE**
+
+Shipped: `homeAbout` singleton + `getHomeAbout`; `HomeAboutCard` reads CMS props from the Home server page.
+
+#### `TICKET-PF-04`: Home Featured Showcase — **DONE**
+
+See Epic 6.2 ticket (marked DONE above).
+
+#### `TICKET-SRV-01`: Services catalog CMS — **DONE**
+
+Shipped: `services` collection + seed YAML; `/services` server-loads `getServices`; `ServiceCard` renders CMS fields.
+
+#### `TICKET-CV-01`: Interactive CV CMS — **DONE**
+
+Shipped: `aboutCv` singleton + seed; About CV tab consumes CMS skills / education / experience; PDF button links when `pdfUrl` is set.
+
+#### `TICKET-I18N-01`: Nav language switcher — **DONE**
+
+Shipped: `setLocale` server action + `LanguageSwitcher` in desktop/mobile nav; `Locale.*` messages in `en` / `cs` / `vi`.
+
+#### `TICKET-SRV-02`: Booking UI + Google Calendar wiring — **DONE** (phase 1)
+
+Shipped: interactive `HomeBookingCard` (week nav, day/slot select, name/email, confirm); `/api/booking/availability` + `/api/booking`; FreeBusy/Events via `google-auth-library` when `GOOGLE_*` env is set; local demo mode otherwise. Env stubs in `.env.example`.
+
+#### Follow-ups (not in this PR)
+
+- Email confirmation via SendGrid when booking in local mode
+- Domain-wide delegation / invite UX polish for Google Calendar
+- CMS-07 / CMS-08 / CMS-09 / CMS-10 unchanged
+
+---
+
 ## 🎯 4. Milestone Execution Roadmap
 
 | Milestone                                          | Scope                        | Target Focus                                                                                                           |
@@ -645,10 +687,11 @@ Admin can add all three item types; `/portfolio` renders them with existing filt
 | **Milestone 1 (Current Branch: `feature/new-ui`)** | **Core Foundation & Shell**  | PWA Manifest, Service Worker, Liquid Glass Design Tokens, `AppPageShell`, Floating Top Header & Bottom Navigation Bar. |
 | **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
-| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); ✅ soft image fade-in (CMS-12); remaining: `R2Image` ContentView (CMS-07); optional Todo/Toggle (CMS-08); R2 cutover later (CMS-09). |
-| **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | Keystatic collections for software / photography / vlogs; reader; rewire `/portfolio`; optional Home featured (PF-04). |
+| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); remaining: `R2Image` ContentView (CMS-07); optional Todo/Toggle (CMS-08); R2 cutover later (CMS-09). |
+| **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | ✅ Collections + reader + `/portfolio` rewire (PF-01…03); ✅ Home featured showcase (PF-04). |
 | **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
-| **Milestone 3**                                    | **Services & Commerce**      | Web Dev / Photo / Video Services Catalog, Booking Drawer, Cart Store, Checkout Flow.                                   |
+| **Milestone 2.9**                                    | **Home / Services / CV / i18n / Booking (Epic 7)** | ✅ Home About CMS; ✅ Services CMS; ✅ CV CMS; ✅ language switcher; ✅ Google Calendar booking phase 1. |
+| **Milestone 3**                                    | **Services & Commerce**      | Cart Store, Checkout Flow, booking email polish.                                   |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
 | **Later**                                          | **Portfolio gallery media cutover**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
 

@@ -18,6 +18,10 @@ export function getR2PublicUrl(urlOrKey: string | null | undefined): string {
     return value;
   }
 
+  if (value.startsWith('/assets/')) {
+    return value;
+  }
+
   const baseUrl = getR2PublicBaseUrl();
   if (!baseUrl) {
     return value.startsWith('/') ? value : `/${value}`;

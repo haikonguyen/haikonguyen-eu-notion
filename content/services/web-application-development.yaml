@@ -1,0 +1,14 @@
+title: Web Application Development
+category: Engineering
+description: >-
+  High-performance Next.js & React web applications, custom UI/UX design
+  systems, PWA architectures, and performance optimizations.
+highlights:
+  - Next.js 16 / React 19
+  - PWA & Mobile-first
+  - Tailwind CSS & Liquid Glass
+  - API & Headless Integration
+ctaLabel: Inquire Web Dev
+icon: code
+contactServiceId: web-dev
+sortOrder: 1

@@ -1,5 +1,6 @@
 'use client';
 
+import { LanguageSwitcher } from '@components/layout/LanguageSwitcher';
 import { useCartBadgeCount } from '@lib/hooks/useCartBadgeCount';
 import { cn } from '@lib/utils';
 import { ShoppingCart, User } from 'lucide-react';
@@ -45,6 +46,9 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
           })}
         </div>
         <div className="pointer-events-auto flex items-center gap-2">
+          <div className="pointer-events-auto sm:hidden">
+            <LanguageSwitcher />
+          </div>
           <Link
             href="/cart"
             prefetch={true}
@@ -64,6 +68,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
             )}
           </Link>
           <div className="hidden items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:flex sm:h-11">
+            <LanguageSwitcher />
             <Link
               href="/cart"
               prefetch={true}
