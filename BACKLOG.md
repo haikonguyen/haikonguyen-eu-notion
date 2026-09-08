@@ -303,7 +303,7 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - YouTube embeds: Markdoc **`YouTubeEmbed`** (`url`, `title`, `caption`) in `src/lib/keystatic/youtube-embed-component.ts`; public render `src/features/blog/components/YouTubeEmbed.tsx`; URL helpers in `src/lib/youtube/*`.
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
-- **Next session**: **Epic 6.2** — Portfolio items via Keystatic (`TICKET-PF-01` → `TICKET-PF-04`). Parallel polish: CMS-07 / CMS-08. CMS-10 (admin auth gate) when public Admin risk is prioritized. CMS-09 later.
+- **Next session**: Parallel polish CMS-07 / CMS-08. Multilingual CMS **POC later** — see **Epic 6.3** (anchor only; do not start unless asked). CMS-10 when public Admin risk is prioritized. CMS-09 later.
 - **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
 
 #### Context (read before implementing)
@@ -437,7 +437,7 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
 
 #### Out of scope (still explicit for Epic 6.1)
 
-- Multi-locale CMS bodies.
+- Multi-locale CMS bodies — tracked under **Epic 6.3** (future POC).
 - Keystatic `kind: 'github'` production storage (tracked under CMS-10 phase 4 / separate follow-up).
 - Cloudflare Image Resizing / Images product.
 - Bot upload automation (prefixes + presigned PUT already scaffolded).
@@ -674,6 +674,105 @@ Shipped: interactive `HomeBookingCard` (week nav, day/slot select, name/email, c
 - CMS-07 / CMS-08 / CMS-09 / CMS-10 unchanged
 - **`TICKET-I18N-02`: Blog CMS locales (later)** — ~36 Markdoc posts; do **not** dump bodies into `messages/*.json`. Prefer Keystatic nested frontmatter for `title` / `excerpt` / `tags` only (`en`/`cs`/`vi` + EN fallback via `pickLocalized`). Keep Markdoc body EN unless/until parallel locale stories are justified. Same pattern as portfolio PF-05 / Services.
 - **`TICKET-I18N-03`: About Story Markdoc locales (later)** — locale-specific Markdoc singletons or nested story paths; Interactive CV already localized.
+
+---
+
+### 🔷 Epic 6.3: Multilingual CMS Content POC (future anchor)
+
+_Brainstorm capture only — **do not implement** until explicitly requested. Goal: when VI/CS (or other) post/portfolio copy is needed, we already know the public URL shape, Admin authoring model, and reader fallback rules._
+
+**Status**: Backlog anchor (docs only). Depends on next-intl locale routing + a language switcher (related: `TICKET-ACC-05` language preferences / future header switcher). Today: UI chrome translates via `messages/*`; Keystatic blog + portfolio bodies stay **EN-only**.
+
+#### Problem (what happens today)
+
+- Switching locale (cookie / future switcher) changes **chrome only** (nav, “Blog”, “by”, empty states, metadata).
+- `/blog` and `/post/[slug]` still show English titles, excerpts, and Markdoc bodies — expected under Epic 6 “CMS monolingual”.
+- There is no per-locale CMS version to “switch into,” and Keystatic has **no first-party language tabs** ([Keystatic i18n discussion](https://github.com/Thinkmill/keystatic/discussions/1423) / open feature requests).
+
+#### Public site shape (Haianbeauty-style)
+
+Wire App Router + next-intl so content URLs are locale-prefixed (already sketched in `i18n/routing.ts` with `localePrefix: 'as-needed'`):
+
+```text
+/blog/...          → default EN (as-needed)
+/vi/blog/...
+/cs/blog/...
+/vi/post/[slug]
+```
+
+Same idea for portfolio when PF-05 / CMS-15 lands. Language switcher updates next-intl locale → reader loads that locale’s CMS entry (or falls back).
+
+#### Admin authoring — options we considered
+
+| Option | How it looks in Keystatic | Best for | Notes |
+| --- | --- | --- | --- |
+| **A. Locale collections** (recommended for **blog**) | Sidebar: `Posts (EN)` · `Posts (VI)` · `Posts (CS)`; files under `content/posts/{en,vi,cs}/same-slug.mdoc` | Long Markdoc bodies | Closest to “tabs” without custom Admin; same slug = same article identity |
+| **B. Nested locale fields** (recommended for **portfolio**) | One entry; `title.en` / `title.vi`, etc. | Short fields | Avoid duplicating URLs, tech, dimensions |
+| **C. True in-editor EN \| VI \| CS tabs** | Decap-style language toggle inside one form | Ideal UX | **Not available** in Keystatic without a custom Admin (out of scope for this repo) |
+
+**Rejected**: stuffing full Markdoc post bodies into `messages/*.json`, or requiring every post in all locales on day one.
+
+#### Reader / integration rules (POC target)
+
+```text
+Language switcher → next-intl locale
+                 → getPostBySlug(slug, locale)
+                 → use locale file/fields if present
+                 → else fall back to EN (optional “EN original” badge on list)
+```
+
+- Shared **slug** (or `entryGroupId`) across locales = one logical piece of content.
+- List pages: show translated items when present; for missing translations either show EN fallback or hide until translated (pick in POC).
+- Do **not** invent a fully custom Keystatic Admin UI.
+
+#### Tickets (future POC slices)
+
+##### `TICKET-CMS-13`: Locale-prefixed App Router + language switcher (prerequisite)
+
+- Enable `[locale]` routing (or next-intl middleware/proxy) consistent with `i18n/routing.ts`.
+- Ship a visible language switcher (header / account prefs) that sets locale without breaking existing flat routes during migration.
+- **Acceptance Criteria**: `/vi/blog` (or equivalent) loads VI chrome; EN default still works with `as-needed` prefix.
+
+##### `TICKET-CMS-14`: Multilingual blog posts — locale collections + EN fallback
+
+- Split or add Keystatic collections `postsEn` / `postsVi` / `postsCs` (or path `content/posts/{locale}/*`) with **shared slug**.
+- Reader: `getAllPosts(locale)`, `getPostBySlug(slug, locale)` with EN fallback.
+- Admin: author VI/CS only when needed; leave other locales empty.
+- POC scope: migrate **1–2** sample posts to prove the loop (not all 36).
+- **Acceptance Criteria**: VI locale shows VI body when present; missing VI falls back to EN; `tsc` + build green.
+
+##### `TICKET-CMS-15` / `TICKET-PF-05`: Multilingual portfolio fields
+
+- Nested locale objects for human copy only (title, summary, longDescription, alt, vlog description).
+- Technical fields stay single-value (URLs, tech, width/height, sortOrder).
+- Public `/portfolio` (and later Home featured) resolve copy from active locale with EN fallback.
+- **Acceptance Criteria**: Admin can fill EN + at least one other locale; UI switches copy with locale.
+
+#### Explicit non-goals for the first POC
+
+- Translating all historical blog posts.
+- Custom Keystatic Admin with real language tabs.
+- Machine-translation pipeline.
+- Changing R2 media per locale (unless a caption/alt needs it).
+
+#### Agent prompt (copy when opening the POC)
+
+```markdown
+You are an expert full-stack TypeScript engineer on `haikonguyen/haikonguyen-eu-notion`.
+Read `AGENTS.md` and **Epic 6.3** in `BACKLOG.md` before coding.
+
+### Objective (POC only — do not expand scope)
+1) `TICKET-CMS-13` — locale-prefixed routes + language switcher (minimal).
+2) `TICKET-CMS-14` — locale blog collections + reader fallback; 1–2 sample posts.
+3) Optionally `TICKET-CMS-15` / PF-05 for portfolio nested fields if asked.
+
+### Constraints
+- No custom Keystatic Admin UI.
+- Prefer locale collections for Markdoc posts; nested fields for short portfolio copy.
+- EN fallback required; do not require all locales for every entry.
+- next-intl for chrome; CMS for content versions.
+- ≤150 LOC/file; no `any`; Biome + tsc + build green.
+```
 
 ---
 
