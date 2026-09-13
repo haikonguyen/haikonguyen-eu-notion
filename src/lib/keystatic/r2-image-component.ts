@@ -3,8 +3,22 @@ import {
   block,
   type ContentComponent,
 } from '@keystatic/core/content-components';
-import { R2_BLOG_INLINE_PREFIX } from '@lib/r2';
+import { getR2PublicUrl, R2_BLOG_INLINE_PREFIX } from '@lib/r2';
 import { uploadImageToR2 } from '@lib/r2/upload-image-to-r2';
+import { createElement } from 'react';
+
+const PREVIEWABLE_SRC_PATTERN = /^(https?:\/\/|\/assets\/)/i;
+const PREVIEW_MAX_WIDTH_PX = 480;
+const PREVIEW_RADIUS_PX = 8;
+
+function getR2ImagePreviewSrc(src: string | undefined): string {
+  const resolved = getR2PublicUrl(src);
+  if (!resolved || !PREVIEWABLE_SRC_PATTERN.test(resolved)) {
+    return '';
+  }
+
+  return resolved;
+}
 
 const r2ImageBlock = block({
   label: 'R2 Image',
@@ -24,6 +38,28 @@ const r2ImageBlock = block({
     caption: fields.text({
       label: 'Caption',
     }),
+  },
+  ContentView: ({ value }) => {
+    const previewSrc = getR2ImagePreviewSrc(value.src);
+    if (!previewSrc) {
+      return createElement(
+        'p',
+        { style: { margin: 0, opacity: 0.7 } },
+        value.src?.trim() || 'Paste an image URL or drop a file',
+      );
+    }
+
+    return createElement('img', {
+      src: previewSrc,
+      alt: value.alt || '',
+      style: {
+        display: 'block',
+        width: '100%',
+        maxWidth: PREVIEW_MAX_WIDTH_PX,
+        height: 'auto',
+        borderRadius: PREVIEW_RADIUS_PX,
+      },
+    });
   },
 });
 

@@ -295,6 +295,8 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
 - **POC (CMS-01 → CMS-05): DONE** — merged via [PR #21](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/21).
 - **CMS-06 (all blog posts): DONE** — **36** inventory slugs under `content/posts/*.mdoc` on `dev` (ImageKit URLs kept on purpose).
 - **CMS-11 (YouTube embeds): DONE** — merged to `dev` ([PR #23](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/23)).
+- **CMS-07 (R2Image admin preview): DONE** — Keystatic `ContentView` thumbnail for populated `R2Image` blocks (absolute / resolvable `src`).
+- **CMS-08 (Notion parity extras): SKIPPED** — migrated Markdoc only uses `R2Image` + `YouTubeEmbed`; no Todo/Toggle (or similar) in bodies, so unused components are not shipped.
 - **Shipped shape (do not re-invent)**:
   - Config: root `keystatic.config.ts` (`storage.kind: 'local'`).
   - Collection `posts` → `content/posts/*.mdoc`; singleton `aboutStory` → `content/about-story.mdoc`.
@@ -303,7 +305,7 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - YouTube embeds: Markdoc **`YouTubeEmbed`** (`url`, `title`, `caption`) in `src/lib/keystatic/youtube-embed-component.ts`; public render `src/features/blog/components/YouTubeEmbed.tsx`; URL helpers in `src/lib/youtube/*`.
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
-- **Next session**: Parallel polish CMS-07 / CMS-08. Multilingual CMS **POC later** — see **Epic 6.3** (anchor only; do not start unless asked). CMS-10 when public Admin risk is prioritized. CMS-09 later.
+- **Next session**: CMS-10 when public Admin risk is prioritized. CMS-09 later. Multilingual CMS **POC later** — see **Epic 6.3** (anchor only; do not start unless asked). Otherwise Milestone 3 cart/checkout.
 - **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
 
 #### Context (read before implementing)
@@ -320,7 +322,7 @@ Shipped in PR #21: Keystatic admin/API, R2 helpers + env stubs, reader rewire fo
 
 ---
 
-### 🔷 Epic 6.1: Full Content Migration & CMS Polish (next session)
+### 🔷 Epic 6.1: Full Content Migration & CMS Polish
 
 _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-posts-ff86`. Content-first; minimize code churn._
 
@@ -363,8 +365,9 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
 - **Why**: CMS/post images already used `next/image` but painted abruptly as bytes arrived; no custom load transition existed.
 - **Acceptance Criteria**: Post covers and inline R2 images fade in smoothly once decoded; hover scale on cards still works; `tsc` + Biome green.
 
-#### `TICKET-CMS-07`: Keystatic Admin Preview for `R2Image` (`ContentView`)
+#### `TICKET-CMS-07`: Keystatic Admin Preview for `R2Image` (`ContentView`) — **DONE**
 
+- **Status**: Shipped on `cursor/keystatic-r2image-preview-6584`. `R2Image` Keystatic `ContentView` renders a thumbnail when `src` is an absolute URL or resolvable via `getR2PublicUrl` (same pattern as YouTube embed preview). Empty / object-key-only values fall back to muted helper text. `handleFile` drop-upload unchanged.
 - **Description**: Replace the bare “R2 IMAGE” chrome-only block in `/keystatic` with a thumbnail via Keystatic `ContentView` (fields stay built-in — no custom form framework).
 - **Tasks**:
   - Extend `src/lib/keystatic/r2-image-component.ts` (or split `R2ImageContentView` if LOC limit bites) with `ContentView` rendering `<img>` when `value.src` is absolute / resolvable.
@@ -373,8 +376,9 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
   - Verify with `npm run dev:keystatic` (Webpack).
 - **Acceptance Criteria**: About Story / post editors show a visible preview for populated `R2Image` blocks; drop-upload + paste URL still work.
 
-#### `TICKET-CMS-08`: Notion Parity Extras (only if content needs them)
+#### `TICKET-CMS-08`: Notion Parity Extras (only if content needs them) — **SKIPPED**
 
+- **Status**: Grep of `content/posts/*.mdoc` + `content/about-story.mdoc` found only `R2Image` and `YouTubeEmbed` custom blocks. No Todo / Toggle / disclosure remnants. Not shipping unused Markdoc components.
 - **Description**: Add Markdoc components **only for block types that appear in migrated bodies** and lack a Markdoc equivalent.
 - **Likely candidates** (old Notion renderer): `Todo`, `Toggle` / disclosure. Skip if CMS-06 can flatten without loss.
 - **Note**: YouTube / video embeds are tracked separately as **`TICKET-CMS-11`** (proven need in vlog posts).
@@ -444,31 +448,9 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
 - Moving **services** / home marketing chrome into Keystatic (Home showcase optional under Epic 6.2 PF-04).
 - Fully custom CMS admin UI (not supported; use `ContentView` / built-in fields only).
 
-#### Agent prompt (Epic 6.1 polish — CMS-07 / CMS-08 only)
+#### Agent prompt (Epic 6.1 polish — CMS-07 / CMS-08) — **DONE**
 
-```markdown
-You are an expert full-stack TypeScript engineer on `haikonguyen/haikonguyen-eu-notion`.
-Read `AGENTS.md` and **Epic 6.1** in `BACKLOG.md` before coding.
-
-### Prerequisites
-- Epic 6 POC + CMS-06 + CMS-11 already on `dev`.
-- Branch from latest `dev`: `cursor/keystatic-cms-polish-<suffix>`.
-
-### Objective
-1) `TICKET-CMS-07` — add `ContentView` thumbnail preview for `R2Image` in Keystatic admin.
-2) `TICKET-CMS-08` — only if migrated content needs Todo/Toggle (or similar).
-Do **not** start `TICKET-CMS-09` or Epic 6.2 unless explicitly asked.
-
-### Must match shipped schema
-- Packages: `@keystatic/core`, `@keystatic/next`, `next-intl`, Biome, Tailwind 4
-- Admin: `npm run dev:keystatic` (Webpack)
-- Config: `keystatic.config.ts`
-- Components: `src/lib/keystatic/r2-image-component.ts`
-- Public renderer: `src/features/blog/components/R2CmsImage.tsx`
-
-### Done when
-R2Image admin shows previews; tsc/biome/build green; PR opened into `dev`.
-```
+Historical prompt (do not re-run): CMS-07 ContentView + CMS-08 only if Todo/Toggle appeared. Shipped: R2Image admin thumbnails; CMS-08 skipped (no matching blocks).
 
 ---
 
@@ -671,7 +653,7 @@ Shipped: interactive `HomeBookingCard` (week nav, day/slot select, name/email, c
 
 - Email confirmation via SendGrid when booking in local mode
 - Domain-wide delegation / invite UX polish for Google Calendar
-- CMS-07 / CMS-08 / CMS-09 / CMS-10 unchanged
+- CMS-07 done; CMS-08 skipped; CMS-09 / CMS-10 unchanged
 - **`TICKET-I18N-02`: Blog CMS locales (later)** — ~36 Markdoc posts; do **not** dump bodies into `messages/*.json`. Prefer Keystatic nested frontmatter for `title` / `excerpt` / `tags` only (`en`/`cs`/`vi` + EN fallback via `pickLocalized`). Keep Markdoc body EN unless/until parallel locale stories are justified. Same pattern as portfolio PF-05 / Services.
 - **`TICKET-I18N-03`: About Story Markdoc locales (later)** — locale-specific Markdoc singletons or nested story paths; Interactive CV already localized.
 
@@ -783,7 +765,7 @@ Read `AGENTS.md` and **Epic 6.3** in `BACKLOG.md` before coding.
 | **Milestone 1 (Current Branch: `feature/new-ui`)** | **Core Foundation & Shell**  | PWA Manifest, Service Worker, Liquid Glass Design Tokens, `AppPageShell`, Floating Top Header & Bottom Navigation Bar. |
 | **Milestone 2**                                    | **Public Experience Hub**    | Native Hero Card, Quick Action Launchers, Keystatic "What's New" Blog, Featured Work, Interactive CV.                  |
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
-| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); remaining: `R2Image` ContentView (CMS-07); optional Todo/Toggle (CMS-08); R2 cutover later (CMS-09). |
+| **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); ✅ `R2Image` ContentView (CMS-07); CMS-08 skipped (no Todo/Toggle in bodies); R2 cutover later (CMS-09). |
 | **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | ✅ Collections + reader + `/portfolio` rewire (PF-01…03); ✅ Home featured showcase (PF-04). |
 | **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 2.9**                                    | **Home / Services / CV / i18n / Booking (Epic 7)** | ✅ Home About CMS; ✅ Services CMS; ✅ CV CMS; ✅ language switcher; ✅ Google Calendar booking phase 1. |
