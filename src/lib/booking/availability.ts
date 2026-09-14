@@ -50,6 +50,15 @@ export function formatBookingMonthLabel(weekStartIso: string): string {
   return dayjs.tz(weekStartIso, BOOKING_TIMEZONE).format('MMMM YYYY');
 }
 
+export function formatBookingSlotRange(
+  startIso: string,
+  endIso: string,
+): string {
+  const start = dayjs(startIso).tz(BOOKING_TIMEZONE);
+  const end = dayjs(endIso).tz(BOOKING_TIMEZONE);
+  return `${start.format('dddd, D MMMM YYYY, HH:mm')}–${end.format('HH:mm')} (${BOOKING_TIMEZONE})`;
+}
+
 export function buildDaySlots(
   dateIso: string,
   busyRanges: Array<{ start: string; end: string }> = [],

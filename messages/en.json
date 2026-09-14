@@ -108,7 +108,8 @@
     "bookingSelectSlotError": "Please select an available time slot.",
     "bookingSubmitting": "Booking…",
     "bookingFailed": "Booking failed. Please try again.",
-    "bookingSuccessGoogle": "Booked — check your email for the calendar invite.",
+    "bookingSuccessEmail": "Booked — check your inbox for confirmation.",
+    "bookingSuccessGoogle": "Booked on the calendar.",
     "bookingSuccessLocal": "Request received. Calendar sync is in demo mode until Google credentials are set."
   },
   "Blog": {

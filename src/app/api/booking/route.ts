@@ -4,6 +4,7 @@ import {
   fetchBusyRanges,
 } from '@lib/booking';
 import { BOOKING_TIMEZONE } from '@lib/booking/constants';
+import { sendBookingEmails } from '@lib/email';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -82,9 +83,17 @@ export async function POST(request: Request) {
     );
   }
 
+  const emailResult = await sendBookingEmails({
+    name,
+    email,
+    startIso,
+    endIso,
+  });
+
   return NextResponse.json({
     ok: true,
     mode: result.mode,
     eventId: result.eventId,
+    emailSent: emailResult.sent,
   });
 }

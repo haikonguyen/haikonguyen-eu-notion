@@ -667,9 +667,15 @@ Shipped: `setLocale` server action + `LanguageSwitcher` in desktop/mobile nav; `
 
 Shipped: interactive `HomeBookingCard` (week nav, day/slot select, name/email, confirm); `/api/booking/availability` + `/api/booking`; FreeBusy/Events via `google-auth-library` when `GOOGLE_*` env is set; local demo mode otherwise. Env stubs in `.env.example`.
 
+#### `TICKET-SRV-03`: Booking confirmation email via SendGrid — **DONE**
+
+- Guest confirmation + owner notification after a successful `/api/booking` (local **and** Google modes). Google mode still does not attach Calendar attendees (needs domain-wide delegation).
+- Shared `src/lib/email/*` helper; contact `/api/sendgrid` reuses `sendMail`.
+- Missing `SENDGRID_API_KEY` skips email; the booking still succeeds (demo / local mode).
+- Optional `SENDGRID_FROM_EMAIL` and `BOOKING_NOTIFY_EMAIL` (default `haicorp87@gmail.com`).
+
 #### Follow-ups (not in this PR)
 
-- Email confirmation via SendGrid when booking in local mode
 - Domain-wide delegation / invite UX polish for Google Calendar
 - CMS-07 / CMS-08 / CMS-09 / CMS-10 unchanged
 - **`TICKET-I18N-02`: Blog CMS locales (later)** — ~36 Markdoc posts; do **not** dump bodies into `messages/*.json`. Prefer Keystatic nested frontmatter for `title` / `excerpt` / `tags` only (`en`/`cs`/`vi` + EN fallback via `pickLocalized`). Keep Markdoc body EN unless/until parallel locale stories are justified. Same pattern as portfolio PF-05 / Services.
