@@ -8,6 +8,7 @@ export { getPortfolioVlogs } from './get-portfolio-vlogs';
 export { getPostBySlug } from './get-post-by-slug';
 export { getServices } from './get-services';
 export { getSoftwareProjects } from './get-software-projects';
+export { isKeystaticAdminEnabled } from './is-admin-enabled';
 export type {
   AboutCvEntry,
   AboutStory,
