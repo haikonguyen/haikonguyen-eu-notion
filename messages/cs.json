@@ -108,7 +108,8 @@
     "bookingSelectSlotError": "Vyberte prosím dostupný čas.",
     "bookingSubmitting": "Rezervuji…",
     "bookingFailed": "Rezervace se nezdařila. Zkuste to znovu.",
-    "bookingSuccessGoogle": "Rezervováno — zkontrolujte e-mail s pozvánkou.",
+    "bookingSuccessEmail": "Rezervováno — zkontrolujte e-mail s potvrzením.",
+    "bookingSuccessGoogle": "Rezervováno v kalendáři.",
     "bookingSuccessLocal": "Požadavek přijat. Kalendář běží v demo režimu, dokud nejsou nastaveny Google údaje."
   },
   "Blog": {

@@ -5,6 +5,7 @@ import type { BookingAvailabilityState } from '@lib/booking/get-availability-sta
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { HomeBookingFormValues } from '../create-home-booking-schema';
+import { parseBookingConfirmResponse } from '../parse-booking-confirm-response';
 
 export function useHomeBooking(initial: BookingAvailabilityState) {
   const t = useTranslations('Home');
@@ -80,12 +81,14 @@ export function useHomeBooking(initial: BookingAvailabilityState) {
         setStatusMessage(t('bookingFailed'));
         return false;
       }
-      const payload = (await response.json()) as { mode?: string };
-      setStatusMessage(
-        payload.mode === 'google'
-          ? t('bookingSuccessGoogle')
-          : t('bookingSuccessLocal'),
-      );
+      const payload = parseBookingConfirmResponse(await response.json());
+      if (payload.emailSent) {
+        setStatusMessage(t('bookingSuccessEmail'));
+      } else if (payload.mode === 'google') {
+        setStatusMessage(t('bookingSuccessGoogle'));
+      } else {
+        setStatusMessage(t('bookingSuccessLocal'));
+      }
       setSelectedSlotIso(null);
       void loadAvailability(state.weekStartIso, state.selectedDateIso);
       return true;

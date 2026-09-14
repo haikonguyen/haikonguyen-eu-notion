@@ -1,6 +1,7 @@
 export {
   buildDaySlots,
   formatBookingMonthLabel,
+  formatBookingSlotRange,
   getBookingWeekDays,
   shiftBookingWeek,
 } from './availability';

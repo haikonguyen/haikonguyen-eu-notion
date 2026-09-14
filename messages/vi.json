@@ -108,7 +108,8 @@
     "bookingSelectSlotError": "Vui lòng chọn khung giờ còn trống.",
     "bookingSubmitting": "Đang đặt…",
     "bookingFailed": "Đặt lịch thất bại. Vui lòng thử lại.",
-    "bookingSuccessGoogle": "Đã đặt — kiểm tra email để nhận lời mời lịch.",
+    "bookingSuccessEmail": "Đã đặt — kiểm tra hộp thư để nhận xác nhận.",
+    "bookingSuccessGoogle": "Đã đặt trên lịch.",
     "bookingSuccessLocal": "Đã nhận yêu cầu. Đồng bộ lịch đang ở chế độ demo cho đến khi cấu hình Google."
   },
   "Blog": {
