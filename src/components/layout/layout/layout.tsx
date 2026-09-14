@@ -1,6 +1,7 @@
 'use client';
 
 import { Toast } from '@components/common/toast';
+import { CartDrawer } from '@features/cart';
 import { usePathname } from 'next/navigation';
 import { BottomNavigation } from '../BottomNavigation';
 import { Footer } from '../footer';
@@ -23,6 +24,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <div className="flex-1">{children}</div>
       <Footer />
       <BottomNavigation />
+      <CartDrawer />
       <Toast />
     </div>
   );

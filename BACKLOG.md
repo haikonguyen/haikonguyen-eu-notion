@@ -199,16 +199,18 @@ _Build out dedicated service offerings, package pricing, and booking flows._
 
 _Implement cart state, floating badge indicators, and smooth checkout flow._
 
-#### `TICKET-CART-01`: Persistent Cart Store & Floating Badge Indicator
+#### `TICKET-CART-01`: Persistent Cart Store & Floating Badge Indicator — **DONE**
 
+- **Status**: Store + localStorage persist + live badges on header / bottom nav already on `dev`.
 - **Description**: Zustand-powered shopping & booking cart store with local storage persistence.
 - **Tasks**:
   - State management for added services, consultation slots, and digital downloads.
   - Live count badge synchronized on desktop header and mobile bottom navigation.
 - **Acceptance Criteria**: Items persist across page navigation and browser sessions.
 
-#### `TICKET-CART-02`: Liquid Glass Cart Drawer & Checkout Summary (`/cart`, `/checkout`)
+#### `TICKET-CART-02`: Liquid Glass Cart Drawer & Checkout Summary (`/cart`, `/checkout`) — **DONE**
 
+- **Status**: Shipped on `cursor/cart-checkout-drawer-1c24`. Services **Add to cart** opens the mobile drawer; `/checkout` submits an inquiry (SendGrid when configured, local demo otherwise) with line items, notes, and a quote-on-request totals breakdown.
 - **Description**: Slide-up liquid glass cart drawer on mobile and full checkout page on desktop.
 - **Tasks**:
   - Itemized list with quantity adjustments, service notes, and remove actions.
@@ -787,7 +789,7 @@ Read `AGENTS.md` and **Epic 6.3** in `BACKLOG.md` before coding.
 | **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | ✅ Collections + reader + `/portfolio` rewire (PF-01…03); ✅ Home featured showcase (PF-04). |
 | **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 2.9**                                    | **Home / Services / CV / i18n / Booking (Epic 7)** | ✅ Home About CMS; ✅ Services CMS; ✅ CV CMS; ✅ language switcher; ✅ Google Calendar booking phase 1. |
-| **Milestone 3**                                    | **Services & Commerce**      | Cart Store, Checkout Flow, booking email polish.                                   |
+| **Milestone 3**                                    | **Services & Commerce**      | ✅ Cart store + badges (CART-01); ✅ checkout drawer / inquiry (CART-02); booking email polish in PR #31. |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
 | **Later**                                          | **Portfolio gallery media cutover**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
 
