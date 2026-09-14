@@ -2,6 +2,7 @@
 
 import { LanguageSwitcher } from '@components/layout/LanguageSwitcher';
 import { useCartBadgeCount } from '@lib/hooks/useCartBadgeCount';
+import { useCartStore } from '@lib/store/useCartStore';
 import { cn } from '@lib/utils';
 import { ShoppingCart, User } from 'lucide-react';
 import Link from 'next/link';
@@ -18,6 +19,8 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
   const t = useTranslations('Nav');
   const pathname = usePathname();
   const cartBadgeCount = useCartBadgeCount();
+  const openDrawer = useCartStore((state) => state.openDrawer);
+  const isDrawerOpen = useCartStore((state) => state.isDrawerOpen);
 
   return (
     <header className="pointer-events-none fixed top-3 right-0 left-0 z-50 w-full transition-all duration-300 sm:top-5">
@@ -49,16 +52,16 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
           <div className="pointer-events-auto sm:hidden">
             <LanguageSwitcher />
           </div>
-          <Link
-            href="/cart"
-            prefetch={true}
+          <button
+            type="button"
+            onClick={openDrawer}
             className={cn(
               'relative flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-300 hover:border-white/30 hover:scale-105 active:scale-95 sm:hidden',
-              pathname === '/cart' || pathname === '/checkout'
+              isDrawerOpen || pathname === '/cart' || pathname === '/checkout'
                 ? 'bg-primary text-black'
                 : 'text-white/80',
             )}
-            aria-label={t('shoppingCart')}
+            aria-label={t('openCart')}
           >
             <ShoppingCart size={15} />
             {cartBadgeCount > 0 && (
@@ -66,7 +69,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
                 {cartBadgeCount}
               </span>
             )}
-          </Link>
+          </button>
           <div className="hidden items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:flex sm:h-11">
             <LanguageSwitcher />
             <Link

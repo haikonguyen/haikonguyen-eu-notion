@@ -2,8 +2,8 @@
 
 import type { ServiceEntry } from '@lib/keystatic/types';
 import { ServiceIcon } from '@lib/keystatic/types';
-import { ArrowRight, Camera, Code, type LucideIcon, Video } from 'lucide-react';
-import Link from 'next/link';
+import { Camera, Code, type LucideIcon, Video } from 'lucide-react';
+import { ServiceCardActions } from './ServiceCardActions';
 
 const SERVICE_ICONS: Record<ServiceIcon, LucideIcon> = {
   [ServiceIcon.Code]: Code,
@@ -45,13 +45,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           ))}
         </ul>
       </div>
-      <Link
-        href={`/contact?service=${service.contactServiceId}`}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 py-3 text-[11px] font-bold uppercase tracking-wider text-white transition-all duration-300 group-hover:bg-primary group-hover:text-black hover:scale-[1.02] active:scale-[0.98] sm:mt-8 sm:rounded-2xl sm:py-3.5 sm:text-xs"
-      >
-        <span>{service.ctaLabel}</span>
-        <ArrowRight size={14} />
-      </Link>
+      <ServiceCardActions service={service} />
     </div>
   );
 }

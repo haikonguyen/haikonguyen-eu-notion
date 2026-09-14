@@ -1,11 +1,12 @@
 'use client';
 
 import { useCartBadgeCount } from '@lib/hooks/useCartBadgeCount';
+import { useCartStore } from '@lib/store/useCartStore';
 import { cn } from '@lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { getSiteBottomNavItems } from './nav-items';
+import { getSiteBottomNavItems, NavLabelKey } from './nav-items';
 
 interface BottomNavigationProps {
   isAuthenticated?: boolean;
@@ -19,6 +20,8 @@ export function BottomNavigation({
   const t = useTranslations('Nav');
   const pathname = usePathname();
   const cartBadgeCount = useCartBadgeCount();
+  const openDrawer = useCartStore((state) => state.openDrawer);
+  const isDrawerOpen = useCartStore((state) => state.isDrawerOpen);
   const items = getSiteBottomNavItems({
     pathname,
     cartBadgeCount,
@@ -35,18 +38,17 @@ export function BottomNavigation({
     >
       {items.map((item) => {
         const Icon = item.icon;
+        const isCartTab = item.labelKey === NavLabelKey.Cart;
+        const isActive = item.active || (isCartTab && isDrawerOpen);
+        const tabClassName =
+          'flex flex-1 flex-col items-center justify-center outline-none transition-all duration-300';
 
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            prefetch={true}
-            className="flex flex-1 flex-col items-center justify-center outline-none transition-all duration-300"
-          >
+        const tabBody = (
+          <>
             <div
               className={cn(
                 'relative flex w-full max-w-[62px] flex-col items-center justify-center gap-0.5 rounded-2xl py-1 transition-all duration-300',
-                item.active
+                isActive
                   ? 'bg-primary text-black shadow-[0_0_20px_rgba(6,182,212,0.4)]'
                   : 'bg-transparent text-white/60 hover:bg-white/5 hover:text-white',
               )}
@@ -55,7 +57,7 @@ export function BottomNavigation({
                 size={18}
                 className={cn(
                   'shrink-0 transition-transform duration-200 active:scale-110',
-                  item.active ? 'scale-105 text-black' : 'text-white/70',
+                  isActive ? 'scale-105 text-black' : 'text-white/70',
                 )}
               />
               {item.badgeCount !== undefined && item.badgeCount > 0 && (
@@ -66,12 +68,36 @@ export function BottomNavigation({
               <span
                 className={cn(
                   'whitespace-nowrap font-medium text-[9.5px] tracking-wide transition-colors duration-300',
-                  item.active ? 'font-bold text-black' : 'text-white/70',
+                  isActive ? 'font-bold text-black' : 'text-white/70',
                 )}
               >
                 {t(item.labelKey)}
               </span>
             </div>
+          </>
+        );
+
+        if (isCartTab) {
+          return (
+            <button
+              key={item.href}
+              type="button"
+              onClick={openDrawer}
+              className={tabClassName}
+            >
+              {tabBody}
+            </button>
+          );
+        }
+
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            prefetch={true}
+            className={tabClassName}
+          >
+            {tabBody}
           </Link>
         );
       })}

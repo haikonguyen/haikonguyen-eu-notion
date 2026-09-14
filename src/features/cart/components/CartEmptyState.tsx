@@ -4,7 +4,11 @@ import { ArrowRight, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-export function CartEmptyState() {
+interface CartEmptyStateProps {
+  onNavigate?: () => void;
+}
+
+export function CartEmptyState({ onNavigate }: CartEmptyStateProps) {
   const t = useTranslations('Cart');
 
   return (
@@ -16,6 +20,7 @@ export function CartEmptyState() {
       <p className="mt-2 max-w-sm text-sm text-zinc-400">{t('emptyBody')}</p>
       <Link
         href="/services"
+        onClick={onNavigate}
         className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-black transition-transform hover:scale-105 active:scale-95"
       >
         <span>{t('browseServices')}</span>
