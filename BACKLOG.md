@@ -199,8 +199,9 @@ _Build out dedicated service offerings, package pricing, and booking flows._
 
 _Implement cart state, floating badge indicators, and smooth checkout flow._
 
-#### `TICKET-CART-01`: Persistent Cart Store & Floating Badge Indicator
+#### `TICKET-CART-01`: Persistent Cart Store & Floating Badge Indicator — **DONE**
 
+- **Status**: Store + `localStorage` persist + live badges on header / bottom nav already on `dev`.
 - **Description**: Zustand-powered shopping & booking cart store with local storage persistence.
 - **Tasks**:
   - State management for added services, consultation slots, and digital downloads.
@@ -305,8 +306,8 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - YouTube embeds: Markdoc **`YouTubeEmbed`** (`url`, `title`, `caption`) in `src/lib/keystatic/youtube-embed-component.ts`; public render `src/features/blog/components/YouTubeEmbed.tsx`; URL helpers in `src/lib/youtube/*`.
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
-- **Next session**: CMS-10 when public Admin risk is prioritized. CMS-09 later. Multilingual CMS **POC later** — see **Epic 6.3** (anchor only; do not start unless asked). Otherwise Milestone 3 cart/checkout.
-- **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
+- **Next session**: CMS-10 **phase 1** (prod 404) done. Supabase admin login (CMS-10 phases 2–4) when public Admin sign-in is prioritized. CMS-09 later. Multilingual CMS **POC later** — see **Epic 6.3** (anchor only; do not start unless asked). Otherwise Milestone 3 cart/checkout (CART-02 [PR #32](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/32), SRV-03 [PR #31](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/31)).
+- **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. Production `/keystatic` + `/api/keystatic/*` now 404 unless `KEYSTATIC_ADMIN_ENABLED=true`. Full allowlisted login is still `TICKET-CMS-10` phases 2–4.
 
 #### Context (read before implementing)
 
@@ -418,24 +419,25 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
 
 #### `TICKET-CMS-10`: Protect Keystatic Admin (`/keystatic`) — Supabase gate (Haianbeauty-style)
 
+- **Status**: **Phase 1 DONE** on `cursor/cms-10-prod-admin-gate-0986`. `/keystatic` layout calls `notFound()` and `/api/keystatic/*` returns 404 when `isKeystaticAdminEnabled()` is false (production default). `npm run dev` / `dev:keystatic` stay open. Opt in on a host with `KEYSTATIC_ADMIN_ENABLED=true`; force-hide any env with `false`. Phases 2–4 (Supabase login, allowlist, `github` storage) still waiting until public Admin sign-in is prioritized.
 - **Description**: Keystatic does **not** ship username/password auth for local storage. Once `/keystatic` is publicly reachable, gate the Admin UI **and** `/api/keystatic/*` behind custom auth we control (same pattern as Haianbeauty: credentials/session in Supabase).
 - **Why not Keystatic Cloud / GitHub-only auth first**: We want full control of who can open Admin without forcing editors through Keystatic Cloud; aligns with Epic 5 client auth stack later.
 - **Important split** (do not conflate):
   1. **Access control** — who can open `/keystatic` + Admin API.
   2. **Persistence** — `local` storage on Vercel does **not** commit content to git. Production editing that sticks still needs `storage.kind: 'github'` (or edit-only on private/dev). Auth alone does not fix writes.
 - **Recommended phased approach**:
-  1. **Immediate hardening** (can ship before full Supabase): `showAdminUI` / `notFound()` (or redirect) for `/keystatic` + 404 the Keystatic route handler in production unless an explicit allow flag is set — matches [Keystatic’s local-mode recipe](https://keystatic.com/docs/recipes/nextjs-disable-admin-ui-in-production).
+  1. **Immediate hardening** — **DONE**: `isKeystaticAdminEnabled()` + `notFound()` on `/keystatic` and 404 on `/api/keystatic/*` unless `KEYSTATIC_ADMIN_ENABLED=true` — matches [Keystatic’s local-mode recipe](https://keystatic.com/docs/recipes/nextjs-disable-admin-ui-in-production).
   2. **Supabase admin gate** (Haianbeauty pattern): login page or modal; session cookie; allowlist via `app_metadata` role (e.g. `is_admin` / `cms_editor`) — **never** authorize from editable `user_metadata`.
-  3. **Protect both surfaces**: Admin layout (`src/app/keystatic/layout.tsx`) **and** `src/app/api/keystatic/[...params]/route.ts`. UI-only checks are insufficient.
+  3. **Protect both surfaces**: already applied for phase 1. Keep the same two files when the Supabase session check lands.
   4. **Later (optional)**: switch Keystatic to `github` storage so authenticated production edits commit to the repo; keep Supabase as the gate (or combine with GitHub permissions).
 - **Tasks**:
-  - Add `TICKET`-level env stubs (`NEXT_PUBLIC_SUPABASE_URL`, anon/publishable key, server secrets as needed) — do not invent until implementing.
+  - Phase 1 env stub: `KEYSTATIC_ADMIN_ENABLED` in `.env.example`. Supabase stubs (`NEXT_PUBLIC_SUPABASE_URL`, anon/publishable key, server secrets) wait for phase 2 — do not invent until implementing.
   - Server-side session check for `/keystatic` + Keystatic API; unauthenticated → login or 404.
   - Admin allowlist (single-owner email / `app_metadata` flag); CMS editors ≠ every signed-in client from Epic 5.
   - Document: local-dev Admin stays open or uses the same gate behind a toggle.
 - **Acceptance Criteria**:
-  - Anonymous requests to `/keystatic` and `/api/keystatic/*` cannot use the Admin in production.
-  - Allowlisted Supabase admin can sign in and open Admin when the gate is enabled.
+  - **Phase 1 (done)**: Anonymous requests to `/keystatic` and `/api/keystatic/*` cannot use the Admin in production (404) unless `KEYSTATIC_ADMIN_ENABLED=true`.
+  - **Phase 2+**: Allowlisted Supabase admin can sign in and open Admin when the gate is enabled.
   - No secrets in client bundles beyond publishable keys; RLS/session rules follow Supabase security checklist.
 - **Out of scope for this ticket**: full Epic 5 client dashboard; Keystatic Cloud billing; R2 media cutover (CMS-09).
 
@@ -653,7 +655,7 @@ Shipped: interactive `HomeBookingCard` (week nav, day/slot select, name/email, c
 
 - Email confirmation via SendGrid when booking in local mode
 - Domain-wide delegation / invite UX polish for Google Calendar
-- CMS-07 done; CMS-08 skipped; CMS-09 / CMS-10 unchanged
+- CMS-07 done; CMS-08 skipped; CMS-09 later; CMS-10 phase 1 (prod 404) done — Supabase login still later
 - **`TICKET-I18N-02`: Blog CMS locales (later)** — ~36 Markdoc posts; do **not** dump bodies into `messages/*.json`. Prefer Keystatic nested frontmatter for `title` / `excerpt` / `tags` only (`en`/`cs`/`vi` + EN fallback via `pickLocalized`). Keep Markdoc body EN unless/until parallel locale stories are justified. Same pattern as portfolio PF-05 / Services.
 - **`TICKET-I18N-03`: About Story Markdoc locales (later)** — locale-specific Markdoc singletons or nested story paths; Interactive CV already localized.
 
@@ -767,9 +769,9 @@ Read `AGENTS.md` and **Epic 6.3** in `BACKLOG.md` before coding.
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
 | **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); ✅ `R2Image` ContentView (CMS-07); CMS-08 skipped (no Todo/Toggle in bodies); R2 cutover later (CMS-09). |
 | **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | ✅ Collections + reader + `/portfolio` rewire (PF-01…03); ✅ Home featured showcase (PF-04). |
-| **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
+| **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | ✅ Phase 1: production 404 for `/keystatic` + Admin API unless `KEYSTATIC_ADMIN_ENABLED=true`. Remaining: Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
 | **Milestone 2.9**                                    | **Home / Services / CV / i18n / Booking (Epic 7)** | ✅ Home About CMS; ✅ Services CMS; ✅ CV CMS; ✅ language switcher; ✅ Google Calendar booking phase 1. |
-| **Milestone 3**                                    | **Services & Commerce**      | Cart Store, Checkout Flow, booking email polish.                                   |
+| **Milestone 3**                                    | **Services & Commerce**      | ✅ Cart store + badges (CART-01). Checkout drawer / inquiry (CART-02) in [PR #32](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/32); booking email (SRV-03) in [PR #31](https://github.com/haikonguyen/haikonguyen-eu-notion/pull/31). |
 | **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
 | **Later**                                          | **Portfolio gallery media cutover**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
 
