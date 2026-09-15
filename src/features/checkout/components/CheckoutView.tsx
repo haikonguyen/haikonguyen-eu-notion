@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { submitCheckout } from '@/actions/submit-checkout';
 import type { CheckoutFormValues } from '../create-checkout-schema';
+import { CheckoutEmptyState } from './CheckoutEmptyState';
 import { CheckoutForm } from './CheckoutForm';
 import { CheckoutSuccess } from './CheckoutSuccess';
 import { CheckoutSummary } from './CheckoutSummary';
@@ -49,6 +50,10 @@ export function CheckoutView() {
 
   if (isSuccess) {
     return <CheckoutSuccess onReset={() => setIsSuccess(false)} />;
+  }
+
+  if (items.length === 0) {
+    return <CheckoutEmptyState />;
   }
 
   return (
