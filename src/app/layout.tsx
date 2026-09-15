@@ -6,6 +6,7 @@ import '../styles/index.css';
 import { Layout } from '@components';
 import { DevXray } from '@components/dev/DevXray';
 import { PWARegister } from '@components/pwa';
+import { THEME_BOOTSTRAP_SCRIPT } from '@lib/theme';
 import { Providers } from './providers';
 
 const outfit = Outfit({
@@ -69,7 +70,13 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`dark ${outfit.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-background text-foreground selection:bg-primary/30">
+      <head>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: theme FOUC bootstrap
+          dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP_SCRIPT }}
+        />
+      </head>
+      <body className="bg-background font-sans text-foreground antialiased selection:bg-primary/30">
         {process.env.NODE_ENV === 'development' && <DevXray />}
         <PWARegister />
         <NextIntlClientProvider locale={locale} messages={messages}>

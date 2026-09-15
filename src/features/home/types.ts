@@ -1,5 +1,6 @@
 import type { BookingAvailabilityState } from '@lib/booking/get-availability-state';
 import type {
+  BlogPostSummary,
   HomeAboutEntry,
   PhotographyItemEntry,
   PortfolioVlogEntry,
@@ -13,4 +14,5 @@ export interface HomePageContentProps {
   vlog?: PortfolioVlogEntry;
   software?: SoftwareProjectEntry;
   booking: BookingAvailabilityState;
+  latestPosts: BlogPostSummary[];
 }

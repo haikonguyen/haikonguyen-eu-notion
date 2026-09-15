@@ -18,7 +18,13 @@
     "postFallbackDescription": "Přečtěte si tento článek na blogu Haika Nguyena",
     "postTitle": "{title} | Haiko Nguyen",
     "blogSiteName": "Blog Haika Nguyena",
-    "untitledPost": "Bez názvu"
+    "untitledPost": "Bez názvu",
+    "checkoutTitle": "Pokladna | Haiko Nguyen",
+    "checkoutDescription": "Zkontrolujte vybrané služby a odešlete poptávku",
+    "loginTitle": "Přihlášení | Haiko Nguyen",
+    "loginDescription": "Přihlaste se ke správě rezervací, oblíbených a nastavení",
+    "accountTitle": "Účet | Haiko Nguyen",
+    "accountDescription": "Správa rezervací, oblíbených a nastavení účtu"
   },
   "Common": {
     "author": "Autor",
@@ -109,7 +115,16 @@
     "bookingSubmitting": "Rezervuji…",
     "bookingFailed": "Rezervace se nezdařila. Zkuste to znovu.",
     "bookingSuccessGoogle": "Rezervováno — zkontrolujte e-mail s pozvánkou.",
-    "bookingSuccessLocal": "Požadavek přijat. Kalendář běží v demo režimu, dokud nejsou nastaveny Google údaje."
+    "bookingSuccessLocal": "Požadavek přijat. Kalendář běží v demo režimu, dokud nejsou nastaveny Google údaje.",
+    "quickActions": {
+      "book": "Rezervovat 1:1",
+      "contact": "Napsat mi",
+      "cv": "Interaktivní CV",
+      "work": "Výbava a práce"
+    },
+    "whatsNewEyebrow": "Novinky",
+    "whatsNewTitle": "Nejnovější ze studia",
+    "readArticle": "Číst články →"
   },
   "Blog": {
     "title": "Blog",
@@ -134,7 +149,8 @@
       "video": "Video",
       "consultation": "Konzultace",
       "digital": "Digitál"
-    }
+    },
+    "closeDrawer": "Zavřít košík"
   },
   "Portfolio": {
     "title": "Portfolio",
@@ -183,13 +199,48 @@
     "viewProjects": "Dokončené projekty",
     "interactiveCv": "Interaktivní CV a zkušenosti",
     "errors": {
-      "emailInvalid": "Neplatná e-mailová adresa"
+      "emailInvalid": "Neplatná e-mailová adresa",
+      "nameMin": "Jméno musí mít alespoň 2 znaky"
+    },
+    "nameLabel": "Jméno",
+    "phoneLabel": "Telefon",
+    "companyLabel": "Firma",
+    "magicLink": "Poslat magický odkaz",
+    "continueGithub": "GitHub",
+    "continueGoogle": "Google",
+    "oauthNeedsSupabase": "OAuth je v demo režimu, dokud není nastavený Supabase.",
+    "reschedule": "Přeplánovat",
+    "cancelBooking": "Zrušit",
+    "historyTitle": "Historie a faktury",
+    "historyEmpty": "Zatím žádné dokončené projekty ani zrušené rezervace.",
+    "downloadInvoice": "Stáhnout fakturu",
+    "invoicePending": "Faktura čeká",
+    "settingsTitle": "Nastavení účtu",
+    "saveProfile": "Uložit profil",
+    "emailNotifications": "E-mailová oznámení",
+    "bookingReminders": "Připomínky rezervací",
+    "themePreference": "Motiv",
+    "languagePreference": "Jazyk",
+    "tabs": {
+      "profile": "Profil",
+      "bookings": "Rezervace",
+      "favorites": "Oblíbené",
+      "history": "Historie",
+      "settings": "Nastavení"
+    },
+    "status": {
+      "confirmed": "Potvrzeno",
+      "pending": "Čeká",
+      "in_review": "Ke kontrole",
+      "cancelled": "Zrušeno",
+      "completed": "Dokončeno"
     }
   },
   "Services": {
     "eyebrow": "Kreativní a engineering služby",
     "title": "Proměňuji nápady v digitální realitu",
-    "subtitle": "Specializuji se na webové aplikace nové generace, filmovou fotografii a video."
+    "subtitle": "Specializuji se na webové aplikace nové generace, filmovou fotografii a video.",
+    "addToCart": "Přidat do košíku"
   },
   "About": {
     "title": "O mně",
@@ -249,7 +300,16 @@
     "subtitle": "Články, portfolio a služby uložené na později.",
     "emptyTitle": "Zatím nic uloženo",
     "emptyBody": "Procházejte blog nebo portfolio a ukládejte oblíbené položky.",
-    "exploreBlog": "Prohlédnout blog"
+    "exploreBlog": "Prohlédnout blog",
+    "save": "Uložit do oblíbených",
+    "unsave": "Odebrat z oblíbených",
+    "kinds": {
+      "post": "Článek",
+      "software": "Software",
+      "photography": "Fotografie",
+      "vlog": "Vlog",
+      "service": "Služba"
+    }
   },
   "Vlogs": {
     "title": "Vlogy",
@@ -278,5 +338,34 @@
     "english": "Angličtina",
     "czech": "Čeština",
     "vietnamese": "Vietnamština"
+  },
+  "Checkout": {
+    "title": "Pokladna",
+    "subtitle": "Napište pár detailů a potvrdím rozsah, termín i další kroky.",
+    "summaryTitle": "Souhrn objednávky",
+    "quoteOnRequest": "Cena na vyžádání",
+    "subtotal": "Mezisoučet",
+    "tax": "Daně / záloha",
+    "taxIncluded": "Součástí nabídky",
+    "nameLabel": "Jméno",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Telefon",
+    "companyLabel": "Firma",
+    "notesLabel": "Poznámky k projektu",
+    "submit": "Odeslat poptávku",
+    "submitError": "Poptávku se nepodařilo odeslat. Zkuste to znovu.",
+    "successTitle": "Poptávka přijata",
+    "successBody": "Díky — ozvu se s dostupností a individuální nabídkou.",
+    "viewAccount": "Zobrazit účet",
+    "startAnother": "Nová poptávka",
+    "emptyTitle": "Není co odeslat",
+    "emptyBody": "Nejprve přidejte službu nebo konzultaci do košíku.",
+    "backToCart": "Zpět do košíku",
+    "inquiryTitle": "Poptávka služby",
+    "errors": {
+      "nameMin": "Jméno musí mít alespoň 2 znaky",
+      "emailInvalid": "Neplatná e-mailová adresa",
+      "notesMin": "Přidejte alespoň 10 znaků poznámek k projektu"
+    }
   }
 }

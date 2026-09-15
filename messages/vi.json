@@ -18,7 +18,13 @@
     "postFallbackDescription": "Đọc bài viết này trên blog của Haiko Nguyen",
     "postTitle": "{title} | Haiko Nguyen",
     "blogSiteName": "Blog Haiko Nguyen",
-    "untitledPost": "Chưa có tiêu đề"
+    "untitledPost": "Chưa có tiêu đề",
+    "checkoutTitle": "Thanh toán | Haiko Nguyen",
+    "checkoutDescription": "Xem lại dịch vụ đã chọn và gửi yêu cầu đặt lịch",
+    "loginTitle": "Đăng nhập | Haiko Nguyen",
+    "loginDescription": "Đăng nhập để quản lý đặt lịch, mục yêu thích và cài đặt",
+    "accountTitle": "Tài khoản | Haiko Nguyen",
+    "accountDescription": "Quản lý lịch hẹn, mục yêu thích và cài đặt tài khoản"
   },
   "Common": {
     "author": "Tác giả",
@@ -109,7 +115,16 @@
     "bookingSubmitting": "Đang đặt…",
     "bookingFailed": "Đặt lịch thất bại. Vui lòng thử lại.",
     "bookingSuccessGoogle": "Đã đặt — kiểm tra email để nhận lời mời lịch.",
-    "bookingSuccessLocal": "Đã nhận yêu cầu. Đồng bộ lịch đang ở chế độ demo cho đến khi cấu hình Google."
+    "bookingSuccessLocal": "Đã nhận yêu cầu. Đồng bộ lịch đang ở chế độ demo cho đến khi cấu hình Google.",
+    "quickActions": {
+      "book": "Đặt lịch 1:1",
+      "contact": "Liên hệ",
+      "cv": "CV tương tác",
+      "work": "Thiết bị & tác phẩm"
+    },
+    "whatsNewEyebrow": "Có gì mới",
+    "whatsNewTitle": "Mới nhất từ studio",
+    "readArticle": "Đọc bài viết →"
   },
   "Blog": {
     "title": "Blog",
@@ -134,7 +149,8 @@
       "video": "Video",
       "consultation": "Tư vấn",
       "digital": "Digital"
-    }
+    },
+    "closeDrawer": "Đóng giỏ hàng"
   },
   "Portfolio": {
     "title": "Portfolio",
@@ -183,13 +199,48 @@
     "viewProjects": "Dự án đã hoàn thành",
     "interactiveCv": "CV tương tác & kinh nghiệm",
     "errors": {
-      "emailInvalid": "Địa chỉ email không hợp lệ"
+      "emailInvalid": "Email không hợp lệ",
+      "nameMin": "Tên phải có ít nhất 2 ký tự"
+    },
+    "nameLabel": "Tên",
+    "phoneLabel": "Điện thoại",
+    "companyLabel": "Công ty",
+    "magicLink": "Gửi magic link",
+    "continueGithub": "GitHub",
+    "continueGoogle": "Google",
+    "oauthNeedsSupabase": "OAuth đang ở chế độ demo cho đến khi cấu hình Supabase.",
+    "reschedule": "Đổi lịch",
+    "cancelBooking": "Hủy",
+    "historyTitle": "Lịch sử & hóa đơn",
+    "historyEmpty": "Chưa có dự án hoàn tất hoặc lịch đã hủy.",
+    "downloadInvoice": "Tải hóa đơn",
+    "invoicePending": "Hóa đơn đang chờ",
+    "settingsTitle": "Cài đặt tài khoản",
+    "saveProfile": "Lưu hồ sơ",
+    "emailNotifications": "Thông báo email",
+    "bookingReminders": "Nhắc lịch đặt",
+    "themePreference": "Giao diện",
+    "languagePreference": "Ngôn ngữ",
+    "tabs": {
+      "profile": "Hồ sơ",
+      "bookings": "Lịch hẹn",
+      "favorites": "Yêu thích",
+      "history": "Lịch sử",
+      "settings": "Cài đặt"
+    },
+    "status": {
+      "confirmed": "Đã xác nhận",
+      "pending": "Đang chờ",
+      "in_review": "Đang xem xét",
+      "cancelled": "Đã hủy",
+      "completed": "Hoàn tất"
     }
   },
   "Services": {
     "eyebrow": "Dịch vụ sáng tạo & kỹ thuật",
     "title": "Biến ý tưởng thành hiện thực số",
-    "subtitle": "Chuyên ứng dụng web thế hệ mới, nhiếp ảnh điện ảnh và video."
+    "subtitle": "Chuyên ứng dụng web thế hệ mới, nhiếp ảnh điện ảnh và video.",
+    "addToCart": "Thêm vào giỏ"
   },
   "About": {
     "title": "Giới thiệu",
@@ -249,7 +300,16 @@
     "subtitle": "Bài viết, portfolio và dịch vụ bạn lưu để xem sau.",
     "emptyTitle": "Chưa có mục nào",
     "emptyBody": "Duyệt blog hoặc portfolio để đánh dấu yêu thích.",
-    "exploreBlog": "Xem blog"
+    "exploreBlog": "Xem blog",
+    "save": "Lưu vào yêu thích",
+    "unsave": "Bỏ khỏi yêu thích",
+    "kinds": {
+      "post": "Bài viết",
+      "software": "Phần mềm",
+      "photography": "Nhiếp ảnh",
+      "vlog": "Vlog",
+      "service": "Dịch vụ"
+    }
   },
   "Vlogs": {
     "title": "Vlog",
@@ -278,5 +338,34 @@
     "english": "Tiếng Anh",
     "czech": "Tiếng Séc",
     "vietnamese": "Tiếng Việt"
+  },
+  "Checkout": {
+    "title": "Thanh toán",
+    "subtitle": "Chia sẻ vài chi tiết, tôi sẽ xác nhận phạm vi, thời gian và bước tiếp theo.",
+    "summaryTitle": "Tóm tắt đơn",
+    "quoteOnRequest": "Báo giá theo yêu cầu",
+    "subtotal": "Tạm tính",
+    "tax": "Thuế / đặt cọc",
+    "taxIncluded": "Đã gồm trong báo giá",
+    "nameLabel": "Tên",
+    "emailLabel": "Email",
+    "phoneLabel": "Điện thoại",
+    "companyLabel": "Công ty",
+    "notesLabel": "Ghi chú dự án",
+    "submit": "Gửi yêu cầu",
+    "submitError": "Không gửi được. Vui lòng thử lại.",
+    "successTitle": "Đã nhận yêu cầu",
+    "successBody": "Cảm ơn — tôi sẽ phản hồi lịch trống và báo giá phù hợp.",
+    "viewAccount": "Xem tài khoản",
+    "startAnother": "Tạo yêu cầu khác",
+    "emptyTitle": "Chưa có gì để thanh toán",
+    "emptyBody": "Hãy thêm dịch vụ hoặc buổi tư vấn vào giỏ trước.",
+    "backToCart": "Quay lại giỏ hàng",
+    "inquiryTitle": "Yêu cầu dịch vụ",
+    "errors": {
+      "nameMin": "Tên phải có ít nhất 2 ký tự",
+      "emailInvalid": "Email không hợp lệ",
+      "notesMin": "Vui lòng thêm ít nhất 10 ký tự ghi chú"
+    }
   }
 }

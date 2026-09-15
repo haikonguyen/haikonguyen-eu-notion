@@ -1,5 +1,5 @@
 export const FORM_CONTROL_CLASS =
-  'w-full rounded-xl border border-white/10 bg-black/40 py-3 transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none';
+  'w-full rounded-xl border border-glass-border bg-glass-surface py-3 text-foreground transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none';
 
 export const FORM_CONTROL_ERROR_CLASS = 'border-red-500';
 

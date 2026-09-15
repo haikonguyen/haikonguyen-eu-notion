@@ -18,7 +18,13 @@
     "postFallbackDescription": "Read this article on Haiko Nguyen's blog",
     "postTitle": "{title} | Haiko Nguyen",
     "blogSiteName": "Haiko Nguyen Blog",
-    "untitledPost": "Untitled"
+    "untitledPost": "Untitled",
+    "checkoutTitle": "Checkout | Haiko Nguyen",
+    "checkoutDescription": "Review your selected services and send a booking inquiry",
+    "loginTitle": "Sign in | Haiko Nguyen",
+    "loginDescription": "Sign in to manage bookings, favorites, and account settings",
+    "accountTitle": "Account | Haiko Nguyen",
+    "accountDescription": "Manage bookings, favorites, and account settings"
   },
   "Common": {
     "author": "Author",
@@ -109,7 +115,16 @@
     "bookingSubmitting": "Booking…",
     "bookingFailed": "Booking failed. Please try again.",
     "bookingSuccessGoogle": "Booked — check your email for the calendar invite.",
-    "bookingSuccessLocal": "Request received. Calendar sync is in demo mode until Google credentials are set."
+    "bookingSuccessLocal": "Request received. Calendar sync is in demo mode until Google credentials are set.",
+    "quickActions": {
+      "book": "Book a 1:1",
+      "contact": "Contact Me",
+      "cv": "Interactive CV",
+      "work": "Gear & Work"
+    },
+    "whatsNewEyebrow": "What's New",
+    "whatsNewTitle": "Latest from the studio",
+    "readArticle": "Read articles →"
   },
   "Blog": {
     "title": "Blog",
@@ -134,7 +149,8 @@
       "video": "Video",
       "consultation": "Consultation",
       "digital": "Digital"
-    }
+    },
+    "closeDrawer": "Close cart"
   },
   "Portfolio": {
     "title": "Portfolio",
@@ -183,13 +199,48 @@
     "viewProjects": "View Completed Projects",
     "interactiveCv": "Interactive CV & Experience",
     "errors": {
-      "emailInvalid": "Invalid email address"
+      "emailInvalid": "Invalid email address",
+      "nameMin": "Name must be at least 2 characters"
+    },
+    "nameLabel": "Name",
+    "phoneLabel": "Phone",
+    "companyLabel": "Company",
+    "magicLink": "Email me a magic link",
+    "continueGithub": "GitHub",
+    "continueGoogle": "Google",
+    "oauthNeedsSupabase": "OAuth is in demo mode until Supabase is configured.",
+    "reschedule": "Reschedule",
+    "cancelBooking": "Cancel",
+    "historyTitle": "History & invoices",
+    "historyEmpty": "No completed projects or cancelled bookings yet.",
+    "downloadInvoice": "Download invoice",
+    "invoicePending": "Invoice pending",
+    "settingsTitle": "Account settings",
+    "saveProfile": "Save profile",
+    "emailNotifications": "Email notifications",
+    "bookingReminders": "Booking reminders",
+    "themePreference": "Theme",
+    "languagePreference": "Language",
+    "tabs": {
+      "profile": "Profile",
+      "bookings": "Bookings",
+      "favorites": "Favorites",
+      "history": "History",
+      "settings": "Settings"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "in_review": "In review",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
     }
   },
   "Services": {
     "eyebrow": "Creative & Engineering Services",
     "title": "Transforming Ideas Into Digital Reality",
-    "subtitle": "Specialized in building next-generation web applications, cinematic photography, and engaging video content."
+    "subtitle": "Specialized in building next-generation web applications, cinematic photography, and engaging video content.",
+    "addToCart": "Add to cart"
   },
   "About": {
     "title": "About",
@@ -249,7 +300,16 @@
     "subtitle": "Articles, portfolio pieces, and services you have saved for later.",
     "emptyTitle": "No saved items yet",
     "emptyBody": "Browse through articles on our blog or explore portfolio projects to bookmark your favorites.",
-    "exploreBlog": "Explore Blog"
+    "exploreBlog": "Explore Blog",
+    "save": "Save to favorites",
+    "unsave": "Remove from favorites",
+    "kinds": {
+      "post": "Article",
+      "software": "Software",
+      "photography": "Photography",
+      "vlog": "Vlog",
+      "service": "Service"
+    }
   },
   "Vlogs": {
     "title": "Vlogs",
@@ -278,5 +338,34 @@
     "english": "English",
     "czech": "Czech",
     "vietnamese": "Vietnamese"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "subtitle": "Share a few details and I will confirm scope, timing, and next steps.",
+    "summaryTitle": "Order summary",
+    "quoteOnRequest": "Quote on request",
+    "subtotal": "Subtotal",
+    "tax": "Taxes / deposit",
+    "taxIncluded": "Included in quote",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "companyLabel": "Company",
+    "notesLabel": "Project notes",
+    "submit": "Submit inquiry",
+    "submitError": "Could not submit checkout. Please try again.",
+    "successTitle": "Inquiry received",
+    "successBody": "Thanks — I will follow up with availability and a tailored quote.",
+    "viewAccount": "View account",
+    "startAnother": "Start another inquiry",
+    "emptyTitle": "Nothing to check out",
+    "emptyBody": "Add a service or consultation to your cart first.",
+    "backToCart": "Back to cart",
+    "inquiryTitle": "Service inquiry",
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Invalid email address",
+      "notesMin": "Please add at least 10 characters of project notes"
+    }
   }
 }

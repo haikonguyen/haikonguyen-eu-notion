@@ -127,7 +127,7 @@ _Establish the foundational architecture, design tokens, layout shell, and navig
 
 _Redesign the landing page into a native-like mobile personal brand hub._
 
-#### `TICKET-HOME-01`: Native-First Hero & Quick-Action Launcher
+#### `TICKET-HOME-01`: Native-First Hero & Quick-Action Launcher — **DONE**
 
 - **Description**: Build the top hero profile card and 2x2 quick action launcher grid based on the mobile design.
 - **Tasks**:
@@ -139,7 +139,7 @@ _Redesign the landing page into a native-like mobile personal brand hub._
     - 📷 **Gear List / Work**: Direct shortcut to equipment & setup breakdown.
 - **Acceptance Criteria**: Matches mobile native design mockup with glassmorphic tactile buttons.
 
-#### `TICKET-HOME-02`: "What's New" Blog Showcase (Keystatic)
+#### `TICKET-HOME-02`: "What's New" Blog Showcase (Keystatic) — **DONE**
 
 - **Description**: Dynamic blog preview card/carousel on the home view fed by the Keystatic reader (depends on Epic 6 POC merged — `TICKET-CMS-03` done in PR #21).
 - **Tasks**:
@@ -199,7 +199,7 @@ _Build out dedicated service offerings, package pricing, and booking flows._
 
 _Implement cart state, floating badge indicators, and smooth checkout flow._
 
-#### `TICKET-CART-01`: Persistent Cart Store & Floating Badge Indicator
+#### `TICKET-CART-01`: Persistent Cart Store & Floating Badge Indicator — **DONE**
 
 - **Description**: Zustand-powered shopping & booking cart store with local storage persistence.
 - **Tasks**:
@@ -207,7 +207,7 @@ _Implement cart state, floating badge indicators, and smooth checkout flow._
   - Live count badge synchronized on desktop header and mobile bottom navigation.
 - **Acceptance Criteria**: Items persist across page navigation and browser sessions.
 
-#### `TICKET-CART-02`: Liquid Glass Cart Drawer & Checkout Summary (`/cart`, `/checkout`)
+#### `TICKET-CART-02`: Liquid Glass Cart Drawer & Checkout Summary (`/cart`, `/checkout`) — **DONE**
 
 - **Description**: Slide-up liquid glass cart drawer on mobile and full checkout page on desktop.
 - **Tasks**:
@@ -222,7 +222,7 @@ _Implement cart state, floating badge indicators, and smooth checkout flow._
 
 _Deliver full user dashboard, upcoming bookings management, and account settings._
 
-#### `TICKET-AUTH-01`: Authentication Gateway & Session Management (`/login`, `/account`)
+#### `TICKET-AUTH-01`: Authentication Gateway & Session Management (`/login`, `/account`) — **DONE** (phase 1)
 
 - **Description**: Unified login and registration modal/page with liquid glass styling.
 - **Tasks**:
@@ -231,7 +231,7 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Auth context & session hooks (`useAuth`, `useUser`).
 - **Acceptance Criteria**: Secure session handling with automatic redirection and protected routes.
 
-#### `TICKET-ACC-01`: Authenticated User Dashboard Layout (`/account`)
+#### `TICKET-ACC-01`: Authenticated User Dashboard Layout (`/account`) — **DONE**
 
 - **Description**: Responsive client dashboard inspired by `haianbeauty`.
 - **Tasks**:
@@ -240,7 +240,7 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Profile header with user avatar, name, and membership tier badge.
 - **Acceptance Criteria**: Responsive split view on desktop and smooth native cards on mobile.
 
-#### `TICKET-ACC-02`: Upcoming Bookings & Inquiries Management
+#### `TICKET-ACC-02`: Upcoming Bookings & Inquiries Management — **DONE**
 
 - **Description**: Interactive cards for active bookings, upcoming consultations, and project milestones.
 - **Tasks**:
@@ -249,7 +249,7 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Direct link to meeting room or project briefing documents.
 - **Acceptance Criteria**: Users can view and manage their scheduled services with real-time status updates.
 
-#### `TICKET-ACC-03`: History, Invoices & Digital Assets
+#### `TICKET-ACC-03`: History, Invoices & Digital Assets — **DONE** (phase 1)
 
 - **Description**: Historical log of completed services, past inquiries, downloadable invoices, and digital deliveries.
 - **Tasks**:
@@ -258,7 +258,7 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Download links for deliverables (photoshoots, code repositories, video edits).
 - **Acceptance Criteria**: Complete historical audit trail accessible at any time.
 
-#### `TICKET-ACC-04`: Favorites & Saved Content Hub (`/favorites`)
+#### `TICKET-ACC-04`: Favorites & Saved Content Hub (`/favorites`) — **DONE**
 
 - **Description**: Bookmark and favorites hub for saved articles, projects, and service packages.
 - **Tasks**:
@@ -266,7 +266,7 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Dedicated favorites view under user account.
 - **Acceptance Criteria**: Real-time bookmarking with instant UI feedback.
 
-#### `TICKET-ACC-05`: Account Settings & Personalization
+#### `TICKET-ACC-05`: Account Settings & Personalization — **DONE**
 
 - **Description**: Client profile settings and display preferences.
 - **Tasks**:
@@ -275,7 +275,7 @@ _Deliver full user dashboard, upcoming bookings management, and account settings
   - Theme mode toggle (Dark, Light, System) and language preferences.
 - **Acceptance Criteria**: Preference changes persist immediately to database and local storage.
 
-#### `TICKET-THEME-01`: Multi-Theme Engine & Light Mode Surface Adaptations
+#### `TICKET-THEME-01`: Multi-Theme Engine & Light Mode Surface Adaptations — **DONE** (phase 1)
 
 - **Description**: Complete color tokens and frosted glass adaptations for Light Mode across all pages, Bento grid cards, Notion blog renderers, forms, and custom components.
 - **Tasks**:
@@ -305,7 +305,7 @@ _Replace the Notion-backed blog + About Story pipeline with Keystatic (Git-based
   - YouTube embeds: Markdoc **`YouTubeEmbed`** (`url`, `title`, `caption`) in `src/lib/keystatic/youtube-embed-component.ts`; public render `src/features/blog/components/YouTubeEmbed.tsx`; URL helpers in `src/lib/youtube/*`.
   - Reader: `src/lib/keystatic/*` → `getAllPosts`, `getPostBySlug`, `getAboutStory`.
   - Admin: `/keystatic` via `npm run dev:keystatic` (Webpack — Turbopack breaks Keystatic UI).
-- **Next session**: CMS-10 when public Admin risk is prioritized. CMS-09 later. Multilingual CMS **POC later** — see **Epic 6.3** (anchor only; do not start unless asked). Otherwise Milestone 3 cart/checkout.
+- **Next session**: CMS-09 R2 media cutover. Multilingual CMS **POC later** — see **Epic 6.3**. CMS-10 phase 4 (`github` storage) and live Supabase OAuth when credentials exist.
 - **Admin access note**: Keystatic has **no built-in password/login** for `storage.kind: 'local'`. `/keystatic` is open if deployed. See `TICKET-CMS-10`.
 
 #### Context (read before implementing)
@@ -416,7 +416,7 @@ _Prerequisite: PR #21 merged into `dev`. Branch: `cursor/keystatic-migrate-all-p
   - Remove ImageKit host allowlist when unused.
 - **Acceptance Criteria**: Blog/About have zero ImageKit runtime dependency; binaries still not in Git.
 
-#### `TICKET-CMS-10`: Protect Keystatic Admin (`/keystatic`) — Supabase gate (Haianbeauty-style)
+#### `TICKET-CMS-10`: Protect Keystatic Admin (`/keystatic`) — Supabase gate (Haianbeauty-style) — **DONE** (phase 1)
 
 - **Description**: Keystatic does **not** ship username/password auth for local storage. Once `/keystatic` is publicly reachable, gate the Admin UI **and** `/api/keystatic/*` behind custom auth we control (same pattern as Haianbeauty: credentials/session in Supabase).
 - **Why not Keystatic Cloud / GitHub-only auth first**: We want full control of who can open Admin without forcing editors through Keystatic Cloud; aligns with Epic 5 client auth stack later.
@@ -767,10 +767,10 @@ Read `AGENTS.md` and **Epic 6.3** in `BACKLOG.md` before coding.
 | **Milestone 2.5 / parallel**                       | **CMS POC (Epic 6)**         | ✅ Keystatic admin + reader, R2 helpers, rewire blog/post/About, remove Notion path (PR #21).                          |
 | **Milestone 2.6**                                    | **CMS migration (Epic 6.1)** | ✅ Posts migrated (CMS-06); ✅ YouTube embeds (CMS-11); ✅ `R2Image` ContentView (CMS-07); CMS-08 skipped (no Todo/Toggle in bodies); R2 cutover later (CMS-09). |
 | **Milestone 2.7**                                    | **Portfolio CMS (Epic 6.2)** | ✅ Collections + reader + `/portfolio` rewire (PF-01…03); ✅ Home featured showcase (PF-04). |
-| **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | Harden/disable public `/keystatic`; Supabase allowlisted admin (Haianbeauty-style); optional `github` storage later. |
+| **Milestone 2.8**                                    | **Keystatic Admin gate (CMS-10)** | ✅ Production 404 unless `KEYSTATIC_ADMIN_ENABLED`; session allowlist via `KEYSTATIC_ADMIN_EMAILS`; both UI + API gated. Phase 4 `github` storage later. |
 | **Milestone 2.9**                                    | **Home / Services / CV / i18n / Booking (Epic 7)** | ✅ Home About CMS; ✅ Services CMS; ✅ CV CMS; ✅ language switcher; ✅ Google Calendar booking phase 1. |
-| **Milestone 3**                                    | **Services & Commerce**      | Cart Store, Checkout Flow, booking email polish.                                   |
-| **Milestone 4**                                    | **Auth & Account Dashboard** | Authentication, Client Dashboard, Upcoming Bookings, Visit History, Invoices, Favorites, Settings.                     |
+| **Milestone 3**                                    | **Services & Commerce**      | ✅ Cart store; ✅ checkout `/checkout`; ✅ mobile cart drawer; ✅ booking email via SendGrid when configured. |
+| **Milestone 4**                                    | **Auth & Account Dashboard** | ✅ Session cookie + `/login`; ✅ dashboard tabs; ✅ bookings/history/favorites/settings; ✅ theme engine. |
 | **Later**                                          | **Portfolio gallery media cutover**  | Large R2 uploads (`portfolio/` prefix), CMS/bot presigned uploads; still `next/image` (CF resizing only if needed).  |
 
 ---

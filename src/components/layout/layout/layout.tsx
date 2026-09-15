@@ -1,6 +1,8 @@
 'use client';
 
 import { Toast } from '@components/common/toast';
+import { CartDrawer } from '@features/cart/components/CartDrawer';
+import { useAuth } from '@lib/hooks/useAuth';
 import { usePathname } from 'next/navigation';
 import { BottomNavigation } from '../BottomNavigation';
 import { Footer } from '../footer';
@@ -11,6 +13,7 @@ const KEYSTATIC_PATH_PREFIX = '/keystatic';
 
 export const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
   const isKeystaticAdmin = pathname.startsWith(KEYSTATIC_PATH_PREFIX);
 
   if (isKeystaticAdmin) {
@@ -19,10 +22,11 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <NavBar />
+      <NavBar isAuthenticated={isAuthenticated} />
       <div className="flex-1">{children}</div>
       <Footer />
-      <BottomNavigation />
+      <BottomNavigation isAuthenticated={isAuthenticated} />
+      <CartDrawer />
       <Toast />
     </div>
   );

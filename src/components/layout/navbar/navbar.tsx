@@ -1,7 +1,9 @@
 'use client';
 
 import { LanguageSwitcher } from '@components/layout/LanguageSwitcher';
+import { ThemeToggle } from '@components/layout/ThemeToggle';
 import { useCartBadgeCount } from '@lib/hooks/useCartBadgeCount';
+import { useCartStore } from '@lib/store/useCartStore';
 import { cn } from '@lib/utils';
 import { ShoppingCart, User } from 'lucide-react';
 import Link from 'next/link';
@@ -18,6 +20,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
   const t = useTranslations('Nav');
   const pathname = usePathname();
   const cartBadgeCount = useCartBadgeCount();
+  const openDrawer = useCartStore((state) => state.openDrawer);
 
   return (
     <header className="pointer-events-none fixed top-3 right-0 left-0 z-50 w-full transition-all duration-300 sm:top-5">
@@ -25,7 +28,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
         <div className="pointer-events-auto">
           <Logo />
         </div>
-        <div className="pointer-events-auto hidden items-center gap-1 rounded-full border border-white/15 bg-black/45 px-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:h-11 xl:flex">
+        <div className="pointer-events-auto hidden items-center gap-1 rounded-full border border-glass-border bg-glass-surface px-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-2xl sm:h-11 xl:flex">
           {desktopNavLinks.map((link) => {
             const active = isRouteActive(pathname, link.href, link.exact);
             return (
@@ -37,7 +40,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
                   'flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide transition-all duration-300 sm:text-[13px]',
                   active
                     ? 'bg-primary text-black shadow-[0_0_20px_rgba(6,182,212,0.4)]'
-                    : 'text-white/70 hover:bg-white/10 hover:text-white',
+                    : 'text-foreground/70 hover:bg-glass-surface-hover hover:text-foreground',
                 )}
               >
                 <span>{t(link.labelKey)}</span>
@@ -47,16 +50,19 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
         </div>
         <div className="pointer-events-auto flex items-center gap-2">
           <div className="pointer-events-auto sm:hidden">
+            <ThemeToggle />
+          </div>
+          <div className="pointer-events-auto sm:hidden">
             <LanguageSwitcher />
           </div>
-          <Link
-            href="/cart"
-            prefetch={true}
+          <button
+            type="button"
+            onClick={openDrawer}
             className={cn(
-              'relative flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-300 hover:border-white/30 hover:scale-105 active:scale-95 sm:hidden',
+              'relative flex h-9 w-9 items-center justify-center rounded-full border border-glass-border bg-glass-surface text-foreground/80 shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-2xl transition-all duration-300 hover:border-primary/40 hover:scale-105 active:scale-95 sm:hidden',
               pathname === '/cart' || pathname === '/checkout'
                 ? 'bg-primary text-black'
-                : 'text-white/80',
+                : 'text-foreground/80',
             )}
             aria-label={t('shoppingCart')}
           >
@@ -66,8 +72,9 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
                 {cartBadgeCount}
               </span>
             )}
-          </Link>
-          <div className="hidden items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:flex sm:h-11">
+          </button>
+          <div className="hidden items-center gap-2 rounded-full border border-glass-border bg-glass-surface px-3 shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-2xl sm:flex sm:h-11">
+            <ThemeToggle />
             <LanguageSwitcher />
             <Link
               href="/cart"
@@ -76,7 +83,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
                 'relative flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 active:scale-95',
                 pathname === '/cart' || pathname === '/checkout'
                   ? 'bg-primary text-black'
-                  : 'text-white/70 hover:bg-white/10 hover:text-white',
+                  : 'text-foreground/70 hover:bg-glass-surface-hover hover:text-foreground',
               )}
               aria-label={t('shoppingCart')}
             >
@@ -94,7 +101,7 @@ export const NavBar = ({ isAuthenticated = false }: NavBarProps) => {
                 'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-300 active:scale-95 sm:text-[13px]',
                 pathname.startsWith('/account') || pathname.startsWith('/login')
                   ? 'bg-primary text-black'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white',
+                  : 'text-foreground/80 hover:bg-glass-surface-hover hover:text-foreground',
               )}
               aria-label={t('userAccount')}
             >

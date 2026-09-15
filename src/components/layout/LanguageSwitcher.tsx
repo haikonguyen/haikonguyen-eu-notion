@@ -21,7 +21,7 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="flex items-center gap-0.5 rounded-full border border-white/10 bg-black/30 p-0.5"
+      className="flex items-center gap-0.5 rounded-full border border-glass-border bg-glass-surface p-0.5"
       role="group"
       aria-label={t('switcherLabel')}
     >
@@ -43,7 +43,7 @@ export function LanguageSwitcher() {
               'rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-wider transition-all duration-300 sm:px-2.5',
               isActive
                 ? 'bg-primary text-black shadow-[0_0_12px_rgba(6,182,212,0.35)]'
-                : 'text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-50',
+                : 'text-foreground/60 hover:bg-glass-surface-hover hover:text-foreground disabled:opacity-50',
             )}
           >
             {code}

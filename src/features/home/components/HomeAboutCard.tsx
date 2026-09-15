@@ -32,14 +32,14 @@ export function HomeAboutCard({ about }: HomeAboutCardProps) {
           </div>
           <div className="flex h-full flex-col justify-center space-y-4 text-center sm:space-y-6 md:text-left">
             <div>
-              <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+              <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl">
                 {about.name}
               </h1>
               <p className="text-xs font-bold tracking-tight text-primary opacity-90 sm:text-sm md:text-base">
                 {t('role')}
               </p>
             </div>
-            <p className="mx-auto max-w-md text-xs leading-relaxed text-white/70 sm:text-sm md:mx-0 md:text-base">
+            <p className="mx-auto max-w-md text-xs leading-relaxed text-muted-foreground sm:text-sm md:mx-0 md:text-base">
               {t('intro')}
             </p>
             <div className="pt-2">
