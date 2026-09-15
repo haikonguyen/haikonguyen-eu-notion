@@ -2,8 +2,8 @@
 
 import type { ServiceEntry } from '@lib/keystatic/types';
 import { ServiceIcon } from '@lib/keystatic/types';
-import { ArrowRight, Camera, Code, type LucideIcon, Video } from 'lucide-react';
-import Link from 'next/link';
+import { Camera, Code, type LucideIcon, Video } from 'lucide-react';
+import { ServiceCardActions } from './ServiceCardActions';
 
 const SERVICE_ICONS: Record<ServiceIcon, LucideIcon> = {
   [ServiceIcon.Code]: Code,
@@ -19,7 +19,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
   const Icon = SERVICE_ICONS[service.icon] ?? Code;
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur-2xl transition-all duration-300 hover:border-primary/50 hover:bg-white/[0.08] hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] sm:rounded-3xl sm:p-6 md:p-8">
+    <div
+      id={service.slug}
+      className="group relative flex flex-col justify-between rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-2xl transition-all duration-300 hover:border-primary/50 hover:bg-glass-surface-hover hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] sm:rounded-3xl sm:p-6 md:p-8"
+    >
       <div>
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110 sm:mb-6 sm:h-14 sm:w-14 sm:rounded-2xl">
           <Icon size={24} />
@@ -27,17 +30,17 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <span className="text-[10px] font-bold uppercase tracking-widest text-primary/80 sm:text-[11px]">
           {service.category}
         </span>
-        <h2 className="mt-1 text-lg font-bold tracking-tight text-white sm:mt-2 sm:text-2xl">
+        <h2 className="mt-1 text-lg font-bold tracking-tight text-foreground sm:mt-2 sm:text-2xl">
           {service.title}
         </h2>
-        <p className="mt-2 text-xs leading-relaxed text-zinc-400 sm:mt-3 sm:text-sm">
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground sm:mt-3 sm:text-sm">
           {service.description}
         </p>
-        <ul className="mt-4 space-y-1.5 border-t border-white/10 pt-4 sm:mt-6 sm:space-y-2 sm:pt-6">
+        <ul className="mt-4 space-y-1.5 border-t border-glass-border pt-4 sm:mt-6 sm:space-y-2 sm:pt-6">
           {service.highlights.map((highlight) => (
             <li
               key={highlight}
-              className="flex items-center gap-2 text-[11px] text-zinc-300 sm:text-xs"
+              className="flex items-center gap-2 text-[11px] text-foreground/80 sm:text-xs"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               <span>{highlight}</span>
@@ -45,13 +48,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           ))}
         </ul>
       </div>
-      <Link
-        href={`/contact?service=${service.contactServiceId}`}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 py-3 text-[11px] font-bold uppercase tracking-wider text-white transition-all duration-300 group-hover:bg-primary group-hover:text-black hover:scale-[1.02] active:scale-[0.98] sm:mt-8 sm:rounded-2xl sm:py-3.5 sm:text-xs"
-      >
-        <span>{service.ctaLabel}</span>
-        <ArrowRight size={14} />
-      </Link>
+      <ServiceCardActions service={service} />
     </div>
   );
 }

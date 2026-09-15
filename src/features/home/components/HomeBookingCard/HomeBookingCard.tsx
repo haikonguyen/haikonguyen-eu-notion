@@ -15,7 +15,8 @@ export function HomeBookingCard({ initial }: HomeBookingCardProps) {
 
   return (
     <BentoGridItem
-      className="md:col-span-1"
+      id="book-a-call"
+      className="md:col-span-1 scroll-mt-28"
       showGlow
       title={t('bookACallTitle')}
       header={

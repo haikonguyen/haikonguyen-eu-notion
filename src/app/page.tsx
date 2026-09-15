@@ -1,15 +1,20 @@
 import { HOME_PHOTOGRAPHY_BG, HomePageContent } from '@features/home';
 import { getBookingAvailabilityState } from '@lib/booking';
-import { getHomeAbout, getHomeFeaturedShowcase } from '@lib/keystatic';
+import {
+  getAllPosts,
+  getHomeAbout,
+  getHomeFeaturedShowcase,
+} from '@lib/keystatic';
 import { getLocale } from 'next-intl/server';
 import type { AppLocale } from '../../i18n/locale';
 
 export default async function HomePage() {
   const locale = (await getLocale()) as AppLocale;
-  const [about, featured, booking] = await Promise.all([
+  const [about, featured, booking, posts] = await Promise.all([
     getHomeAbout(),
     getHomeFeaturedShowcase(locale),
     getBookingAvailabilityState(),
+    getAllPosts(),
   ]);
 
   if (!booking) {
@@ -24,6 +29,7 @@ export default async function HomePage() {
       vlog={featured.vlog}
       software={featured.software}
       booking={booking}
+      latestPosts={posts.slice(0, 3)}
     />
   );
 }

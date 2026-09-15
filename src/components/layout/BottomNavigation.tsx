@@ -28,7 +28,7 @@ export function BottomNavigation({
   return (
     <nav
       className={cn(
-        'pointer-events-auto fixed bottom-4 left-1/2 z-50 flex w-[94%] max-w-md -translate-x-1/2 select-none items-center justify-around rounded-3xl border border-white/15 bg-black/75 p-1 shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl xl:hidden',
+        'pointer-events-auto fixed bottom-4 left-1/2 z-50 flex w-[94%] max-w-md -translate-x-1/2 select-none items-center justify-around rounded-3xl border border-glass-border bg-glass-dock p-1 shadow-[0_12px_40px_rgba(0,0,0,0.18)] backdrop-blur-2xl xl:hidden',
         className,
       )}
       aria-label={t('mobileNavigation')}
@@ -48,14 +48,14 @@ export function BottomNavigation({
                 'relative flex w-full max-w-[62px] flex-col items-center justify-center gap-0.5 rounded-2xl py-1 transition-all duration-300',
                 item.active
                   ? 'bg-primary text-black shadow-[0_0_20px_rgba(6,182,212,0.4)]'
-                  : 'bg-transparent text-white/60 hover:bg-white/5 hover:text-white',
+                  : 'bg-transparent text-foreground/60 hover:bg-glass-surface-hover hover:text-foreground',
               )}
             >
               <Icon
                 size={18}
                 className={cn(
                   'shrink-0 transition-transform duration-200 active:scale-110',
-                  item.active ? 'scale-105 text-black' : 'text-white/70',
+                  item.active ? 'scale-105 text-black' : 'text-foreground/70',
                 )}
               />
               {item.badgeCount !== undefined && item.badgeCount > 0 && (
@@ -66,7 +66,7 @@ export function BottomNavigation({
               <span
                 className={cn(
                   'whitespace-nowrap font-medium text-[9.5px] tracking-wide transition-colors duration-300',
-                  item.active ? 'font-bold text-black' : 'text-white/70',
+                  item.active ? 'font-bold text-black' : 'text-foreground/70',
                 )}
               >
                 {t(item.labelKey)}

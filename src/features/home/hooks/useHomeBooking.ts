@@ -2,12 +2,18 @@
 
 import type { BookingSlot } from '@lib/booking/constants';
 import type { BookingAvailabilityState } from '@lib/booking/get-availability-state';
+import {
+  BookingKind,
+  BookingStatus,
+  useBookingsStore,
+} from '@lib/store/useBookingsStore';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { HomeBookingFormValues } from '../create-home-booking-schema';
 
 export function useHomeBooking(initial: BookingAvailabilityState) {
   const t = useTranslations('Home');
+  const addBooking = useBookingsStore((store) => store.addBooking);
   const [state, setState] = useState(initial);
   const [selectedSlotIso, setSelectedSlotIso] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -80,7 +86,21 @@ export function useHomeBooking(initial: BookingAvailabilityState) {
         setStatusMessage(t('bookingFailed'));
         return false;
       }
-      const payload = (await response.json()) as { mode?: string };
+      const payload = (await response.json()) as {
+        mode?: string;
+        eventId?: string;
+      };
+      addBooking({
+        id: payload.eventId || `booking-${slot.startIso}`,
+        title: t('bookACallTitle'),
+        kind: BookingKind.Consultation,
+        startIso: slot.startIso,
+        endIso: slot.endIso,
+        status:
+          payload.mode === 'google'
+            ? BookingStatus.Confirmed
+            : BookingStatus.Pending,
+      });
       setStatusMessage(
         payload.mode === 'google'
           ? t('bookingSuccessGoogle')

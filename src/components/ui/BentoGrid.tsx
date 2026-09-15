@@ -15,6 +15,7 @@ export interface BentoGridProps {
 }
 
 export interface BentoGridItemProps {
+  id?: string;
   className?: string;
   title?: string | ReactNode;
   description?: string | ReactNode;
@@ -59,6 +60,7 @@ function BentoItemTitle({
 }
 
 export function BentoGridItem({
+  id,
   className,
   title,
   description,
@@ -73,7 +75,7 @@ export function BentoGridItem({
   const isInteractive = Boolean(onClick || href);
   const isTitleTop = titlePosition === BentoTitlePosition.Top;
   const itemClassName = cn(
-    'relative row-span-1 flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-black/45 text-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-500 group/bento md:rounded-[2.5rem]',
+    'relative row-span-1 flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-glass-border bg-glass-surface text-foreground shadow-[0_32px_64px_-12px_rgba(0,0,0,0.18)] backdrop-blur-2xl transition-all duration-500 group/bento md:rounded-[2.5rem]',
     'before:absolute before:inset-0 before:-z-10 before:bg-linear-to-br before:from-primary/10 before:to-transparent before:opacity-0 before:transition-opacity before:duration-700 hover:before:opacity-100',
     isInteractive && 'cursor-pointer active:scale-[0.99]',
     padding,
@@ -103,7 +105,7 @@ export function BentoGridItem({
             </div>
           ) : null}
           {description ? (
-            <div className="font-sans text-lg leading-tight font-bold tracking-tight text-white sm:text-xl">
+            <div className="font-sans text-lg leading-tight font-bold tracking-tight text-foreground sm:text-xl">
               {description}
             </div>
           ) : null}
@@ -114,7 +116,7 @@ export function BentoGridItem({
 
   if (href) {
     return (
-      <Link href={href} className={itemClassName}>
+      <Link href={href} id={id} className={itemClassName}>
         {body}
       </Link>
     );
@@ -122,6 +124,7 @@ export function BentoGridItem({
 
   return (
     <div
+      id={id}
       onClick={onClick}
       onKeyDown={
         onClick

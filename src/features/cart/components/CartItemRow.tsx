@@ -21,12 +21,12 @@ export function CartItemRow({
   const currency = item.currency ?? tCommon('currencyEur');
 
   return (
-    <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-all hover:border-white/20">
+    <div className="flex items-center justify-between rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-md transition-all hover:border-primary/30">
       <div>
         <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
           {t(`categories.${item.category}`)}
         </span>
-        <h2 className="text-base font-bold text-white">{item.title}</h2>
+        <h2 className="text-base font-bold text-foreground">{item.title}</h2>
         {item.price && (
           <p className="text-sm font-semibold text-zinc-300">
             {item.price} {currency}

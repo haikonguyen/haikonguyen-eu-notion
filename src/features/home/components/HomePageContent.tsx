@@ -8,7 +8,9 @@ import { HOME_BENTO_GRID_CLASS, HOME_PHOTOGRAPHY_BG } from '../constants';
 import type { HomePageContentProps } from '../types';
 import { HomeAboutCard } from './HomeAboutCard';
 import { HomeBookingCard } from './HomeBookingCard';
+import { HomeLatestPosts } from './HomeLatestPosts';
 import { HomeLatestProjectCard } from './HomeLatestProjectCard';
+import { HomeQuickActions } from './HomeQuickActions';
 import { HomeShowcaseCarousel } from './HomeShowcaseCarousel';
 
 export function HomePageContent({
@@ -18,6 +20,7 @@ export function HomePageContent({
   vlog,
   software,
   booking,
+  latestPosts,
 }: HomePageContentProps) {
   const t = useTranslations('Home');
 
@@ -35,18 +38,22 @@ export function HomePageContent({
           className="object-cover opacity-60 blur-[2px] grayscale-[0.5]"
           priority
         />
-        <div className="absolute inset-0 bg-black/85" />
+        <div className="absolute inset-0 bg-background/80" />
       </div>
-      <BentoGrid className={HOME_BENTO_GRID_CLASS}>
-        <HomeAboutCard about={about} />
-        <HomeLatestProjectCard software={software} />
-        <HomeShowcaseCarousel
-          photography={photography}
-          vlog={vlog}
-          software={software}
-        />
-        <HomeBookingCard initial={booking} />
-      </BentoGrid>
+      <div className="space-y-8">
+        <HomeQuickActions />
+        <BentoGrid className={HOME_BENTO_GRID_CLASS}>
+          <HomeAboutCard about={about} />
+          <HomeLatestProjectCard software={software} />
+          <HomeShowcaseCarousel
+            photography={photography}
+            vlog={vlog}
+            software={software}
+          />
+          <HomeBookingCard initial={booking} />
+        </BentoGrid>
+        <HomeLatestPosts posts={latestPosts} />
+      </div>
     </AppPageShell>
   );
 }

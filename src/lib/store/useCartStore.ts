@@ -15,17 +15,21 @@ export interface CartItem {
 
 interface CartState {
   items: CartItem[];
+  isDrawerOpen: boolean;
   addItem: (item: Omit<CartItem, 'quantity'> & { quantity?: number }) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   getBadgeCount: () => number;
+  openDrawer: () => void;
+  closeDrawer: () => void;
 }
 
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      isDrawerOpen: false,
       addItem: (item) => {
         const currentItems = get().items;
         const existingItem = currentItems.find((i) => i.id === item.id);
@@ -62,10 +66,13 @@ export const useCartStore = create<CartState>()(
       getBadgeCount: () => {
         return get().items.reduce((total, item) => total + item.quantity, 0);
       },
+      openDrawer: () => set({ isDrawerOpen: true }),
+      closeDrawer: () => set({ isDrawerOpen: false }),
     }),
     {
       name: 'haiko-cart-storage',
       storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ items: state.items }),
     },
   ),
 );

@@ -4,6 +4,7 @@ import {
   fetchBusyRanges,
 } from '@lib/booking';
 import { BOOKING_TIMEZONE } from '@lib/booking/constants';
+import { escapeHtml, sendTransactionalEmail } from '@lib/email';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -81,6 +82,12 @@ export async function POST(request: Request) {
       { status: 502 },
     );
   }
+
+  await sendTransactionalEmail({
+    subject: `${name} - [Booking from haikonguyen.eu]`,
+    replyTo: email,
+    html: `<div><h1>New booking request</h1><ul><li>Name: ${escapeHtml(name)}</li><li>Email: ${escapeHtml(email)}</li><li>Start: ${escapeHtml(startIso)}</li><li>End: ${escapeHtml(endIso)}</li><li>Mode: ${escapeHtml(result.mode)}</li></ul></div>`,
+  });
 
   return NextResponse.json({
     ok: true,
